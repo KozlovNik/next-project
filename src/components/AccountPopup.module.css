@@ -1,0 +1,110 @@
+.menu {
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  width: 100%;
+  transition: all top 0.05s linear;
+}
+
+.topBar {
+  height: 60px;
+  background-color: #d66565;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .menu {
+    max-height: 180px;
+    height: 200px;
+    transition: all 0.3s ease-in;
+    overflow: auto;
+    box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.2);
+    display: block;
+  }
+
+  .menuHidden {
+    max-height: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-in;
+  }
+
+  .topBar {
+    display: flex;
+    padding: 0 30px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header {
+    font-size: 20px;
+    color: white;
+  }
+
+  .menuContent {
+    background-color: white;
+    padding: 20px 30px;
+  }
+
+  .list,
+  .info {
+    list-style: none;
+    width: 100%;
+    padding: 50px 70px 0 30px;
+  }
+
+  .item {
+    border-bottom: 1px solid #dedede;
+  }
+
+  .link {
+    height: 60px;
+    display: inline-block;
+    line-height: 60px;
+    color: #787878;
+    font-size: 16px;
+  }
+
+  .link:hover {
+    color: #d66565;
+  }
+
+  .infoItem {
+    margin-bottom: 15px;
+  }
+
+  .infoLink {
+    color: #929292;
+  }
+
+  .infoLink:hover {
+    color: #787878;
+  }
+
+  .authLink {
+    color: #787878;
+    margin-right: 10px;
+    font-size: 20px;
+    font-weight: 300;
+    border-bottom: 1px dotted #787878;
+  }
+
+  .starred {
+    margin-top: 15px;
+    display: block;
+    font-size: 20px;
+    color: #787878;
+    font-weight: 300;
+    width: 100px;
+  }
+
+  .starred:hover {
+      color: #D66565;
+  }
+
+  .authLink:hover {
+    border-bottom: 1px dotted transparent;
+  }
+}

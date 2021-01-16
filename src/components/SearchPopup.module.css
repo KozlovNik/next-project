@@ -1,0 +1,38 @@
+.searchPopup {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .searchPopup {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-color: white;
+    box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .searchPopupHidden {
+      display: none;
+  }
+
+  .input {
+    margin: 30px auto 30px 30px;
+    height: 40px;
+    width: 70%;
+    font-size: 20px;
+    color: #929292;
+    border: none;
+  }
+
+  .input::placeholder {
+    color: #b3b1b1;
+    font-weight: 300;
+  }
+
+  .input:focus {
+    outline: none;
+  }
+}

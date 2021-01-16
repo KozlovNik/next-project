@@ -1,0 +1,16 @@
+.list {
+  list-style: none;
+}
+
+.item {
+  line-height: 25px;
+}
+
+.link:hover {
+  color: #d66565;
+}
+
+.heading {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
