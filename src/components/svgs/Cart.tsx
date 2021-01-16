@@ -1,19 +1,14 @@
 import GenericImage, { GenericProps } from "./GenericImage";
 
-const Cart = ({ color, handleMouseEnter, handleMouseLeave }: GenericProps) => {
+const Cart: React.FC<GenericProps> = ({ color, width = 26, ...rest }) => {
   return (
     <svg
-      width="26"
+      {...rest}
+      width={width}
       height="26"
       viewBox="0 0 26 26"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      onMouseEnter={() => {
-        handleMouseEnter();
-      }}
-      onMouseLeave={() => {
-        handleMouseLeave();
-      }}
     >
       <path d="M10 10H21.5M11 13H20M11.5 15.8061H19" stroke={color} />
       <path

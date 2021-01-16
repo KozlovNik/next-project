@@ -1,23 +1,14 @@
 import GenericImage, { GenericProps } from "./GenericImage";
 
-const BlackHeart = ({
-  color,
-  handleMouseEnter,
-  handleMouseLeave,
-}: GenericProps) => {
+const BlackHeart: React.FC<GenericProps> = ({ color, width = 26, ...rest }) => {
   return (
     <svg
-      width="26"
+      {...rest}
+      width={width}
       height="26"
       viewBox="0 0 26 26"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      onMouseEnter={() => {
-        handleMouseEnter();
-      }}
-      onMouseLeave={() => {
-        handleMouseLeave();
-      }}
     >
       <path
         fillRule="evenodd"

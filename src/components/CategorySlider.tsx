@@ -21,7 +21,7 @@ const CategorySlider = () => {
           className={classNames(styles.backward, {
             [styles.arrowHidden]: counter < 1,
           })}
-          handleClick={() => {
+          onClick={() => {
             setCounter((count) => (count < 1 ? count : count - 1));
           }}
         />
@@ -29,7 +29,7 @@ const CategorySlider = () => {
           width={24}
           initialColor="RGB(195,195,195,0.5)"
           hoverColor="RGB(195,195,195,0.7)"
-          handleClick={() => {
+          onClick={() => {
             setCounter((count) => (count > 3 ? count : count + 1));
           }}
           className={classNames(styles.forward, {

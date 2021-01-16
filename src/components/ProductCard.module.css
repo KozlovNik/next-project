@@ -1,0 +1,12 @@
+.productCard {
+    background-color: red;
+    width: 200px;
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+}
+
+.image {
+    width: 100%;
+    height: auto;
+}

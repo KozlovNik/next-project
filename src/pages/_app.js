@@ -135,9 +135,21 @@ function MyApp({ Component, pageProps }) {
               <Logo />
               <div className="icons__socials">
                 <p className="icons__label">СОЦИАЛЬНЫЕ СЕТИ:</p>
-                <Vk initialColor="white" hoverColor="#D66565" />
-                <Fb initialColor="white" hoverColor="#D66565" />
-                <Insta initialColor="white" hoverColor="#D66565" />
+                <Vk
+                  initialColor="white"
+                  hoverColor="#D66565"
+                  className="icons__social"
+                />
+                <Fb
+                  initialColor="white"
+                  hoverColor="#D66565"
+                  className="icons__social"
+                />
+                <Insta
+                  initialColor="white"
+                  hoverColor="#D66565"
+                  className="icons__social"
+                />
               </div>
             </div>
             <div className="contacts">

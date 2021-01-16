@@ -1,20 +1,14 @@
 import GenericImage, { GenericProps } from "./GenericImage";
 
-const Insta = ({ color, handleMouseEnter, handleMouseLeave }: GenericProps) => {
+const Insta:React.FC<GenericProps> = ({ color, width, ...rest }) => {
   return (
     <svg
-      width="36"
+      {...rest}
+      width={width}
       height="36"
       viewBox="0 0 36 36"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="icons__social"
-      onMouseEnter={() => {
-        handleMouseEnter();
-      }}
-      onMouseLeave={() => {
-        handleMouseLeave();
-      }}
     >
       <mask id="path-1-inside-1" fill={color}>
         <path
