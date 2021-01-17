@@ -68,14 +68,13 @@ function MyApp({ Component, pageProps }) {
               </span>
             </div>
             <div>
-              <a className="user-block__link">
-                <Search
-                  handleClick={() => {
-                    setCloseSearch(false);
-                  }}
-                  initialColor="white"
-                  hoverColor="#787878"
-                />
+              <a
+                className="user-block__link"
+                onClick={() => {
+                  setCloseSearch(false);
+                }}
+              >
+                <Search initialColor="white" hoverColor="#787878" />
               </a>
               <a
                 onClick={() => setCloseAccount(false)}

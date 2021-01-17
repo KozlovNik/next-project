@@ -1,8 +1,9 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import styles from "./CategorySlider.module.css";
 import ForwardArrow from "../components/svgs/ForwardArrow";
 import BackwardArrow from "../components/svgs/BackwardArrow";
 import classNames from "classnames";
+import SliderWrapper, { WithDataComponentProps } from "./hocs/SliderWrapper";
 
 const imgArr = [1, 2, 3, 4, 5, 6, 7];
 
@@ -33,10 +34,12 @@ const ImageSlide = ({ i }: { i: any }) => {
   );
 };
 
-const CategorySlider = () => {
-  const [counter, setCounter] = useState(0);
-
-  const style = { transform: `translateX(${-counter * 100}%)` };
+const CategorySlider: React.FC<WithDataComponentProps> = ({
+  style,
+  counter,
+  goBackward,
+  goForward,
+}) => {
   return (
     <div className={styles.wrapper}>
       <h2 className={styles.title}>КАТЕГОРИИ</h2>
@@ -48,17 +51,13 @@ const CategorySlider = () => {
           className={classNames(styles.backward, {
             [styles.arrowHidden]: counter < 1,
           })}
-          onClick={() => {
-            setCounter((count) => (count < 1 ? count : count - 1));
-          }}
+          onClick={goBackward}
         />
         <ForwardArrow
           width={24}
           initialColor="RGB(195,195,195,0.5)"
           hoverColor="RGB(195,195,195,0.7)"
-          onClick={() => {
-            setCounter((count) => (count > 3 ? count : count + 1));
-          }}
+          onClick={goForward}
           className={classNames(styles.forward, {
             [styles.arrowHidden]: counter > 3,
           })}
@@ -74,4 +73,4 @@ const CategorySlider = () => {
   );
 };
 
-export default CategorySlider;
+export default SliderWrapper(CategorySlider);

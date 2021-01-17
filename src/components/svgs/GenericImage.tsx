@@ -1,8 +1,8 @@
-import { useState, useRef, forwardRef } from "react";
-import classNames from "classnames";
+import { useState } from "react";
 
 interface GenericOwnProps {
-  width: number | string;
+  width?: number | string;
+  height?: number | string;
   className?: string;
   initialColor?: string;
   hoverColor?: string;
@@ -10,12 +10,12 @@ interface GenericOwnProps {
 }
 
 export interface GenericProps extends GenericOwnProps {
-  onMouseEnter: () => void;
-  onMouseLeave: () => void;
+  onMouseEnter: (e: React.MouseEvent<SVGSVGElement>) => void;
+  onMouseLeave: (e: React.MouseEvent<SVGSVGElement>) => void;
   color: string;
 }
 
-const GenericSvg = (Svg: any) => {
+const GenericSvg = (Svg: React.FC<GenericProps>) => {
   return (props: GenericOwnProps) => {
     const {
       initialColor = "#787878",
@@ -35,10 +35,11 @@ const GenericSvg = (Svg: any) => {
 
     return (
       <Svg
-        {...rest}
+        onClick={onClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         color={color}
+        {...rest}
       />
     );
   };

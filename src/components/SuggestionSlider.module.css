@@ -1,13 +1,76 @@
+.titleBlock {
+  display: flex;
+  margin-bottom: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.arrow {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.arrow:hover path,
+.arrow:hover circle {
+  stroke: #d66565;
+}
+
 .title {
   font-weight: 300;
   color: #4f4e4e;
   text-align: center;
   font-size: 24px;
-  margin-bottom: 40px;
+  margin-right: 10px;
+}
+
+.slider {
+  overflow: hidden;
+  width: 1000px;
+  margin: 0 auto;
+}
+
+.sliderWrapper {
+  display: flex;
+  width: calc(100% / 4);
+  transition: all 0.5s ease-in;
 }
 
 @media screen and (max-width: 1200px) {
-  .title {
+  .arrow {
+    width: 25px;
+    height: 25px;
+    margin: 3px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .slider {
+    overflow: hidden;
+    width: 750px;
+    margin: 0 auto;
+  }
+
+  .sliderWrapper {
+    width: calc(100% / 3);
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .slider {
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .sliderWrapper {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .titleBlock {
     margin-bottom: 20px;
   }
 }

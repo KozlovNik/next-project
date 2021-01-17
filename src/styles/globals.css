@@ -6,6 +6,11 @@ body {
     Helvetica Neue, sans-serif;
 }
 
+.resize-animation-stopper * {
+  animation: none !important;
+  transition: none !important;
+}
+
 body,
 html {
   height: 100%;

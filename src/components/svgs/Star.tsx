@@ -1,7 +1,11 @@
 import React from "react";
 import GenericImage, { GenericProps } from "./GenericImage";
 
-const Star: React.FC<GenericProps> = ({ color, width, ...rest }) => {
+const Star: React.FC<GenericProps> = ({
+  color,
+  width = 17,
+  ...rest
+}) => {
   return (
     <svg
       {...rest}
