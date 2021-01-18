@@ -14,8 +14,10 @@ import Fb from "../components/svgs/Fb";
 import Vk from "../components/svgs/Vk";
 import Insta from "../components/svgs/Insta";
 import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import Footer from "../components/Footer";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps) {
   const [closeMenu, setCloseMenu] = useState(true);
 
   const [closeAccount, setCloseAccount] = useState(true);
@@ -24,14 +26,23 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      <MenuPopup close={closeMenu} handleClick={() => setCloseMenu(true)} />
+      <MenuPopup
+        close={closeMenu}
+        handleClick={() => {
+          setCloseMenu(true);
+        }}
+      />
       <AccountPopup
         close={closeAccount}
-        handleClick={() => setCloseAccount(true)}
+        handleClick={() => {
+          setCloseAccount(true);
+        }}
       />
       <SearchPopup
         close={closeSearch}
-        handleCloseSearch={() => setCloseSearch(true)}
+        handleCloseSearch={() => {
+          setCloseSearch(true);
+        }}
       />
       <header className="header">
         <nav className="nav-upper">
@@ -70,9 +81,7 @@ function MyApp({ Component, pageProps }) {
             <div>
               <a
                 className="user-block__link"
-                onClick={() => {
-                  setCloseSearch(false);
-                }}
+                onClick={() => setCloseSearch(false)}
               >
                 <Search initialColor="white" hoverColor="#787878" />
               </a>
@@ -127,43 +136,7 @@ function MyApp({ Component, pageProps }) {
         </nav>
       </header>
       <Component {...pageProps} />
-      <footer className="footer">
-        <div className="footer__wrapper">
-          <div className="footer__main-content">
-            <div className="icons">
-              <Logo />
-              <div className="icons__socials">
-                <p className="icons__label">СОЦИАЛЬНЫЕ СЕТИ:</p>
-                <Vk
-                  initialColor="white"
-                  hoverColor="#D66565"
-                  className="icons__social"
-                />
-                <Fb
-                  initialColor="white"
-                  hoverColor="#D66565"
-                  className="icons__social"
-                />
-                <Insta
-                  initialColor="white"
-                  hoverColor="#D66565"
-                  className="icons__social"
-                />
-              </div>
-            </div>
-            <div className="contacts">
-              <p className="contacts__contact">8 (800) 333-49-80</p>
-              <p className="contacts__contact">shop@tastycoffee.ru</p>
-            </div>
-
-            <FooterNav items={navList} heading="Каталог товаров" />
-            <FooterNav items={companyInfoList} heading="Компания" />
-            <FooterNav items={storeList} heading="Интернет-магазин" />
-          </div>
-          <img className="payment" src="/payment.png" />
-          <p className="company-name">© 2021 SOME COFFEE</p>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }

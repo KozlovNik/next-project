@@ -4,7 +4,7 @@ import { navList } from "../constants";
 import classNames from "classnames";
 
 interface MenuPopupProps {
-  handleClick: () => {};
+  handleClick: () => void;
   close: boolean;
 }
 

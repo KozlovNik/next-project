@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./TitleBlock.module.css";
 
 interface TitleBlockProps {
@@ -15,4 +15,4 @@ const TitleBlock: React.FC<TitleBlockProps> = ({ children, title }) => {
   );
 };
 
-export default TitleBlock;
+export default memo(TitleBlock);

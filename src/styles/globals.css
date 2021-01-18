@@ -6,34 +6,24 @@ body {
     Helvetica Neue, sans-serif;
 }
 
+#__next {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .no-transition * {
   animation: none !important;
   transition: none !important;
 }
 
+body {
+  min-width: 320px;
+}
+
 body,
 html {
   height: 100%;
-}
-
-.footer {
-  margin-top: auto;
-  width: 100%;
-  background-color: #333333;
-  height: 400px;
-  display: flex;
-  color: white;
-}
-
-.footer__wrapper {
-  width: 1200px;
-  margin: 30px auto;
-  font-weight: 100;
-}
-
-.contacts__contact {
-  font-size: 18px;
-  margin-bottom: 20px;
 }
 
 body {
@@ -264,46 +254,11 @@ a {
   .nav-wrapper {
     width: 100%;
   }
-
-  .footer__wrapper {
-    margin: 0 20px;
-  }
-
-  .footer {
-    min-height: 400px;
-    height: 100%;
-  }
-
-  .footer__wrapper {
-    margin-top: 10px;
-  }
-
-  .contacts__contact {
-    margin-bottom: 0;
-  }
-}
-
-@media screen and (max-width: 1000px) {
-  .footer__main-content {
-    flex-wrap: wrap;
-  }
-
-  .footer__main-content div {
-    margin: 0 20px;
-  }
 }
 
 @media screen and (max-width: 800px) {
   .nav-lower__link {
     font-size: 12px;
-  }
-
-  .footer__main-content {
-    flex-direction: column;
-  }
-
-  .footer__main-content div {
-    margin: 10px 0;
   }
 }
 
@@ -351,45 +306,5 @@ a {
     margin-left: 20px;
   }
 
-  body {
-    min-width: 320px;
-  }
+  
 }
-
-@media screen and (max-width: 640px){
-  .payment {
-    width: 200px;
-  }
-}
-
-#__next {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.icons__socials {
-  margin-top: 30px;
-  font-size: 14px;
-}
-
-.icons__label {
-  margin-bottom: 10px;
-}
-
-.icons__social {
-  margin-right: 10px;
-}
-
-.footer__main-content {
-  display: flex;
-  justify-content: space-between;
-}
-
-.company-name {
-  font-size: 20px;
-  font-weight: 100;
-  margin: 20px auto;
-  text-align: center;
-}
-

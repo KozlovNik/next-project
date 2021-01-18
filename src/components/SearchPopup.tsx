@@ -3,7 +3,7 @@ import styles from "./SearchPopup.module.css";
 import classNames from "classnames";
 
 interface SearchPopupProps {
-  handleCloseSearch: () => {};
+  handleCloseSearch: () => void;
   close: boolean;
 }
 

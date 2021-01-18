@@ -4,7 +4,7 @@ import CloseButton from "./CloseButton";
 import classNames from "classnames";
 
 interface AccountPopupProps {
-  handleClick: () => {};
+  handleClick: () => void;
   close: boolean;
 }
 

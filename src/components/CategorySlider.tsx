@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import styles from "./CategorySlider.module.css";
 import ForwardArrow from "../components/svgs/ForwardArrow";
 import BackwardArrow from "../components/svgs/BackwardArrow";
@@ -10,7 +10,11 @@ const imgArr = [1, 2, 3, 4, 5, 6, 7];
 
 import React from "react";
 
-const ImageSlide = ({ i }: { i: any }) => {
+interface ImageSlideProps {
+  i: number;
+}
+
+const ImageSlide: React.FC<ImageSlideProps> = memo(({ i }) => {
   const [showShadow, setShowShadow] = useState(false);
   return (
     <a key={i} className={styles.imageWrapper}>
@@ -33,7 +37,7 @@ const ImageSlide = ({ i }: { i: any }) => {
       <div className={styles.imageTitle}>{i}</div>
     </a>
   );
-};
+});
 
 const CategorySlider: React.FC<SliderProps> = ({
   style,
