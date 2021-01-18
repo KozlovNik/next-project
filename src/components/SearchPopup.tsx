@@ -3,13 +3,12 @@ import styles from "./SearchPopup.module.css";
 import classNames from "classnames";
 
 interface SearchPopupProps {
-  handleClick: () => {};
+  handleCloseSearch: () => {};
   close: boolean;
 }
 
-const SearchPopup = ({ handleClick, close }: SearchPopupProps) => {
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const labelRef = useRef<HTMLLabelElement | null>(null);
+const SearchPopup = ({ handleCloseSearch, close }: SearchPopupProps) => {
+  const labelRef = useRef<HTMLLabelElement>(null);
 
   useEffect(() => {
     if (labelRef && labelRef.current) {
@@ -18,20 +17,25 @@ const SearchPopup = ({ handleClick, close }: SearchPopupProps) => {
   }, [close]);
 
   useEffect(() => {
+    const escapeKeyUpHandler = (e: KeyboardEvent) => {
+      if (e.code === "Escape") handleCloseSearch();
+    };
+
     const searchPopupClickHandler = (e: MouseEvent) => {
-      if (
-        e.target !== inputRef.current &&
-        e.target !== labelRef.current &&
-        !close
-      ) {
-        handleClick();
-      }
+      const target =
+        e.target === labelRef.current ||
+        e.target === labelRef.current?.firstElementChild;
+
+      if (!target && !close) handleCloseSearch();
     };
     document.addEventListener("click", searchPopupClickHandler);
+    document.addEventListener("keyup", escapeKeyUpHandler);
     return () => {
       document.removeEventListener("click", searchPopupClickHandler);
+      document.removeEventListener("keyup", escapeKeyUpHandler);
     };
   }, [close]);
+
   return (
     <label
       className={classNames(
@@ -40,11 +44,7 @@ const SearchPopup = ({ handleClick, close }: SearchPopupProps) => {
       )}
       ref={labelRef}
     >
-      <input
-        ref={inputRef}
-        className={styles.input}
-        placeholder="Поиск по товарам"
-      />
+      <input className={styles.input} placeholder="Поиск по товарам" />
     </label>
   );
 };

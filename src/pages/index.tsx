@@ -1,12 +1,10 @@
-import { useState, useEffect } from "react";
+import { memo } from "react";
 import styles from "../styles/Home.module.css";
 import MainSlider from "../components/MainSlider";
 import CategorySlider from "../components/CategorySlider";
 import SuggestionSlider from "../components/SuggestionSlider";
 
-export default function Home() {
-  
-
+const Home = () => {
   return (
     <div className={styles.home}>
       <MainSlider />
@@ -14,4 +12,6 @@ export default function Home() {
       <SuggestionSlider />
     </div>
   );
-}
+};
+
+export default memo(Home);

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "../styles/globals.css";
 import Logo from "../components/Logo";
 import ProfileImage from "../components/svgs/Profile";
 import CartImage from "../components/svgs/Cart";
@@ -14,6 +13,7 @@ import FooterNav from "../components/FooterNav";
 import Fb from "../components/svgs/Fb";
 import Vk from "../components/svgs/Vk";
 import Insta from "../components/svgs/Insta";
+import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   const [closeMenu, setCloseMenu] = useState(true);
@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps }) {
       />
       <SearchPopup
         close={closeSearch}
-        handleClick={() => setCloseSearch(true)}
+        handleCloseSearch={() => setCloseSearch(true)}
       />
       <header className="header">
         <nav className="nav-upper">
