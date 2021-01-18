@@ -1,4 +1,3 @@
-import React from "react";
 import { navList, companyInfoList, storeList } from "../constants";
 import FooterNav from "./FooterNav";
 import Logo from "./Logo";
