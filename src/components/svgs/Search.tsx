@@ -1,6 +1,6 @@
-import GenericImage, { GenericProps } from "./GenericImage";
+import WithSvgState, { SvgProps } from "../hocs/WithSvgState";
 
-const Search: React.FC<GenericProps> = ({ color, width, ...rest }) => {
+const Search: React.FC<SvgProps> = ({ color, width, ...rest }) => {
   return (
     <svg
       {...rest}
@@ -16,4 +16,4 @@ const Search: React.FC<GenericProps> = ({ color, width, ...rest }) => {
   );
 };
 
-export default GenericImage(Search);
+export default WithSvgState(Search);

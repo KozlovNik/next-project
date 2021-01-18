@@ -3,7 +3,7 @@ import styles from "./CategorySlider.module.css";
 import ForwardArrow from "../components/svgs/ForwardArrow";
 import BackwardArrow from "../components/svgs/BackwardArrow";
 import classNames from "classnames";
-import SliderWrapper, { WithDataComponentProps } from "./hocs/SliderWrapper";
+import WithSliderHandlers, { SliderProps } from "./hocs/WithSliderHandlers";
 
 const imgArr = [1, 2, 3, 4, 5, 6, 7];
 
@@ -34,7 +34,7 @@ const ImageSlide = ({ i }: { i: any }) => {
   );
 };
 
-const CategorySlider: React.FC<WithDataComponentProps> = ({
+const CategorySlider: React.FC<SliderProps> = ({
   style,
   counter,
   goBackward,
@@ -63,7 +63,7 @@ const CategorySlider: React.FC<WithDataComponentProps> = ({
           })}
         />
 
-        <div className={styles.sliderWrapper} style={style}>
+        <div className={styles.WithSliderHandlers} style={style}>
           {imgArr.map((i) => (
             <ImageSlide key={i} i={i} />
           ))}
@@ -73,4 +73,4 @@ const CategorySlider: React.FC<WithDataComponentProps> = ({
   );
 };
 
-export default SliderWrapper(CategorySlider);
+export default WithSliderHandlers(CategorySlider);

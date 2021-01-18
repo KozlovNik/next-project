@@ -1,6 +1,6 @@
-import GenericImage, { GenericProps } from "./GenericImage";
+import WithSvgState, { SvgProps } from "../hocs/WithSvgState";
 
-const BlackHeart: React.FC<GenericProps> = ({ color, width = 26, ...rest }) => {
+const BlackHeart: React.FC<SvgProps> = ({ color, width = 26, ...rest }) => {
   return (
     <svg
       {...rest}
@@ -26,4 +26,4 @@ const BlackHeart: React.FC<GenericProps> = ({ color, width = 26, ...rest }) => {
   );
 };
 
-export default GenericImage(BlackHeart);
+export default WithSvgState(BlackHeart);

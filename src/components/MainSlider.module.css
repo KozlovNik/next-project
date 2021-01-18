@@ -48,7 +48,7 @@
   opacity: 50%;
 }
 
-.sliderWrapper {
+.WithSliderHandlers {
   display: flex;
   height: 100%;
   width: 100%;
@@ -75,7 +75,7 @@
     height: 100%;
     width: 100%;
   }
-  .sliderWrapper {
+  .WithSliderHandlers {
     width: 100%;
     height: auto;
     object-fit: contain;

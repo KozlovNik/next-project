@@ -1,7 +1,7 @@
 import React from "react";
-import GenericImage, { GenericProps } from "./GenericImage";
+import WithSvgState, { SvgProps } from "../hocs/WithSvgState";
 
-const CatArrForward: React.FC<GenericProps> = ({ className, ...rest }) => {
+const CatArrForward: React.FC<SvgProps> = ({ className, ...rest }) => {
   return (
     <svg
       width="50"
@@ -18,4 +18,4 @@ const CatArrForward: React.FC<GenericProps> = ({ className, ...rest }) => {
   );
 };
 
-export default GenericImage(CatArrForward);
+export default WithSvgState(CatArrForward);

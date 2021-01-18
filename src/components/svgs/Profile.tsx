@@ -1,6 +1,6 @@
-import GenericImage, { GenericProps } from "./GenericImage";
+import WithSvgState, { SvgProps } from "../hocs/WithSvgState";
 
-const Profile: React.FC<GenericProps> = ({ color, width = 22, ...rest }) => {
+const Profile: React.FC<SvgProps> = ({ color, width = 22, ...rest }) => {
   return (
     <svg
       {...rest}
@@ -34,4 +34,4 @@ const Profile: React.FC<GenericProps> = ({ color, width = 22, ...rest }) => {
   );
 };
 
-export default GenericImage(Profile);
+export default WithSvgState(Profile);

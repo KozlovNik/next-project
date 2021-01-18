@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-interface GenericOwnProps {
+interface OwnProps {
   width?: number | string;
   height?: number | string;
   className?: string;
@@ -9,14 +9,14 @@ interface GenericOwnProps {
   onClick?: () => void;
 }
 
-export interface GenericProps extends GenericOwnProps {
+export interface SvgProps extends OwnProps {
   onMouseEnter: (e: React.MouseEvent<SVGSVGElement>) => void;
   onMouseLeave: (e: React.MouseEvent<SVGSVGElement>) => void;
   color: string;
 }
 
-const GenericSvg = (Svg: React.FC<GenericProps>) => {
-  return (props: GenericOwnProps) => {
+const WithSvgState = (WrappedComponent: React.FC<SvgProps>) => {
+  return (props: OwnProps) => {
     const {
       initialColor = "#787878",
       hoverColor = "#D66565",
@@ -34,7 +34,7 @@ const GenericSvg = (Svg: React.FC<GenericProps>) => {
     };
 
     return (
-      <Svg
+      <WrappedComponent
         onClick={onClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
@@ -45,4 +45,4 @@ const GenericSvg = (Svg: React.FC<GenericProps>) => {
   };
 };
 
-export default GenericSvg;
+export default WithSvgState;

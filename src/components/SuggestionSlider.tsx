@@ -2,11 +2,10 @@ import styles from "./SuggestionSlider.module.css";
 import ProductCard from "./ProductCard";
 import CatArrForward from "../components/svgs/CatArrForward";
 import CatArrBackward from "../components/svgs/CatArrBackward";
-import SliderWrapper, {
-  WithDataComponentProps,
-} from "../components/hocs/SliderWrapper";
+import WithSliderHandlers, { SliderProps } from "./hocs/WithSliderHandlers";
+import WithSliderResize from "./hocs/WithSliderResize";
 
-const SuggestionSlider: React.FC<WithDataComponentProps> = ({
+const SuggestionSlider: React.FC<SliderProps> = ({
   style,
   goBackward,
   goForward,
@@ -20,7 +19,7 @@ const SuggestionSlider: React.FC<WithDataComponentProps> = ({
       </div>
 
       <div className={styles.slider}>
-        <div className={styles.sliderWrapper} style={style}>
+        <div className={styles.WithSliderHandlers} style={style}>
           <ProductCard />
           <ProductCard />
           <ProductCard />
@@ -34,4 +33,4 @@ const SuggestionSlider: React.FC<WithDataComponentProps> = ({
   );
 };
 
-export default SliderWrapper(SuggestionSlider);
+export default WithSliderResize(WithSliderHandlers(SuggestionSlider));

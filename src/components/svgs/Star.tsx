@@ -1,7 +1,7 @@
 import React from "react";
-import GenericImage, { GenericProps } from "./GenericImage";
+import WithSvgState, { SvgProps } from "../hocs/WithSvgState";
 
-const Star: React.FC<GenericProps> = ({
+const Star: React.FC<SvgProps> = ({
   color,
   width = 17,
   ...rest
@@ -23,4 +23,4 @@ const Star: React.FC<GenericProps> = ({
   );
 };
 
-export default GenericImage(Star);
+export default WithSvgState(Star);

@@ -1,7 +1,7 @@
 import React from "react";
-import GenericImage, { GenericProps } from "./GenericImage";
+import WithSvgState, { SvgProps } from "../hocs/WithSvgState";
 
-const BackwardArrow: React.FC<GenericProps> = ({
+const BackwardArrow: React.FC<SvgProps> = ({
   color,
   width = 31,
   ...rest
@@ -20,4 +20,4 @@ const BackwardArrow: React.FC<GenericProps> = ({
   );
 };
 
-export default GenericImage(BackwardArrow);
+export default WithSvgState(BackwardArrow);

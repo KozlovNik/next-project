@@ -1,6 +1,6 @@
-import GenericImage, { GenericProps } from "./GenericImage";
+import WithSvgState, { SvgProps } from "../hocs/WithSvgState";
 
-const Insta:React.FC<GenericProps> = ({ color, width, ...rest }) => {
+const Insta:React.FC<SvgProps> = ({ color, width, ...rest }) => {
   return (
     <svg
       {...rest}
@@ -42,4 +42,4 @@ const Insta:React.FC<GenericProps> = ({ color, width, ...rest }) => {
   );
 };
 
-export default GenericImage(Insta);
+export default WithSvgState(Insta);

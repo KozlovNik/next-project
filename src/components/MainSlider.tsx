@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import styles from "./MainSlider.module.css";
 import classNames from "classnames";
 
 const imgArr = [1, 2, 3];
 
 const MainSlider = () => {
-  console.log('mainslider')
+  console.log("mainslider");
   const [counter, setCounter] = useState(0);
   const [id, setId] = useState<NodeJS.Timeout>();
 
@@ -23,12 +23,17 @@ const MainSlider = () => {
   const style = {
     transform: `translateX(${counter * -100}%)`,
   };
-  
+
   return (
     <div className={styles.slider}>
-      <div className={styles.sliderWrapper} style={style}>
+      <div className={styles.WithSliderHandlers} style={style}>
         {imgArr.map((ind) => (
-          <img key={ind} className={styles.image} src={`/main-slider/${ind}.jpg`} alt="" />
+          <img
+            key={ind}
+            className={styles.image}
+            src={`/main-slider/${ind}.jpg`}
+            alt=""
+          />
         ))}
       </div>
       <div className={styles.toCatalog}>

@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-interface OwnProps {
+interface WithSliderHandlersProps {
   numberToShow: number;
   totalImageNumber: number;
 }
 
-export interface WithDataComponentProps {
+export interface SliderProps {
   goForward: () => void;
   goBackward: () => void;
   style: {
@@ -14,11 +14,11 @@ export interface WithDataComponentProps {
   counter: number;
 }
 
-const SliderWrapper = (Component: React.FC<WithDataComponentProps>) => (
-  props: OwnProps
+const WithSliderHandlers = (WrapperComponent: React.FC<SliderProps>) => (
+  props: WithSliderHandlersProps
 ) => {
   const { numberToShow, totalImageNumber } = props;
-  const maxVal = totalImageNumber - numberToShow
+  const maxVal = totalImageNumber - numberToShow;
   const [counter, setCounter] = useState(0);
 
   const goBackward = () =>
@@ -29,7 +29,7 @@ const SliderWrapper = (Component: React.FC<WithDataComponentProps>) => (
 
   const style = { transform: `translateX(${-counter * 100}%)` };
   return (
-    <Component
+    <WrapperComponent
       {...props}
       goForward={goForward}
       goBackward={goBackward}
@@ -39,4 +39,4 @@ const SliderWrapper = (Component: React.FC<WithDataComponentProps>) => (
   );
 };
 
-export default SliderWrapper;
+export default WithSliderHandlers;

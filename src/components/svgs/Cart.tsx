@@ -1,6 +1,6 @@
-import GenericImage, { GenericProps } from "./GenericImage";
+import WithSvgState, { SvgProps } from "../hocs/WithSvgState";
 
-const Cart: React.FC<GenericProps> = ({ color, width = 26, ...rest }) => {
+const Cart: React.FC<SvgProps> = ({ color, width = 26, ...rest }) => {
   return (
     <svg
       {...rest}
@@ -31,4 +31,4 @@ const Cart: React.FC<GenericProps> = ({ color, width = 26, ...rest }) => {
   );
 };
 
-export default GenericImage(Cart);
+export default WithSvgState(Cart);
