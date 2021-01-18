@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import styles from "./ProductCard.module.css";
 import Star from "../components/svgs/Star";
 import Heart from "../components/svgs/Heart";
@@ -34,4 +34,4 @@ const ProductCard = () => {
   );
 };
 
-export default ProductCard;
+export default memo(ProductCard);

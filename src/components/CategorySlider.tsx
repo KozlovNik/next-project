@@ -4,6 +4,7 @@ import ForwardArrow from "../components/svgs/ForwardArrow";
 import BackwardArrow from "../components/svgs/BackwardArrow";
 import classNames from "classnames";
 import WithSliderHandlers, { SliderProps } from "./hocs/WithSliderHandlers";
+import TitleBlock from "./TitleBlock";
 
 const imgArr = [1, 2, 3, 4, 5, 6, 7];
 
@@ -42,7 +43,7 @@ const CategorySlider: React.FC<SliderProps> = ({
 }) => {
   return (
     <div className={styles.wrapper}>
-      <h2 className={styles.title}>КАТЕГОРИИ</h2>
+      <TitleBlock title="КАТЕГОРИИ" />
       <div className={styles.slider}>
         <BackwardArrow
           width={24}

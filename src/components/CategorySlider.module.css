@@ -87,14 +87,6 @@
   height: 100px;
 }
 
-.title {
-  font-weight: 300;
-  color: #4f4e4e;
-  text-align: center;
-  font-size: 24px;
-  margin: 40px auto;
-}
-
 .imageWrapper:hover .imageTitle {
   color: red;
 }
@@ -151,11 +143,6 @@
 @media screen and (max-width: 1050px) {
   .wrapper {
     width: 100%;
-  }
-
-  .title {
-    margin: 20px auto;
-    font-size: 16px;
   }
 
   .hl {

@@ -4,6 +4,7 @@ import CatArrForward from "../components/svgs/CatArrForward";
 import CatArrBackward from "../components/svgs/CatArrBackward";
 import WithSliderHandlers, { SliderProps } from "./hocs/WithSliderHandlers";
 import WithSliderResize from "./hocs/WithSliderResize";
+import TitleBlock from "./TitleBlock";
 
 const SuggestionSlider: React.FC<SliderProps> = ({
   style,
@@ -12,11 +13,10 @@ const SuggestionSlider: React.FC<SliderProps> = ({
 }) => {
   return (
     <>
-      <div className={styles.titleBlock}>
-        <h2 className={styles.title}>РЕКОМЕНДАЦИИ</h2>
+      <TitleBlock title="РЕКОМЕНДАЦИИ">
         <CatArrBackward onClick={goBackward} className={styles.arrow} />
         <CatArrForward onClick={goForward} className={styles.arrow} />
-      </div>
+      </TitleBlock>
 
       <div className={styles.slider}>
         <div className={styles.WithSliderHandlers} style={style}>

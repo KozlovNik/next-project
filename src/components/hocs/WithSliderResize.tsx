@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 // import { WithSliderHandlersProps } from "./WithSliderHandlers";
 
 const WithSliderResize = (Component: React.FC<any>) => () => {
-
-  const [numberToShow, setNumberToShow] = useState(4);
+  const [numberToShow, setNumberToShow] = useState<number>();
 
   if (typeof window !== "undefined") {
     const setWidth = () => {
@@ -31,7 +30,9 @@ const WithSliderResize = (Component: React.FC<any>) => () => {
       };
     }, [window.innerWidth]);
   }
-  return <Component numberToShow={3} totalImageNumber={7} />;
+  return numberToShow ? (
+    <Component numberToShow={numberToShow} totalImageNumber={7} />
+  ) : null;
 };
 
 export default WithSliderResize;
