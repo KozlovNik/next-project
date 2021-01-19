@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import styles from "./AccountPopup.module.css";
 import CloseButton from "./CloseButton";
 import classNames from "classnames";
+import { useEscapeKey } from "../hooks/custom-hooks";
 
 interface AccountPopupProps {
   handleClick: () => void;
@@ -12,6 +13,9 @@ const AccountPopup = ({ handleClick, close }: AccountPopupProps) => {
   const linkRef1 = useRef(null);
   const linkRef2 = useRef(null);
   const linkRef3 = useRef(null);
+
+  useEscapeKey(handleClick);
+
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (

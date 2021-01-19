@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import styles from "./SearchPopup.module.css";
 import classNames from "classnames";
+import { useEscapeKey } from "../hooks/custom-hooks";
 
 interface SearchPopupProps {
   handleCloseSearch: () => void;
@@ -10,6 +11,8 @@ interface SearchPopupProps {
 const SearchPopup = ({ handleCloseSearch, close }: SearchPopupProps) => {
   const labelRef = useRef<HTMLLabelElement>(null);
 
+  useEscapeKey(handleCloseSearch);
+
   useEffect(() => {
     if (labelRef && labelRef.current) {
       labelRef.current.focus();
@@ -17,10 +20,6 @@ const SearchPopup = ({ handleCloseSearch, close }: SearchPopupProps) => {
   }, [close]);
 
   useEffect(() => {
-    const escapeKeyUpHandler = (e: KeyboardEvent) => {
-      if (e.code === "Escape") handleCloseSearch();
-    };
-
     const searchPopupClickHandler = (e: MouseEvent) => {
       const target =
         e.target === labelRef.current ||
@@ -29,10 +28,8 @@ const SearchPopup = ({ handleCloseSearch, close }: SearchPopupProps) => {
       if (!target && !close) handleCloseSearch();
     };
     document.addEventListener("click", searchPopupClickHandler);
-    document.addEventListener("keyup", escapeKeyUpHandler);
     return () => {
       document.removeEventListener("click", searchPopupClickHandler);
-      document.removeEventListener("keyup", escapeKeyUpHandler);
     };
   }, [close]);
 
