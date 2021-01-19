@@ -1,12 +1,17 @@
-import React, { useState, memo } from "react";
+import { useState, memo } from "react";
 import styles from "./ProductCard.module.css";
 import Star from "../components/svgs/Star";
 import Heart from "../components/svgs/Heart";
+import classNames from "classnames";
 
-const ProductCard = () => {
+interface ProductCartProps {
+  className?: string;
+}
+
+const ProductCard: React.FC<ProductCartProps> = ({ className }) => {
   const [rating, setRating] = useState(2);
   return (
-    <div className={styles.productCard}>
+    <div className={classNames([styles.productCard], className)}>
       <Heart className={styles.heart} />
       <div>
         <img className={styles.image} src="/product.jpg" alt="" />

@@ -6,11 +6,11 @@ import SuggestionSlider from "../components/SuggestionSlider";
 
 const Home = () => {
   return (
-    <div className={styles.home}>
+    <>
       <MainSlider />
       <CategorySlider totalImageNumber={7} numberToShow={3} />
       <SuggestionSlider />
-    </div>
+    </>
   );
 };
 

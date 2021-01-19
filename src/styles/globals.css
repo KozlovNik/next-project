@@ -42,4 +42,13 @@ a {
   padding: 0;
 }
 
+.main-wrapper {
+  width: 1200px;
+  margin: 20px auto;
+}
 
+@media screen and (max-width: 1200px) {
+  .main-wrapper {
+    width: 100%;
+  }
+}

@@ -1,0 +1,60 @@
+.wrapper {
+  text-align: center;
+}
+
+.pagination {
+  width: 100%;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.item {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  border: 1px solid #333333;
+  color: #333333;
+  font-size: 20px;
+  font-weight: 300;
+  margin: 2px;
+}
+
+.activeItem,
+.item:hover {
+  background-color: #333333;
+  color: white;
+}
+
+.breakItem {
+  cursor: pointer;
+  width: 20px;
+  height: 40px;
+  line-height: 36px;
+  margin: 2px;
+}
+
+.link {
+  display: inline-block;
+  line-height: 40px;
+  height: 40px;
+  width: 100%;
+}
+
+.link:focus {
+  outline: none;
+}
+
+.info {
+  font-size: 12px;
+  font-weight: 300;
+  color: #333333;
+  margin-top: 10px;
+}
+
+@media screen and (max-width: 750px) {
+  .wrapper {
+    margin-top: 40px;
+  }
+}
