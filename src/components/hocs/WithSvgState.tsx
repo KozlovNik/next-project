@@ -20,7 +20,7 @@ const WithSvgState = (WrappedComponent: React.FC<SvgProps>) => {
     const {
       initialColor = "#787878",
       hoverColor = "#D66565",
-      onClick = () => {},
+      onClick,
       ...rest
     } = props;
     const [color, setColor] = useState(initialColor);

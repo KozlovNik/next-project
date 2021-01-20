@@ -1,0 +1,37 @@
+.splitPane,
+.splitPaneInactive {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.splitPaneInactive {
+  cursor: default;
+}
+
+.label,
+.labelInactive {
+  font-size: 13px;
+  font-weight: 300;
+  color: #b6b6b6;
+  margin-left: 5px;
+}
+
+.label {
+  border-bottom: 1px dotted #b6b6b6;
+}
+
+@media screen and (max-width: 768px) {
+  .label,
+  .labelInactive {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .label,
+  .labelInactive {
+    display: none;
+  }
+}

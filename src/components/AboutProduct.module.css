@@ -1,0 +1,65 @@
+.wrapper {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.tabLabel {
+  width: 100px;
+  height: 40px;
+  line-height: 40px;
+  align-self: center;
+  color: #787878;
+  font-size: 20px;
+  font-weight: 300;
+  cursor: pointer;
+}
+
+.active {
+  background-color: rgb(196, 196, 196, 0.15);
+  font-weight: 600;
+}
+
+.tab {
+  background-color: rgb(196, 196, 196, 0.15);
+  flex-basis: 100%;
+  flex-shrink: 0;
+  flex-grow: 1;
+}
+
+.tabWrapper {
+  text-align: left;
+  font-weight: 300;
+  margin: 20px;
+  font-size: 18px;
+  color: #787878;
+}
+
+.feedback {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.name,
+.date,
+.message {
+  flex: 1 0 100%;
+}
+
+.date {
+  font-size: 14px;
+  font-weight: 300;
+  color: #c4c4c4;
+}
+
+.message {
+    margin-top: 5px;
+}

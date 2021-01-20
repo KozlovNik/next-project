@@ -64,9 +64,9 @@
     flex-wrap: wrap;
   }
 
-  .mainContent div {
+  /* .mainContent div {
     margin: 0 0 20px 0;
-  }
+  } */
 }
 
 @media screen and (max-width: 768px) {
@@ -76,5 +76,9 @@
 
   .payment {
     width: 200px;
+  }
+
+  .mainContent div {
+    margin: 0 0 20px 0;
   }
 }

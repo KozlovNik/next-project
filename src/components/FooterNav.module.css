@@ -1,3 +1,7 @@
+.nav {
+  margin: 0 20px;
+}
+
 .list {
   list-style: none;
 }
@@ -14,3 +18,7 @@
   margin-bottom: 20px;
   font-size: 20px;
 }
+
+/* @media screen and (max-width:768px){
+  margin: ;
+} */

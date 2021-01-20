@@ -39,36 +39,8 @@
   margin-bottom: 10px;
 }
 
-.button {
-  background-color: #d66565;
-  color: white;
-  height: 40px;
-  font-size: 16px;
-  font-weight: 400;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-}
-
-.star {
-  margin-right: 3px;
-}
-
-.button:hover {
-  background-color: #af4343;
-}
-
-.feedback__wrapper {
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.feedback {
-  font-size: 12px;
-  font-weight: 500;
-  color: #787878;
+.label {
+  display: none;
 }
 
 .heart {
