@@ -1,9 +1,9 @@
-.searchPopup {
+.PopupSearch {
     display: none;
 }
 
 @media screen and (max-width: 768px) {
-  .searchPopup {
+  .PopupSearch {
     position: absolute;
     display: block;
     top: 0;
@@ -15,7 +15,7 @@
     box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.2);
   }
 
-  .searchPopupHidden {
+  .PopupSearchHidden {
       display: none;
   }
 

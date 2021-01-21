@@ -1,15 +1,15 @@
 import { useEffect, useRef } from "react";
-import styles from "./AccountPopup.module.css";
-import CloseButton from "./CloseButton";
+import styles from "./PopupAccount.module.css";
+import ButtonClose from "./ButtonClose";
 import classNames from "classnames";
 import { useEscapeKey } from "../hooks/custom-hooks";
 
-interface AccountPopupProps {
+interface PopupAccountProps {
   handleClick: () => void;
   close: boolean;
 }
 
-const AccountPopup = ({ handleClick, close }: AccountPopupProps) => {
+const PopupAccount = ({ handleClick, close }: PopupAccountProps) => {
   const linkRef1 = useRef(null);
   const linkRef2 = useRef(null);
   const linkRef3 = useRef(null);
@@ -38,7 +38,7 @@ const AccountPopup = ({ handleClick, close }: AccountPopupProps) => {
         <span className={styles.header} ref={linkRef3}>
           ЛИЧНЫЙ КАБИНЕТ
         </span>
-        <CloseButton handleClick={handleClick} />
+        <ButtonClose onClick={handleClick} />
       </div>
       <div className={styles.menuContent} ref={linkRef2}>
         <a className={styles.authLink}>Вход</a>
@@ -51,4 +51,4 @@ const AccountPopup = ({ handleClick, close }: AccountPopupProps) => {
   );
 };
 
-export default AccountPopup;
+export default PopupAccount;

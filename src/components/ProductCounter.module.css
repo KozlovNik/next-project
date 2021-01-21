@@ -4,20 +4,14 @@
   margin: 0 20px;
 }
 
-@media screen and (max-width: 640px) {
-  .wrapper {
-    justify-content: left;
-  }
-}
-
 .decrease,
 .increase {
-  width: 40px;
-  height: 40px;
-  border: solid 1px #B6B6B6;
+  width: 35px;
+  height: 35px;
+  border: solid 1px #b6b6b6;
   box-sizing: border-box;
   text-align: center;
-  line-height: 40px;
+  line-height: 35px;
   cursor: pointer;
   font-weight: 300;
 }
@@ -40,15 +34,15 @@
 
 .quantity {
   box-sizing: border-box;
-  width: 60px;
-  height: 40px;
+  width: 40px;
+  height: 35px;
   text-align: center;
-  border-top: solid 1px #B6B6B6;
-  border-bottom: solid 1px #B6B6B6;
+  border-top: solid 1px #b6b6b6;
+  border-bottom: solid 1px #b6b6b6;
   border-right: 0;
   border-left: 0;
   color: #787878;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 300;
 }
 
@@ -67,12 +61,27 @@
   -moz-appearance: textfield; /* Firefox */
 }
 
+@media screen and (max-width: 640px) {
+  .wrapper {
+    justify-content: left;
+  }
+}
+
 @media screen and (max-width: 450px) {
   .wrapper {
     margin: 0;
   }
 
   .quantity {
-    width: 40px;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+  }
+
+  .decrease,
+  .increase {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
   }
 }

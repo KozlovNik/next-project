@@ -1,7 +1,7 @@
 import { useState, memo } from "react";
-import AccountPopup from "./AccountPopup";
-import MenuPopup from "./MenuPopup";
-import SearchPopup from "./SearchPopup";
+import PopupAccount from "./PopupAccount";
+import PopupMenu from "./PopupMenu";
+import PopupSearch from "./PopupSearch";
 import NavTop from "../components/NavTop";
 import NavMiddle from "../components/NavbarMiddle";
 import NavBottom from "../components/NavBottom";
@@ -15,19 +15,19 @@ const Navbar = () => {
 
   return (
     <>
-      <MenuPopup
+      <PopupMenu
         close={closeMenu}
         handleClick={() => {
           setCloseMenu(true);
         }}
       />
-      <AccountPopup
+      <PopupAccount
         close={closeAccount}
         handleClick={() => {
           setCloseAccount(true);
         }}
       />
-      <SearchPopup
+      <PopupSearch
         close={closeSearch}
         handleCloseSearch={() => {
           setCloseSearch(true);

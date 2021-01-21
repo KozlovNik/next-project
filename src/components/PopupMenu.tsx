@@ -1,22 +1,22 @@
 import { useEscapeKey } from "../hooks/custom-hooks";
-import styles from "./MenuPopup.module.css";
-import CloseButton from "./CloseButton";
+import styles from "./PopupMenu.module.css";
+import ButtonClose from "./ButtonClose";
 import { navList } from "../constants";
 import classNames from "classnames";
 
-interface MenuPopupProps {
+interface PopupMenuProps {
   handleClick: () => void;
   close: boolean;
 }
 
-const MenuPopup = ({ handleClick, close }: MenuPopupProps) => {
+const PopupMenu = ({ handleClick, close }: PopupMenuProps) => {
   useEscapeKey(handleClick);
 
   return (
     <div className={classNames(styles.menu, close ? styles.menuHidden : "")}>
       <div className={styles.topBar}>
         <span className={styles.header}>МЕНЮ</span>
-        <CloseButton handleClick={handleClick} />
+        <ButtonClose onClick={handleClick} />
       </div>
       <div className={styles.menuContent}>
         <ul className={styles.list}>
@@ -70,4 +70,4 @@ const MenuPopup = ({ handleClick, close }: MenuPopupProps) => {
   );
 };
 
-export default MenuPopup;
+export default PopupMenu;

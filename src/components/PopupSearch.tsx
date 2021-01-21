@@ -1,14 +1,14 @@
 import React, { useEffect, useRef } from "react";
-import styles from "./SearchPopup.module.css";
+import styles from "./PopupSearch.module.css";
 import classNames from "classnames";
 import { useEscapeKey } from "../hooks/custom-hooks";
 
-interface SearchPopupProps {
+interface PopupSearchProps {
   handleCloseSearch: () => void;
   close: boolean;
 }
 
-const SearchPopup = ({ handleCloseSearch, close }: SearchPopupProps) => {
+const PopupSearch = ({ handleCloseSearch, close }: PopupSearchProps) => {
   const labelRef = useRef<HTMLLabelElement>(null);
 
   useEscapeKey(handleCloseSearch);
@@ -20,24 +20,24 @@ const SearchPopup = ({ handleCloseSearch, close }: SearchPopupProps) => {
   }, [close]);
 
   useEffect(() => {
-    const searchPopupClickHandler = (e: MouseEvent) => {
+    const PopupSearchClickHandler = (e: MouseEvent) => {
       const target =
         e.target === labelRef.current ||
         e.target === labelRef.current?.firstElementChild;
 
       if (!target && !close) handleCloseSearch();
     };
-    document.addEventListener("click", searchPopupClickHandler);
+    document.addEventListener("click", PopupSearchClickHandler);
     return () => {
-      document.removeEventListener("click", searchPopupClickHandler);
+      document.removeEventListener("click", PopupSearchClickHandler);
     };
   }, [close]);
 
   return (
     <label
       className={classNames(
-        styles.searchPopup,
-        close ? styles.searchPopupHidden : ""
+        styles.PopupSearch,
+        close ? styles.PopupSearchHidden : ""
       )}
       ref={labelRef}
     >
@@ -46,4 +46,4 @@ const SearchPopup = ({ handleCloseSearch, close }: SearchPopupProps) => {
   );
 };
 
-export default SearchPopup;
+export default PopupSearch;
