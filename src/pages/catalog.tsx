@@ -6,7 +6,7 @@ import Sidebar from "../components/Sidebar";
 import Pagination from "../components/Pagination";
 import Breadcrumbs from "../components/Breadcrumbs";
 
-import styles from "../styles/Home.module.css";
+import styles from "../styles/Catalog.module.css";
 
 const Catalog = () => {
   return (

@@ -62,8 +62,7 @@
 }
 
 .imageWrapper {
-  flex-basis: 100%;
-  flex-shrink: 0;
+  flex: 0 0 100%;
   margin-bottom: 50px;
   cursor: pointer;
   position: relative;

@@ -10,9 +10,9 @@ import styles from "../styles/Product.module.css";
 
 const Product = () => {
   return (
-    <div className={styles.wrapper}>
+    <>
       <Breadcrumbs />
-      <div className={styles.heading}>
+      <div className="heading">
         Кофе Caracolillo Caracolillo, 1000 гр.
       </div>
       <div className={styles.contentWrapper}>
@@ -57,7 +57,7 @@ const Product = () => {
         </div>
       </div>
       <AboutProduct />
-    </div>
+    </>
   );
 };
 

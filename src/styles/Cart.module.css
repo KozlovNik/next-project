@@ -7,13 +7,6 @@
   height: 100%;
 }
 
-.heading {
-  font-size: 30px;
-  color: #4f4e4e;
-  font-weight: 300;
-  margin-bottom: 20px;
-}
-
 .order {
   flex: 1;
   margin-left: 20px;
@@ -106,7 +99,7 @@
 }
 
 .radioWrapper {
-  flex: 1 0 100%;
+  flex: 1 0 calc(100% - 40px);
   margin-bottom: 10px;
 }
 
@@ -117,12 +110,6 @@
 
 .star {
   color: #b66060;
-}
-
-@media screen and (max-width: 1200px) {
-  .wrapper {
-    margin: 0 20px;
-  }
 }
 
 @media screen and (max-width: 1150px) {

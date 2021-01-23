@@ -1,0 +1,39 @@
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.content {
+  flex-basis: 1000px;
+}
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product {
+  flex-basis: 0;
+}
+
+@media screen and (max-width: 1240px) {
+  .content {
+    flex-basis: 20%;
+    flex-grow: 1;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .wrapper {
+    flex-direction: column;
+  }
+
+  .products {
+    flex-direction: column;
+  }
+
+  .product {
+    flex: 1 0 100%;
+    width: 100%;
+  }
+}

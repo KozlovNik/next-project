@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, FC, ButtonHTMLAttributes } from "react";
 
 let buttonStyles = {
   border: "none",
@@ -11,7 +11,7 @@ let buttonStyles = {
   fontWeight: 300,
 };
 
-const Button: React.FC<React.HTMLProps<HTMLButtonElement>> = ({
+const Button: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   className,
   onClick,
   children,
@@ -23,6 +23,7 @@ const Button: React.FC<React.HTMLProps<HTMLButtonElement>> = ({
       onMouseEnter={() => setColor("#af4343")}
       onMouseLeave={() => setColor("#D66565")}
       className={className}
+      {...rest}
       style={{ ...buttonStyles, backgroundColor: color, ...rest.style }}
     >
       {children}

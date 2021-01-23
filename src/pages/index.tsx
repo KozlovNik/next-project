@@ -1,15 +1,15 @@
 import { memo } from "react";
 import styles from "../styles/Home.module.css";
-import MainSlider from "../components/MainSlider";
-import CategorySlider from "../components/CategorySlider";
-import SuggestionSlider from "../components/SuggestionSlider";
+import SliderMain from "../components/SliderMain";
+import SliderCategory from "../components/SliderCategory";
+import SliderSuggestion from "../components/SliderSuggestion";
 
 const Home = () => {
   return (
     <>
-      <MainSlider />
-      <CategorySlider totalImageNumber={7} numberToShow={3} />
-      <SuggestionSlider />
+      <SliderMain />
+      <SliderCategory totalImageNumber={7} numberToShow={3} />
+      <SliderSuggestion />
     </>
   );
 };

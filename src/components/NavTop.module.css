@@ -24,7 +24,8 @@
   margin-right: 40px;
   text-decoration: none;
   font-weight: 300;
-  border-bottom: 1px dotted;
+  text-decoration: underline dotted white;
+  text-decoration-thickness: 1px;
   position: relative;
 }
 

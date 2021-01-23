@@ -1,12 +1,12 @@
-import styles from "./SuggestionSlider.module.css";
+import styles from "./SliderSuggestion.module.css";
 import ProductCard from "./ProductCard";
-import CatArrForward from "../components/svgs/CatArrForward";
-import CatArrBackward from "../components/svgs/CatArrBackward";
+import CatArrForward from "./svgs/CatArrForward";
+import CatArrBackward from "./svgs/CatArrBackward";
 import WithSliderHandlers, { SliderProps } from "./hocs/WithSliderHandlers";
 import WithSliderResize from "./hocs/WithSliderResize";
 import TitleBlock from "./TitleBlock";
 
-const SuggestionSlider: React.FC<SliderProps> = ({
+const SliderSuggestion: React.FC<SliderProps> = ({
   style,
   goBackward,
   goForward,
@@ -33,4 +33,4 @@ const SuggestionSlider: React.FC<SliderProps> = ({
   );
 };
 
-export default WithSliderResize(WithSliderHandlers(SuggestionSlider));
+export default WithSliderResize(WithSliderHandlers(SliderSuggestion));

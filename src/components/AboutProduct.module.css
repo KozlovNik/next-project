@@ -23,9 +23,7 @@
 
 .tab {
   background-color: rgb(196, 196, 196, 0.15);
-  flex-basis: 100%;
-  flex-shrink: 0;
-  flex-grow: 1;
+  flex: 1 0 100%;
 }
 
 .tabWrapper {

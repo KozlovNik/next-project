@@ -1,7 +1,7 @@
 import { useState, memo } from "react";
-import styles from "./CategorySlider.module.css";
-import ForwardArrow from "../components/svgs/ForwardArrow";
-import BackwardArrow from "../components/svgs/BackwardArrow";
+import styles from "./SliderCategory.module.css";
+import ForwardArrow from "./svgs/ForwardArrow";
+import BackwardArrow from "./svgs/BackwardArrow";
 import classNames from "classnames";
 import WithSliderHandlers, { SliderProps } from "./hocs/WithSliderHandlers";
 import TitleBlock from "./TitleBlock";
@@ -39,7 +39,7 @@ const ImageSlide: React.FC<ImageSlideProps> = memo(({ i }) => {
   );
 });
 
-const CategorySlider: React.FC<SliderProps> = ({
+const SliderCategory: React.FC<SliderProps> = ({
   style,
   counter,
   goBackward,
@@ -78,4 +78,4 @@ const CategorySlider: React.FC<SliderProps> = ({
   );
 };
 
-export default WithSliderHandlers(CategorySlider);
+export default WithSliderHandlers(SliderCategory);

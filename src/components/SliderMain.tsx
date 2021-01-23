@@ -1,11 +1,11 @@
-import { useEffect, useState, memo } from "react";
-import styles from "./MainSlider.module.css";
+import { useEffect, useState } from "react";
+import styles from "./SliderMain.module.css";
 import classNames from "classnames";
 
 const imgArr = [1, 2, 3];
 
-const MainSlider = () => {
-  console.log("mainslider");
+const SliderMain = () => {
+  console.log("SliderMain");
   const [counter, setCounter] = useState(0);
   const [id, setId] = useState<NodeJS.Timeout>();
 
@@ -58,4 +58,4 @@ const MainSlider = () => {
   );
 };
 
-export default MainSlider;
+export default SliderMain;

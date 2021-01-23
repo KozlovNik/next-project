@@ -6,7 +6,7 @@ const Cart = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.items}>
-        <h1 className={styles.heading}>КОРЗИНА</h1>
+        <h1 className="heading">КОРЗИНА</h1>
         <ProductCardMini />
         <ProductCardMini />
         <ProductCardMini />
@@ -16,7 +16,7 @@ const Cart = () => {
         <ProductCardMini />
       </div>
       <div className={styles.order}>
-        <div className={styles.heading}>ОФОРМЛЕНИЕ ЗАКАЗА</div>
+        <div className="heading">ОФОРМЛЕНИЕ ЗАКАЗА</div>
         <form className={styles.form}>
           <div className={styles.block}>
             <div className={styles.sub}>ПОКУПАТЕЛЬ</div>

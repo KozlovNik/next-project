@@ -10,9 +10,7 @@
   z-index: 1;
   padding: 25px;
   border-radius: 5px;
-  flex-basis: 100%;
-  flex-grow: 0;
-  flex-shrink: 1;
+  flex: 0 1 100%;
 }
 
 .productCard:hover {
@@ -64,10 +62,8 @@
 
 @media screen and (max-width: 750px) {
   .productCard {
-    flex-basis: 100%;
-    flex-grow: 0;
+    flex: 0 0 100%;
     margin: 0;
-    flex-shrink: 0;
   }
 
   .productCard:hover {

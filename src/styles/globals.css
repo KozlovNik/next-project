@@ -47,8 +47,16 @@ a {
   margin: 20px auto;
 }
 
+.heading {
+  font-size: 30px;
+  color: #4f4e4e;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
 @media screen and (max-width: 1200px) {
   .main-wrapper {
-    width: 100%;
+    width: calc(100% - 40px);
+    margin: 20px;
   }
 }
