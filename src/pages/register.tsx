@@ -1,37 +1,10 @@
 import React from "react";
-import { Form, Formik, useField } from "formik";
+import { Form, Formik } from "formik";
+import CustomField from "../components/CustomField";
 import Button from "../components/Button";
 import * as Yup from "yup";
 
 import styles from "../styles/Register.module.css";
-
-interface CustomFieldProps {
-  label: string;
-  type?: "text" | "password" | "number";
-  name: string;
-  placeholder?: string;
-}
-
-const CustomField: React.FC<CustomFieldProps> = ({
-  label,
-  type = "text",
-  ...props
-}) => {
-  const [field, meta] = useField(props);
-  console.log(field);
-  console.log(meta);
-  return (
-    <label className={styles.label}>
-      <div className={styles.labelText}>
-        {label} <span className={styles.star}>*</span>
-      </div>
-      {meta.touched && meta.error ? (
-        <div className={styles.errorMsg}>{meta.error}</div>
-      ) : null}
-      <input className={styles.input} type={type} {...field} {...props} />
-    </label>
-  );
-};
 
 const RegisterForm = () => {
   const reqText = "Поле не может быть пустым";

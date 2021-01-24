@@ -13,7 +13,6 @@ let buttonStyles = {
 
 const Button: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   className,
-  onClick,
   children,
   ...rest
 }) => {

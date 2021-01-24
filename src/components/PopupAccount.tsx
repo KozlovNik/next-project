@@ -1,15 +1,23 @@
 import { useEffect, useRef } from "react";
-import styles from "./PopupAccount.module.css";
 import ButtonClose from "./ButtonClose";
+
+import Link from "next/link";
 import classNames from "classnames";
 import { useEscapeKey } from "../hooks/custom-hooks";
+
+import styles from "./PopupAccount.module.css";
 
 interface PopupAccountProps {
   handleClick: () => void;
   close: boolean;
+  setCloseLogin: () => void;
 }
 
-const PopupAccount = ({ handleClick, close }: PopupAccountProps) => {
+const PopupAccount = ({
+  handleClick,
+  close,
+  setCloseLogin,
+}: PopupAccountProps) => {
   const linkRef1 = useRef(null);
   const linkRef2 = useRef(null);
   const linkRef3 = useRef(null);
@@ -41,10 +49,15 @@ const PopupAccount = ({ handleClick, close }: PopupAccountProps) => {
         <ButtonClose onClick={handleClick} />
       </div>
       <div className={styles.menuContent} ref={linkRef2}>
-        <a className={styles.authLink}>Вход</a>
-        <a className={styles.authLink} ref={linkRef2}>
-          Регистрация
+        <a className={styles.authLink} onClick={setCloseLogin}>
+          Вход
         </a>
+        <Link href="/register">
+          <a className={styles.authLink} ref={linkRef2} onClick={handleClick}>
+            Регистрация
+          </a>
+        </Link>
+
         <a className={styles.starred}>Закладки</a>
       </div>
     </div>

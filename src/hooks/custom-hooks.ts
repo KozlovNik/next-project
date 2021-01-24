@@ -7,6 +7,7 @@ type handler = () => void;
 export const useEscapeKey = (handleClick: handler) => {
   return useEffect(() => {
     const escapeKeyUpHandler = (e: KeyboardEvent) => {
+      console.log(e.currentTarget)
       if (e.code === "Escape") handleClick();
     };
 

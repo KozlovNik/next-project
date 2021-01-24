@@ -1,4 +1,5 @@
 import { memo } from "react";
+
 import Logo from "./Logo";
 import ProfileImage from "../components/svgs/Profile";
 import CartImage from "../components/svgs/Cart";
@@ -7,7 +8,11 @@ import BlackHeart from "../components/svgs/BlackHeart";
 
 import styles from "./NavbarMiddle.module.css";
 
-const NavbarMiddle = () => {
+interface NavbarMiddleProps {
+  setCloseLogin: () => void;
+}
+
+const NavbarMiddle: React.FC<NavbarMiddleProps> = ({ setCloseLogin }) => {
   return (
     <nav className={styles.navMiddle}>
       <div className={styles.wrapper}>
@@ -19,7 +24,7 @@ const NavbarMiddle = () => {
         </div>
         <Logo color="#4F4E4E" />
         <div className="user-block">
-          <a className={styles.link}>
+          <a onClick={setCloseLogin} className={styles.link}>
             <ProfileImage />
           </a>
           <a className={styles.link}>

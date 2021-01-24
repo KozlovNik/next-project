@@ -7,9 +7,9 @@ import classNames from "classnames";
 import styles from "./NavTop.module.css";
 
 interface NavTopProps {
-  setCloseMenu: (arg: boolean) => void;
-  setCloseSearch: (arg: boolean) => void;
-  setCloseAccount: (arg: boolean) => void;
+  setCloseMenu: () => void;
+  setCloseSearch: () => void;
+  setCloseAccount: () => void;
 }
 
 const NavTop: React.FC<NavTopProps> = ({
@@ -20,7 +20,7 @@ const NavTop: React.FC<NavTopProps> = ({
   return (
     <nav className={styles.navTop}>
       <div className={styles.wrapper}>
-        <div>
+        <div className={styles.left}>
           <span
             className={classNames([styles.leftItem], [styles.leftItemCity])}
           >
@@ -43,7 +43,7 @@ const NavTop: React.FC<NavTopProps> = ({
       </div>
       <nav className={styles.wrapperMobile}>
         <div className={styles.left}>
-          <span className={styles.thumb} onClick={() => setCloseMenu(false)}>
+          <span className={styles.thumb} onClick={setCloseMenu}>
             <span className={styles.hr}></span>
             <span className={styles.hr}></span>
             <span className={styles.hr}></span>
@@ -53,10 +53,10 @@ const NavTop: React.FC<NavTopProps> = ({
           </span>
         </div>
         <div>
-          <a className={styles.link} onClick={() => setCloseSearch(false)}>
+          <a className={styles.link} onClick={setCloseSearch}>
             <SearchMobile initialColor="white" hoverColor="#787878" />
           </a>
-          <a onClick={() => setCloseAccount(false)} className={styles.link}>
+          <a onClick={setCloseAccount} className={styles.link}>
             <ProfileImage initialColor="white" hoverColor="#787878" />
           </a>
           <a className={styles.link}>
