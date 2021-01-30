@@ -15,7 +15,7 @@ const CustomField: React.FC<CustomFieldProps> = ({
   placeholder,
   ...props
 }) => {
-  const [field, meta] = useField(props);
+  const [field, meta] = useField({ ...props, type });
   return (
     <label className={styles.label}>
       {label && (
@@ -28,10 +28,10 @@ const CustomField: React.FC<CustomFieldProps> = ({
       ) : null}
       <input
         className={styles.input}
-        type={type}
         placeholder={placeholder}
-        {...field}
+        type={type}
         {...props}
+        {...field}
       />
     </label>
   );

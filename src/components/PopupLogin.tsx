@@ -4,7 +4,7 @@ import CustomField from "../components/CustomField";
 
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import { useEscapeKey } from "../hooks/custom-hooks";
+import useEscapeKey from "../hooks/useEscapeKey";
 import Link from "next/link";
 
 import styles from "./PopupLogin.module.css";

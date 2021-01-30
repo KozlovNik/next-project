@@ -1,4 +1,4 @@
-import React from "react";
+import useError from "../hooks/useError";
 import { Form, Formik } from "formik";
 import CustomField from "../components/CustomField";
 import Button from "../components/Button";
@@ -6,8 +6,10 @@ import * as Yup from "yup";
 
 import styles from "../styles/Register.module.css";
 
+const reqText = "Поле не может быть пустым";
+
 const RegisterForm = () => {
-  const reqText = "Поле не может быть пустым";
+  const [error, setError] = useError("")
   return (
     <Formik
       validationSchema={Yup.object({
@@ -33,8 +35,20 @@ const RegisterForm = () => {
         password: "",
         password2: "",
       }}
-      onSubmit={(values, { setSubmitting }) => {
+      onSubmit={async (values, { setSubmitting, resetForm }) => {
         setSubmitting(false);
+        const { password2, ...rest } = values;
+        const res = await fetch("api/register", {
+          method: "POST",
+          body: JSON.stringify(rest),
+        });
+        if (res.ok) {
+          resetForm();
+        } else if (res.status === 409) {
+          setError("Пользователь с таким email уже существует")
+        } else {
+          setError("Ошибка, попробуйте снова");
+        }
       }}
     >
       <>
@@ -44,12 +58,14 @@ const RegisterForm = () => {
           <CustomField name="lastName" label="Фамилия" />
           <CustomField name="email" label="Email" />
           <CustomField name="phone" label="Номер телефона" />
+          <CustomField name="address" label="Адрес" />
           <CustomField name="password" type="password" label="Пароль" />
           <CustomField
             name="password2"
             type="password"
             label="Повторите пароль"
           />
+          <div className={styles.error}>{error}</div>
           <Button type="submit" style={{ width: "100%" }}>
             Зарегистрироваться
           </Button>

@@ -5,7 +5,6 @@ import classNames from "classnames";
 const imgArr = [1, 2, 3];
 
 const SliderMain = () => {
-  console.log("SliderMain");
   const [counter, setCounter] = useState(0);
   const [id, setId] = useState<NodeJS.Timeout>();
 

@@ -1,4 +1,4 @@
-import { useEscapeKey } from "../hooks/custom-hooks";
+import useEscapeKey from "../hooks/useEscapeKey";
 import styles from "./PopupMenu.module.css";
 import ButtonClose from "./ButtonClose";
 import { navList } from "../constants";

@@ -3,7 +3,8 @@ import ButtonClose from "./ButtonClose";
 
 import Link from "next/link";
 import classNames from "classnames";
-import { useEscapeKey } from "../hooks/custom-hooks";
+
+import useEscapeKey from "../hooks/useEscapeKey";
 
 import styles from "./PopupAccount.module.css";
 

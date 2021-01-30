@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import styles from "./PopupSearch.module.css";
 import classNames from "classnames";
-import { useEscapeKey } from "../hooks/custom-hooks";
+import useEscapeKey from "../hooks/useEscapeKey";
 
 interface PopupSearchProps {
   handleCloseSearch: () => void;
