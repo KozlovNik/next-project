@@ -5,16 +5,15 @@ import Share from "../components/Share";
 import ProductCounter from "../components/ProductCounter";
 import Button from "../components/Button";
 import AboutProduct from "../components/AboutProduct";
+import Layout from "../components/Layout";
 
 import styles from "../styles/Product.module.css";
 
 const Product = () => {
   return (
-    <>
+    <Layout>
       <Breadcrumbs />
-      <div className="heading">
-        Кофе Caracolillo Caracolillo, 1000 гр.
-      </div>
+      <div className="heading">Кофе Caracolillo Caracolillo, 1000 гр.</div>
       <div className={styles.contentWrapper}>
         <div className={styles.imageWrapper}>
           <img className={styles.image} src="/product.jpg" alt="" />
@@ -57,7 +56,7 @@ const Product = () => {
         </div>
       </div>
       <AboutProduct />
-    </>
+    </Layout>
   );
 };
 

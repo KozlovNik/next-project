@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import styles from "./TitleBlock.module.css";
 
 interface TitleBlockProps {
-  children?: JSX.Element | JSX.Element[];
+  children?: React.ReactNode;
   title: string;
 }
 

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { navList, companyInfoList, storeList } from "../constants";
 import FooterNav from "./FooterNav";
 import Logo from "./Logo";
@@ -48,4 +49,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default memo(Footer);
