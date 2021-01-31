@@ -1,13 +1,8 @@
-import { withIronSession, Session } from "next-iron-session";
-import { NextApiResponse, NextApiRequest } from "next";
+import { withIronSession } from "next-iron-session";
 
-interface WithSessionRequest extends NextApiRequest {
-  session: Session;
-}
-
-type Handler = (req: WithSessionRequest, res: NextApiResponse) => {};
-
-export default function withSession(handler: Handler) {
+export default function withSession(
+  handler: ReturnType<typeof withIronSession>
+) {
   return withIronSession(handler, {
     password: process.env.SECRET_COOKIE_PASSWORD!,
     cookieName: "user",

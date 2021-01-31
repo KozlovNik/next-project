@@ -8,7 +8,7 @@ export default withSession(async (req, res) => {
     try {
       const user = await prisma.user.create({ data: JSON.parse(req.body) });
       const { id, email } = user;
-      req.session.set("userSession", { id, email, isLoggedId: true });
+      req.session.set("user", { id, email, isLoggedId: true });
       await req.session.save();
       res.status(201);
       res.json({ email: user.email });
@@ -21,3 +21,5 @@ export default withSession(async (req, res) => {
     res.json({ message: "only post method is allowed" });
   }
 });
+
+

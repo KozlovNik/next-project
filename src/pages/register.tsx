@@ -3,13 +3,14 @@ import { Form, Formik } from "formik";
 import CustomField from "../components/CustomField";
 import Button from "../components/Button";
 import * as Yup from "yup";
+import withSession from "../lib/session";
 
 import styles from "../styles/Register.module.css";
 
 const reqText = "Поле не может быть пустым";
 
 const RegisterForm = () => {
-  const [error, setError] = useError("")
+  const [error, setError] = useError("");
   return (
     <Formik
       validationSchema={Yup.object({
@@ -45,7 +46,7 @@ const RegisterForm = () => {
         if (res.ok) {
           resetForm();
         } else if (res.status === 409) {
-          setError("Пользователь с таким email уже существует")
+          setError("Пользователь с таким email уже существует");
         } else {
           setError("Ошибка, попробуйте снова");
         }
@@ -76,3 +77,17 @@ const RegisterForm = () => {
 };
 
 export default RegisterForm;
+
+export const getServerSideProps = withSession(async function ({ req, res }) {
+  const user = req.session.get("user");
+  if (user) {
+    res.setHeader("location", "/");
+    res.statusCode = 302;
+    res.end();
+    return { props: { user: req.session.get("user") } };
+  }
+
+  return {
+    props: {},
+  };
+});
