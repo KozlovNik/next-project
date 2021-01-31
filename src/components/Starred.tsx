@@ -1,6 +1,6 @@
 import { useState } from "react";
 import SplitPane from "./SplitPane";
-import Heart from "../components/svgs/Heart";
+import Heart from "./svgs/Heart";
 
 interface StarredProps {
   classLabelName?: string;

@@ -5,13 +5,23 @@ import Layout from "../components/Layout";
 import Button from "../components/Button";
 import * as Yup from "yup";
 import withSession from "../lib/session";
+import Error from "../components/Error";
 
 import styles from "../styles/Register.module.css";
+import Router from "next/router";
 
 const reqText = "Поле не может быть пустым";
 
-const RegisterForm = () => {
-  const [error, setError] = useError("");
+interface RegisterProps {
+  user?: {
+    id: number;
+    firstName: string;
+    isLogged: boolean;
+  };
+}
+
+const Register: React.FC<RegisterProps> = () => {
+  const [error, setError] = useError();
   return (
     <Layout>
       <Formik
@@ -40,7 +50,7 @@ const RegisterForm = () => {
           password: "",
           password2: "",
         }}
-        onSubmit={async (values, { setSubmitting, resetForm }) => {
+        onSubmit={async (values, { setSubmitting }) => {
           setSubmitting(false);
           const { password2, ...rest } = values;
           const res = await fetch("api/register", {
@@ -48,7 +58,7 @@ const RegisterForm = () => {
             body: JSON.stringify(rest),
           });
           if (res.ok) {
-            resetForm();
+            Router.push("/");
           } else if (res.status === 409) {
             setError("Пользователь с таким email уже существует");
           } else {
@@ -70,7 +80,7 @@ const RegisterForm = () => {
               type="password"
               label="Повторите пароль"
             />
-            <div className={styles.error}>{error}</div>
+            <Error>{error}</Error>
             <Button type="submit" style={{ width: "100%" }}>
               Зарегистрироваться
             </Button>
@@ -81,9 +91,9 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default Register;
 
-export const getServerSideProps = withSession(async function ({ req, res }) {
+export const getServerSideProps = withSession(async ({ req, res }) => {
   const user = req.session.get("user");
   if (user) {
     res.setHeader("location", "/");

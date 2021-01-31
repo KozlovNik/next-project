@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-export default function useError(initialState: string) {
-  const [error, setError] = useState(initialState);
+export default function useError() {
+  const [error, setError] = useState("");
 
   function setIntervalError(msg: string) {
     setError(() => msg);

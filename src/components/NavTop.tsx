@@ -1,7 +1,7 @@
 import Logo from "./Logo";
 import SearchMobile from "./svgs/Search";
-import ProfileImage from "../components/svgs/Profile";
-import CartImage from "../components/svgs/Cart";
+import ProfileImage from "./svgs/Profile";
+import CartImage from "./svgs/Cart";
 import classNames from "classnames";
 
 import styles from "./NavTop.module.css";

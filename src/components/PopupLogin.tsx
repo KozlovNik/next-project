@@ -1,13 +1,18 @@
 import ButtonClose from "../components/ButtonClose";
 import Button from "../components/Button";
 import CustomField from "../components/CustomField";
+import useSWR from "swr";
+import fetchJson from "../lib/fetchJson";
+import useError from "../hooks/useError";
 
 import { Form, Formik } from "formik";
+import Error from "../components/Error";
 import * as Yup from "yup";
 import useEscapeKey from "../hooks/useEscapeKey";
 import Link from "next/link";
 
 import styles from "./PopupLogin.module.css";
+import { useRouter } from "next/router";
 
 interface PopupLoginProps {
   close: boolean;
@@ -16,20 +21,43 @@ interface PopupLoginProps {
 
 const PopupLogin: React.FC<PopupLoginProps> = ({ close, handleClick }) => {
   useEscapeKey(handleClick);
+
+  const router = useRouter();
+
+  const { mutate: mutateUser } = useSWR("/api/user", fetchJson);
+  const [error, setError] = useError();
+
   return close ? null : (
     <>
       <div className={styles.shadow} onClick={handleClick} />
       <Formik
         validationSchema={Yup.object({
-          email: Yup.string(),
-          password: Yup.string(),
+          email: Yup.string()
+            .required("Укажите ваш email")
+            .email("Неверный формат email"),
+          password: Yup.string().required("Укажите ваш пароль"),
         })}
         initialValues={{
           email: "",
           password: "",
         }}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={async (values, { setSubmitting }) => {
           setSubmitting(false);
+
+          try {
+            await mutateUser(
+              fetchJson("/api/login", {
+                method: "post",
+                body: JSON.stringify(values),
+              })
+            );
+            if (router.pathname === '/register'){
+              router.push('/')
+            }
+            handleClick();
+          } catch (error) {
+            setError("Неверный логин или пароль");
+          }
         }}
       >
         <Form className={styles.form}>
@@ -40,8 +68,9 @@ const PopupLogin: React.FC<PopupLoginProps> = ({ close, handleClick }) => {
           />
           <div className={styles.heading}>АВТОРИЗАЦИЯ</div>
           <CustomField name="email" placeholder="Email" />
-          <CustomField name="password" placeholder="Пароль" />
-          <Button type="submit" style={{ width: "100%" }} onClick={handleClick}>
+          <CustomField name="password" type="password" placeholder="Пароль" />
+          <Error>{error}</Error>
+          <Button type="submit" style={{ width: "100%" }}>
             Войти
           </Button>
           <div className={styles.links}>

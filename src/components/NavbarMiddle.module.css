@@ -51,8 +51,36 @@
   background-color: #af4343;
 }
 
+.logoWrapper {
+  margin-left: 100px;
+}
+
+.logoWrapper svg {
+  display: block;
+}
+
+.userLogout {
+  line-height: 100%;
+  height: 100%;
+  display: inline-block;
+}
+
+.username,
+.empty {
+  display: inline-block;
+  font-weight: 400;
+  width: 100px;
+  text-align: right;
+  font-size: 16px;
+  margin-right: 5px;
+  height: 20px;
+}
+
 .link {
   margin-right: 40px;
+  height: 100%;
+  display: inline-block;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1200px) {
