@@ -1,7 +1,4 @@
-import { memo, useContext } from "react";
-import { UserContext } from "./Layout";
-import fetchJson from "../lib/fetchJson";
-import useSWR from "swr";
+import { memo } from "react";
 
 import Logo from "./Logo";
 import ProfileImage from "./svgs/Profile";
@@ -10,6 +7,8 @@ import CartImage from "./svgs/Cart";
 import Search from "./svgs/Search";
 import BlackHeart from "./svgs/BlackHeart";
 
+import useUser from "../hooks/useUser";
+
 import styles from "./NavbarMiddle.module.css";
 
 interface NavbarMiddleProps {
@@ -17,11 +16,7 @@ interface NavbarMiddleProps {
 }
 
 const NavbarMiddle: React.FC<NavbarMiddleProps> = ({ setCloseLogin }) => {
-  const contextUser = useContext(UserContext);
-  const { data: user, mutate: mutateUser } = useSWR("/api/user", fetchJson, {
-    initialData: contextUser,
-  });
-
+  const { logout, user } = useUser();
   return (
     <nav className={styles.navMiddle}>
       <div className={styles.wrapper}>
@@ -38,12 +33,7 @@ const NavbarMiddle: React.FC<NavbarMiddleProps> = ({ setCloseLogin }) => {
           {user && user.isLogged && (
             <>
               <span className={styles.username}>{user.firstName}</span>
-              <a
-                onClick={() => {
-                  mutateUser(fetchJson("/api/logout", { method: "post" }));
-                }}
-                className={styles.link}
-              >
+              <a onClick={async () => await logout()} className={styles.link}>
                 <LogoutImage />
               </a>
             </>

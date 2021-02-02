@@ -46,11 +46,6 @@ a {
   padding: 0;
 }
 
-.main-wrapper {
-  width: 1200px;
-  margin: 20px auto;
-}
-
 .heading {
   font-size: 30px;
   color: #4f4e4e;
@@ -62,9 +57,5 @@ a {
   body {
     margin-right: 0;
     overflow-x: visible;
-  }
-  .main-wrapper {
-    width: calc(100% - 40px);
-    margin: 20px;
   }
 }
