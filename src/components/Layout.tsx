@@ -9,7 +9,7 @@ import styles from "./Layout.module.css";
 
 interface LayoutProps {
   children: React.ReactNode;
-  value: UserContextTypes;
+  value?: UserContextTypes;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children, value = {} }) => {

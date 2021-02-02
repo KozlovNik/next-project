@@ -1,7 +1,5 @@
 import withSession from "../../lib/session";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "../../lib/prismaClient";
 
 export default withSession(async (req, res) => {
   const { email, password } = JSON.parse(req.body);

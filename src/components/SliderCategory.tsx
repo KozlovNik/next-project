@@ -1,28 +1,30 @@
-import { useState, memo } from "react";
-import styles from "./SliderCategory.module.css";
+import { useState, memo, useContext } from "react";
+
+import classNames from "classnames";
+
 import ForwardArrow from "./svgs/ForwardArrow";
 import BackwardArrow from "./svgs/BackwardArrow";
-import classNames from "classnames";
 import WithSliderHandlers, { SliderProps } from "./hocs/WithSliderHandlers";
 import TitleBlock from "./TitleBlock";
 
-const imgArr = [1, 2, 3, 4, 5, 6, 7];
+import styles from "./SliderCategory.module.css";
 
-import React from "react";
+import { CategoriesContext } from "../lib/categoryContext";
 
 interface ImageSlideProps {
-  i: number;
+  slug: string;
+  name: string;
 }
 
-const ImageSlide: React.FC<ImageSlideProps> = memo(({ i }) => {
+const ImageSlide: React.FC<ImageSlideProps> = memo(({ name, slug }) => {
   const [showShadow, setShowShadow] = useState(false);
   return (
-    <a key={i} className={styles.imageWrapper}>
+    <a className={styles.imageWrapper}>
       <img
         onMouseEnter={() => setShowShadow(true)}
         onMouseLeave={() => setShowShadow(false)}
         className={classNames(styles.image, { [styles.shadow]: showShadow })}
-        src={`/category-slider/${i}.jpg`}
+        src={`/category-slider/${slug}.jpg`}
       />
       <div
         className={styles.hl}
@@ -34,7 +36,7 @@ const ImageSlide: React.FC<ImageSlideProps> = memo(({ i }) => {
         onMouseEnter={() => setShowShadow(true)}
         onMouseLeave={() => setShowShadow(false)}
       />
-      <div className={styles.imageTitle}>{i}</div>
+      <div className={styles.imageTitle}>{name}</div>
     </a>
   );
 });
@@ -45,6 +47,8 @@ const SliderCategory: React.FC<SliderProps> = ({
   goBackward,
   goForward,
 }) => {
+  const categories = useContext(CategoriesContext);
+  
   return (
     <div className={styles.wrapper}>
       <TitleBlock title="КАТЕГОРИИ" />
@@ -69,9 +73,10 @@ const SliderCategory: React.FC<SliderProps> = ({
         />
 
         <div className={styles.WithSliderHandlers} style={style}>
-          {imgArr.map((i) => (
-            <ImageSlide key={i} i={i} />
-          ))}
+          {categories &&
+            categories.map(({ name, slug }) => (
+              <ImageSlide key={slug} name={name} slug={slug} />
+            ))}
         </div>
       </div>
     </div>
