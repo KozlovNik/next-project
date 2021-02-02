@@ -4,13 +4,10 @@ import SliderMain from "../components/SliderMain";
 import SliderCategory from "../components/SliderCategory";
 import SliderSuggestion from "../components/SliderSuggestion";
 import withSession from "../lib/session";
+import { UserContextTypes } from "../lib/userContext";
 
 interface HomeProps {
-  user?: {
-    id: number;
-    firstName: string;
-    isLogged: boolean;
-  };
+  user: UserContextTypes;
 }
 
 const Home: React.FC<HomeProps> = ({ user }) => {
@@ -25,7 +22,7 @@ const Home: React.FC<HomeProps> = ({ user }) => {
 
 export default memo(Home);
 
-export const getServerSideProps = withSession(async ({ req, res }) => {
+export const getServerSideProps = withSession(async ({ req }) => {
   const user = req.session.get("user");
   if (user) {
     return { props: { user: req.session.get("user") } };

@@ -1,18 +1,17 @@
 import ButtonClose from "../components/ButtonClose";
 import Button from "../components/Button";
 import CustomField from "../components/CustomField";
-import useSWR from "swr";
-import fetchJson from "../lib/fetchJson";
 import useError from "../hooks/useError";
+import useUser from "../hooks/useUser";
 
 import { Form, Formik } from "formik";
+import { useRouter } from "next/router";
 import Error from "../components/Error";
 import * as Yup from "yup";
 import useEscapeKey from "../hooks/useEscapeKey";
 import Link from "next/link";
 
 import styles from "./PopupLogin.module.css";
-import { useRouter } from "next/router";
 
 interface PopupLoginProps {
   close: boolean;
@@ -24,7 +23,7 @@ const PopupLogin: React.FC<PopupLoginProps> = ({ close, handleClick }) => {
 
   const router = useRouter();
 
-  const { mutate: mutateUser } = useSWR("/api/user", fetchJson);
+  const { login } = useUser();
   const [error, setError] = useError();
 
   return close ? null : (
@@ -45,14 +44,9 @@ const PopupLogin: React.FC<PopupLoginProps> = ({ close, handleClick }) => {
           setSubmitting(false);
 
           try {
-            await mutateUser(
-              fetchJson("/api/login", {
-                method: "post",
-                body: JSON.stringify(values),
-              })
-            );
-            if (router.pathname === '/register'){
-              router.push('/')
+            await login(values);
+            if (router.pathname === "/register") {
+              router.push("/");
             }
             handleClick();
           } catch (error) {

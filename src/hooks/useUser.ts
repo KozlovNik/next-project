@@ -1,27 +1,28 @@
-import { useEffect } from "react";
-import Router from "next/router";
+import { useContext } from "react";
 import useSWR from "swr";
+import fetchJson from "../lib/fetchJson";
+import { UserContext } from "../lib/userContext";
 
-export default function useUser({
-  redirectTo = false,
-  redirectIfFound = false,
-} = {}) {
-  const { data: user, mutate: mutateUser } = useSWR("/api/user");
+interface UserTypes {
+  email: string;
+  password: string;
+}
 
-  // useEffect(() => {
-  //   // // if no redirect needed, just return (example: already on /dashboard)
-  //   // // if user data not yet there (fetch in progress, logged in or not) then don't do anything yet
-  //   // if (!redirectTo || !user) return;
+export default function useUser() {
+  const contextUser = useContext(UserContext);
+  const { data: user, mutate, error } = useSWR("/api/user", {
+    initialData: contextUser,
+  });
 
-  //   // if (
-  //   //   // If redirectTo is set, redirect if the user was not found.
-  //   //   (redirectTo && !redirectIfFound && !user?.isLoggedIn) ||
-  //   //   // If redirectIfFound is also set, redirect if the user was found
-  //   //   (redirectIfFound && user?.isLoggedIn)
-  //   // ) {
-  //   //   Router.push(redirectTo.toString());
-  //   // }
-  // }, [user, redirectIfFound, redirectTo]);
+  const logout = () => mutate(fetchJson("/api/logout", { method: "post" }));
 
-  return { user, mutateUser };
+  const login = (data: UserTypes) =>
+    mutate(
+      fetchJson("/api/login", {
+        method: "post",
+        body: JSON.stringify(data),
+      })
+    );
+
+  return { user, logout, login, error };
 }

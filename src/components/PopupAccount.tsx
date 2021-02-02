@@ -1,5 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useContext } from "react";
 import ButtonClose from "./ButtonClose";
+import useUser from "../hooks/useUser";
+import useSWR from "swr";
 
 import Link from "next/link";
 import classNames from "classnames";
@@ -22,6 +24,8 @@ const PopupAccount = ({
   const linkRef1 = useRef(null);
   const linkRef2 = useRef(null);
   const linkRef3 = useRef(null);
+
+  const { logout, user } = useUser();
 
   useEscapeKey(handleClick);
 
@@ -50,14 +54,27 @@ const PopupAccount = ({
         <ButtonClose onClick={handleClick} />
       </div>
       <div className={styles.menuContent} ref={linkRef2}>
-        <a className={styles.authLink} onClick={setCloseLogin}>
-          Вход
-        </a>
-        <Link href="/register">
-          <a className={styles.authLink} ref={linkRef2} onClick={handleClick}>
-            Регистрация
+        {user && user.isLogged && (
+          <a className={styles.authLink} onClick={async () => await logout()}>
+            Выйти из аккаунта
           </a>
-        </Link>
+        )}
+        {(!user || !user.isLogged) && (
+          <>
+            <a className={styles.authLink} onClick={setCloseLogin}>
+              Вход
+            </a>
+            <Link href="/register">
+              <a
+                className={styles.authLink}
+                ref={linkRef2}
+                onClick={handleClick}
+              >
+                Регистрация
+              </a>
+            </Link>
+          </>
+        )}
 
         <a className={styles.starred}>Закладки</a>
       </div>

@@ -1,0 +1,11 @@
+.mainWrapper {
+  width: 1200px;
+  margin: 20px auto;
+}
+
+@media screen and (max-width: 1200px) {
+  .mainWrapper {
+    width: calc(100% - 40px);
+    margin: 20px;
+  }
+}
