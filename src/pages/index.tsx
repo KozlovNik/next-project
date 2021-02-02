@@ -37,8 +37,9 @@ export default memo(Index);
 export const getServerSideProps = withSession(async ({ req }) => {
   const user = req.session.get("user");
   const categories = await prisma.category.findMany();
-  let data: IndexProps;
-  data = { categories };
+  let data: IndexProps = {
+    categories: categories.map(({ id, ...rest }) => rest),
+  };
 
   if (user) {
     data = { ...data, user };
