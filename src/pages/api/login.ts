@@ -1,21 +1,26 @@
 import withSession from "../../lib/session";
 import { prisma } from "../../lib/prismaClient";
+import bcrypt from "bcrypt";
 
 export default withSession(async (req, res) => {
   const { email, password } = JSON.parse(req.body);
 
-  const user = await prisma.user.findFirst({
+  const user = await prisma.user.findUnique({
     where: {
       email,
-      password,
     },
   });
-  if (user && user.password === password) {
-    const { id, firstName } = user;
-    req.session.set("user", { isLogged: true, id, firstName });
-    await req.session.save();
-    res.json(user);
-  } else {
-    res.status(404).json({ message: "User not found" });
+
+  if (user) {
+    const match = await bcrypt.compare(password, user.password);
+
+    if (match) {
+      const { id, firstName, password, ...rest } = user;
+      req.session.set("user", { isLogged: true, id, firstName });
+      await req.session.save();
+      return res.json({ id, firstName, ...rest });
+    }
   }
+
+  res.status(404).json({ message: "User not found" });
 });
