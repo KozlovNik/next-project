@@ -1,7 +1,6 @@
 export default async function fetcher(...args: [RequestInfo, RequestInit]) {
   try {
     const res = await fetch(...args);
-
     const data = await res.json();
 
     if (res.ok) {
