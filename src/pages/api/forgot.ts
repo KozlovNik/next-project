@@ -1,10 +1,10 @@
 import { prisma } from "../../lib/prismaClient";
-import { NextApiResponse, NextApiRequest } from "next";
 import { setCookie } from "../../lib/cookies";
 import jwt from "jsonwebtoken";
 import { transporter } from "../../lib/mailConfig";
+import withSession from "../../lib/session";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default withSession(async (req, res) => {
   const { email } = JSON.parse(req.body);
 
   if (!email) {
@@ -22,6 +22,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     expiresIn: "1h",
   });
 
+  console.log(token)
+
   await transporter.sendMail({
     from: '"Николай Козлов" <zccczzccz@yandex.ru>',
     to: email,
@@ -30,11 +32,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     html: `<b>${process.env.URL}/reset/${token}</b>`,
   });
 
-  setCookie(res, "cp", "false", {
+  setCookie(res, "cp", "true", {
     maxAge: 60 * 60 * 1000,
     httpOnly: true,
     sameSite: true,
+    path: '/'
   });
 
-  return res.end();
-};
+  return res.json({ message: "success" });
+});

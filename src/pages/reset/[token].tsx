@@ -6,10 +6,14 @@ import Button from "../../components/Button";
 import * as Yup from "yup";
 import withSession from "../../lib/session";
 import Error from "../../components/Error";
+import { setCookie } from "../../lib/cookies";
 
 import { useRouter } from "next/router";
+import jwt from "jsonwebtoken";
 
 import styles from "../../styles/Reset.module.css";
+import fetchJson from "../../lib/fetchJson";
+import { useState } from "react";
 
 const reqText = "Поле не может быть пустым";
 
@@ -21,37 +25,42 @@ interface ResetProps {
   };
 }
 
-const Reset: React.FC<ResetProps> = () => {
+const Reset: React.FC<ResetProps> = ({ user }) => {
   const [error, setError] = useError();
+  const [showForm, setShowForm] = useState(true);
   const router = useRouter();
-  console.log(router.query.token);
   return (
-    <Layout>
-      <Formik
-        validationSchema={Yup.object({
-          password: Yup.string()
-            .required(reqText)
-            .min(6, "Пароль должен быть не менее 6 символов"),
-          password2: Yup.string()
-            .required(reqText)
-            .min(6, "Пароль должен быть не менее 6 символов")
-            .oneOf([Yup.ref("password"), null], "Пароли не совпадают"),
-        })}
-        initialValues={{
-          password: "",
-          password2: "",
-        }}
-        onSubmit={async (values, { setSubmitting }) => {
-          setSubmitting(false);
-          const { password2, ...rest } = values;
-          const res = await fetch("api/reset", {
-            method: "POST",
-            body: JSON.stringify(rest),
-          });
-        }}
-      >
-        <>
-          <h1 className="heading">СМЕНА ПАРОЛЯ</h1>
+    <Layout value={user}>
+      <h1 className="heading">СМЕНА ПАРОЛЯ</h1>
+      {showForm ? (
+        <Formik
+          validationSchema={Yup.object({
+            password: Yup.string()
+              .required(reqText)
+              .min(6, "Пароль должен быть не менее 6 символов"),
+            password2: Yup.string()
+              .required(reqText)
+              .min(6, "Пароль должен быть не менее 6 символов")
+              .oneOf([Yup.ref("password"), null], "Пароли не совпадают"),
+          })}
+          initialValues={{
+            password: "",
+            password2: "",
+          }}
+          onSubmit={async ({ password }, { setSubmitting }) => {
+            console.log("wrf");
+            setSubmitting(false);
+            try {
+              await fetchJson("/api/reset", {
+                method: "POST",
+                body: JSON.stringify({ password, token: router.query.token }),
+              });
+              setShowForm(false)
+            } catch (err) {
+              console.log(err);
+            }
+          }}
+        >
           <Form className={styles.form}>
             <CustomField name="password" type="password" label="Пароль" />
             <CustomField
@@ -64,18 +73,32 @@ const Reset: React.FC<ResetProps> = () => {
               Сменить пароль
             </Button>
           </Form>
-        </>
-      </Formik>
+        </Formik>
+      ) : (
+        <div>Пароль успешно изменен!</div>
+      )}
     </Layout>
   );
 };
 
 export default Reset;
 
-export const getServerSideProps = withSession(async ({ req, res }) => {
-  const user = req.session.get("user");
-  if (user) {
-    return { props: { user: req.session.get("user") } };
+export const getServerSideProps = withSession(async ({ req, query, res }) => {
+  let redirect = {
+    redirect: {
+      destination: "/",
+      permanent: false,
+    },
+  };
+
+  try {
+    jwt.verify(query.token, process.env.JWT_SECRET!);
+  } catch (err) {
+    return redirect;
+  }
+
+  if (req.session.get("user") || !req.cookies["cp"]) {
+    return redirect;
   }
 
   return {

@@ -45,7 +45,11 @@ const PopupLogin: React.FC<PopupLoginProps> = ({ close, handleClick }) => {
 
           try {
             await login(values);
-            if (router.pathname === "/register") {
+            if (
+              router.pathname === "/register" ||
+              router.pathname === "/forgot" ||
+              router.pathname.includes("/reset/")
+            ) {
               router.push("/");
             }
             handleClick();
@@ -73,7 +77,9 @@ const PopupLogin: React.FC<PopupLoginProps> = ({ close, handleClick }) => {
                 Регистрация
               </a>
             </Link>
-            <a className={styles.link}>Восстановить пароль</a>
+            <Link href="/forgot">
+              <a className={styles.link}>Восстановить пароль</a>
+            </Link>
           </div>
         </Form>
       </Formik>

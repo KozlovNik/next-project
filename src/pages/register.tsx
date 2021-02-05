@@ -93,13 +93,15 @@ const Register: React.FC<RegisterProps> = () => {
 
 export default Register;
 
-export const getServerSideProps = withSession(async ({ req, res }) => {
+export const getServerSideProps = withSession(async ({ req }) => {
   const user = req.session.get("user");
   if (user) {
-    res.setHeader("location", "/");
-    res.statusCode = 302;
-    res.end();
-    return { props: { user: req.session.get("user") } };
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
   }
 
   return {
