@@ -7,6 +7,7 @@
 
 .link {
   border-bottom: 1px dotted #b6b6b6;
+  cursor: pointer;
 }
 
 .link:hover {

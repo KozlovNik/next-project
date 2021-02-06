@@ -48,17 +48,12 @@ const Reset: React.FC<ResetProps> = ({ user }) => {
             password2: "",
           }}
           onSubmit={async ({ password }, { setSubmitting }) => {
-            console.log("wrf");
             setSubmitting(false);
-            try {
-              await fetchJson("/api/reset", {
-                method: "POST",
-                body: JSON.stringify({ password, token: router.query.token }),
-              });
-              setShowForm(false)
-            } catch (err) {
-              console.log(err);
-            }
+            await fetchJson("/api/reset", {
+              method: "POST",
+              body: JSON.stringify({ password, token: router.query.token }),
+            });
+            setShowForm(false);
           }}
         >
           <Form className={styles.form}>

@@ -22,8 +22,6 @@ export default withSession(async (req, res) => {
     expiresIn: "1h",
   });
 
-  console.log(token)
-
   await transporter.sendMail({
     from: '"Николай Козлов" <zccczzccz@yandex.ru>',
     to: email,

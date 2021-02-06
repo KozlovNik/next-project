@@ -4,7 +4,11 @@ import styles from "./AboutProduct.module.css";
 import Button from "./Button";
 import Stars from "./Stars";
 
-const AboutProduct = () => {
+interface AboutProduct {
+  info: string;
+}
+
+const AboutProduct: React.FC<AboutProduct> = ({ info }) => {
   const [tab, setTab] = useState<"about" | "feedback">("about");
   return (
     <div className={styles.wrapper}>
@@ -27,17 +31,7 @@ const AboutProduct = () => {
       <div className={styles.tab}>
         <div className={styles.tabWrapper}>
           {tab === "about" ? (
-            <div className={styles.aboutTab}>
-              Saquella Bar Italia 100% Arabica исключительная смесь из лучших
-              сортов кофе Арабика из Центральной Америки (Гватемала как основа,
-              а также Колумбия, Бразилия и Гондурас). Эти виды кофе выращиваются
-              на высокогорных плантациях с их богатой, насыщенной вулканическим
-              пеплом, почвой. В Гватемале до сих пор выращивается старая
-              арабика, которая отличается от современных сортов глубиной и
-              насыщенностью вкуса. Собирается вручную. Уникальные глубокие,
-              многогранные вкусовые и ароматические характеристики. Желтая
-              упаковка - новый дизайн 2019 года.
-            </div>
+            <div className={styles.aboutTab}>{info}</div>
           ) : (
             <div className={styles.feedback}>
               <span className={styles.title}>Отзывы</span>

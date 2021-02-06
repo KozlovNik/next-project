@@ -25,7 +25,10 @@ interface ProductProps {
     country: string;
     about: string;
     weight: string;
-    category: string;
+    category: {
+      name: string;
+      slug: string;
+    };
   };
 }
 
@@ -48,7 +51,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
   } = product;
   return (
     <Layout>
-      <Breadcrumbs />
+      <Breadcrumbs category={category} product={{ name, slug }} />
       <div className="heading">{name}</div>
       <div className={styles.contentWrapper}>
         <div className={styles.imageWrapper}>
@@ -75,9 +78,6 @@ const Product: React.FC<ProductProps> = ({ product }) => {
             <div className={styles.charWrapper}>
               Обжарка: <span className={styles.char}>{roasting}</span>
             </div>
-            {/* <div className={styles.charWrapper}>
-              Особенности вкуса: <span className={styles.char}>Кислинка</span>
-            </div> */}
             <div className={styles.charWrapper}>
               Состав: <span className={styles.char}>{ingredients}</span>
             </div>
@@ -90,7 +90,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
           </div>
         </div>
       </div>
-      <AboutProduct />
+      <AboutProduct info={about} />
     </Layout>
   );
 };
@@ -100,6 +100,9 @@ export const getServerSideProps = withSession(async ({ req, query }) => {
     where: {
       slug: query.slug,
     },
+    include: {
+      category: true,
+    },
   });
 
   if (!product) {
@@ -107,25 +110,10 @@ export const getServerSideProps = withSession(async ({ req, query }) => {
   }
 
   const user = req.session.get("user");
-  console.log(product);
 
   return {
     props: { user: user ? user : null, product },
   };
 });
-
-//   //   const product = await prisma.product.findUnique({
-//   //     where: {
-//   //       slug,
-//   //     },
-//   //   });
-
-//   if (user) {
-//   }
-
-//   return {
-//     props: {},
-//   };
-// });
 
 export default Product;
