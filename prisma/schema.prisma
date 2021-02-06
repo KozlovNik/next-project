@@ -10,7 +10,7 @@ datasource db {
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
-  firstName String  
+  firstName String
   lastName  String
   password  String
   phone     String
@@ -20,7 +20,24 @@ model User {
 }
 
 model Category {
-  id   Int    @id @default(autoincrement())
-  name String
-  slug String
+  id       Int       @id @default(autoincrement())
+  name     String
+  slug     String
+  products Product[]
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  slug        String   @unique
+  brand       String
+  price       Float
+  material    String
+  roasting    String
+  ingredients String
+  country     String
+  about       String
+  weight      String   @default("1000")
+  category    Category @relation(fields: [categoryId], references: [id])
+  categoryId  Int
 }
