@@ -33,7 +33,7 @@ model Product {
   brand       String
   price       Float
   material    String
-  roasting    String
+  roasting    String?
   ingredients String
   country     String
   about       String

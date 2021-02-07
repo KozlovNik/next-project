@@ -10,29 +10,24 @@ import Layout from "../../components/Layout";
 import Error from "next/error";
 import withSession from "../../lib/session";
 import { prisma } from "../../lib/prismaClient";
+import { Prisma } from "@prisma/client";
 
 import styles from "../../styles/Product.module.css";
 
+type ProductWithCategory = Prisma.ProductGetPayload<{
+  include: { category: true };
+}>;
+
 interface ProductProps {
-  product?: {
-    name: string;
-    slug: string;
-    brand: string;
-    price: number;
-    material: string;
-    roasting: string;
-    ingredients: string;
-    country: string;
-    about: string;
-    weight: string;
-    category: {
-      name: string;
-      slug: string;
-    };
+  product: ProductWithCategory;
+  user?: {
+    id: number;
+    firstName: string;
+    isLogged: boolean;
   };
 }
 
-const Product: React.FC<ProductProps> = ({ product }) => {
+const Product: React.FC<ProductProps> = ({ product, user }) => {
   if (!product) {
     return <Error statusCode={404} />;
   }
@@ -50,7 +45,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
     category,
   } = product;
   return (
-    <Layout>
+    <Layout value={user}>
       <Breadcrumbs category={category} product={{ name, slug }} />
       <div className="heading">{name}</div>
       <div className={styles.contentWrapper}>
@@ -75,9 +70,11 @@ const Product: React.FC<ProductProps> = ({ product }) => {
             <div className={styles.charWrapper}>
               Материал упаковки: <span className={styles.char}>{material}</span>
             </div>
-            <div className={styles.charWrapper}>
-              Обжарка: <span className={styles.char}>{roasting}</span>
-            </div>
+            {roasting && (
+              <div className={styles.charWrapper}>
+                Обжарка: <span className={styles.char}>{roasting}</span>
+              </div>
+            )}
             <div className={styles.charWrapper}>
               Состав: <span className={styles.char}>{ingredients}</span>
             </div>
