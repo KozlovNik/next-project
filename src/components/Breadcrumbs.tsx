@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+
 import styles from "./Breadcrumbs.module.css";
 
 interface BreadcrumbsProps {
@@ -9,6 +10,22 @@ interface BreadcrumbsProps {
 
 const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ category, product }) => {
   const router = useRouter();
+
+  let categories;
+  if (category && router.pathname === "/catalog/[categorySlug]") {
+    categories = <span className={styles.active}> • {category.name} </span>;
+  } else if (category) {
+    categories = (
+      <>
+        <span> • </span>
+        <Link href={`/catalog/${category.slug}`}>
+          <a className={styles.link}>{category.name}</a>
+        </Link>
+      </>
+    );
+  } else {
+    categories = null;
+  }
 
   return (
     <div className={styles.breadcrumbs}>
@@ -26,17 +43,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ category, product }) => {
         </>
       )}
 
-      {category && router.pathname === "/catalog/[slug]" && (
-        <span className={styles.active}> • {category.name} </span>
-      )}
-      {category && router.pathname !== "/catalog/[slug]" && (
-        <>
-          <span> • </span>
-          <Link href={`/category/${category.slug}`}>
-            <a className={styles.link}>{category.name}</a>
-          </Link>
-        </>
-      )}
+      {categories}
 
       {product && <span className={styles.active}> • {product.name}</span>}
     </div>

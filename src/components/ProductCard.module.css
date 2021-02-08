@@ -30,6 +30,10 @@
   margin-bottom: 10px;
 }
 
+.title:hover {
+  color: #d66565;
+}
+
 .price {
   color: #787878;
   font-size: 20px;

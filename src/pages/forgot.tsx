@@ -5,19 +5,16 @@ import Layout from "../components/Layout";
 import Button from "../components/Button";
 import withSession from "../lib/session";
 import Error from "../components/Error";
+import { UserContextTypes } from "../lib/userContext";
+import { getUser } from "../lib/dataFunctions";
 import * as Yup from "yup";
-
 import fetchJson from "../lib/fetchJson";
-
-import styles from "../styles/Forgot.module.css";
 import { useState } from "react";
 
+import styles from "../styles/Forgot.module.css";
+
 interface ForgotProps {
-  user?: {
-    id: number;
-    firstName: string;
-    isLogged: boolean;
-  };
+  user?: UserContextTypes;
 }
 
 const Forgot: React.FC<ForgotProps> = ({ user }) => {
@@ -62,9 +59,7 @@ const Forgot: React.FC<ForgotProps> = ({ user }) => {
           </Form>
         </Formik>
       ) : (
-        <p>
-          Мы выслали письмо на указанную вами почту
-        </p>
+        <p>Мы выслали письмо на указанную вами почту</p>
       )}
     </Layout>
   );
@@ -73,7 +68,7 @@ const Forgot: React.FC<ForgotProps> = ({ user }) => {
 export default Forgot;
 
 export const getServerSideProps = withSession(async ({ req }) => {
-  if (req.session.get("user")) {
+  if (getUser(req)) {
     return {
       redirect: {
         destination: "/",

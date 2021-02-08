@@ -1,6 +1,6 @@
 import { useState, memo, useContext } from "react";
-
 import classNames from "classnames";
+import { CategoriesContext } from "../lib/categoryContext";
 
 import ForwardArrow from "./svgs/ForwardArrow";
 import BackwardArrow from "./svgs/BackwardArrow";
@@ -8,8 +8,6 @@ import WithSliderHandlers, { SliderProps } from "./hocs/WithSliderHandlers";
 import TitleBlock from "./TitleBlock";
 
 import styles from "./SliderCategory.module.css";
-
-import { CategoriesContext } from "../lib/categoryContext";
 
 interface ImageSlideProps {
   slug: string;
@@ -48,7 +46,7 @@ const SliderCategory: React.FC<SliderProps> = ({
   goForward,
 }) => {
   const categories = useContext(CategoriesContext);
-  
+
   return (
     <div className={styles.wrapper}>
       <TitleBlock title="КАТЕГОРИИ" />

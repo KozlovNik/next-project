@@ -17,6 +17,7 @@ interface NavbarMiddleProps {
 
 const NavbarMiddle: React.FC<NavbarMiddleProps> = ({ setCloseLogin }) => {
   const { logout, user } = useUser();
+
   return (
     <nav className={styles.navMiddle}>
       <div className={styles.wrapper}>

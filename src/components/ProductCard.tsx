@@ -5,6 +5,8 @@ import classNames from "classnames";
 import Feedback from "../components/Feedback";
 import Button from "../components/Button";
 
+import Link from "next/link";
+
 import styles from "./ProductCard.module.css";
 
 interface ProductCardProps {
@@ -21,15 +23,20 @@ const ProductCard: React.FC<ProductCardProps> = ({
   name,
   price,
 }) => {
+  const link = `/products/${slug}`;
   return (
     <div className={classNames([styles.productCard], className)}>
       <Starred className={styles.heart} classLabelName={styles.label} />
-      <div>
-        <img className={styles.image} src={`/products/${slug}.jpg`} alt="" />
-      </div>
+      <Link href={link}>
+        <a>
+          <img className={styles.image} src={`/products/${slug}.jpg`} alt="" />
+        </a>
+      </Link>
       <Feedback />
 
-      <div className={styles.title}>{name}</div>
+      <Link href={link}>
+        <a className={styles.title}>{name}</a>
+      </Link>
       <div className={styles.price}>{price} руб.</div>
       <Button>Добавить</Button>
     </div>

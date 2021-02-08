@@ -27,6 +27,7 @@
   font-weight: 300;
 }
 
+.linkActive,
 .link:hover {
   color: #d66565;
 }

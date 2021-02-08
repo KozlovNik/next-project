@@ -6,13 +6,9 @@ import SliderCategory from "../components/SliderCategory";
 import SliderSuggestion from "../components/SliderSuggestion";
 
 import withSession from "../lib/session";
+import { getCategories, getUser } from "../lib/dataFunctions";
 import { UserContextTypes } from "../lib/userContext";
-import {
-  CategoriesContextType,
-  CategoriesContext,
-} from "../lib/categoryContext";
-
-import { prisma } from "../lib/prismaClient";
+import { CategoriesContextType } from "../lib/categoryContext";
 
 interface IndexProps {
   user?: UserContextTypes;
@@ -21,12 +17,9 @@ interface IndexProps {
 
 const Index: React.FC<IndexProps> = ({ user, categories }) => {
   return (
-    <Layout value={user}>
+    <Layout categories={categories} user={user}>
       <SliderMain />
-      <CategoriesContext.Provider value={categories}>
-        <SliderCategory totalImageNumber={7} numberToShow={3} />
-      </CategoriesContext.Provider>
-
+      <SliderCategory totalImageNumber={7} numberToShow={3} />
       <SliderSuggestion />
     </Layout>
   );
@@ -35,17 +28,9 @@ const Index: React.FC<IndexProps> = ({ user, categories }) => {
 export default memo(Index);
 
 export const getServerSideProps = withSession(async ({ req }) => {
-  const user = req.session.get("user");
-  const categories = await prisma.category.findMany();
-  let data: IndexProps = {
-    categories: categories.map(({ id, ...rest }) => rest),
-  };
-
-  if (user) {
-    data = { ...data, user };
-  }
+  const categories = await getCategories();
 
   return {
-    props: data,
+    props: { categories, user: getUser(req) },
   };
 });

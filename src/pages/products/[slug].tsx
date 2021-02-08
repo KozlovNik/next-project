@@ -1,3 +1,10 @@
+import Error from "next/error";
+import withSession from "../../lib/session";
+import { prisma } from "../../lib/prismaClient";
+import { Prisma } from "@prisma/client";
+import { UserContextTypes } from "../../lib/userContext";
+import { CategoriesContextType } from "../../lib/categoryContext";
+
 import Breadcrumbs from "../../components/Breadcrumbs";
 import Feedback from "../../components/Feedback";
 import Starred from "../../components/Starred";
@@ -6,11 +13,7 @@ import ProductCounter from "../../components/ProductCounter";
 import Button from "../../components/Button";
 import AboutProduct from "../../components/AboutProduct";
 import Layout from "../../components/Layout";
-
-import Error from "next/error";
-import withSession from "../../lib/session";
-import { prisma } from "../../lib/prismaClient";
-import { Prisma } from "@prisma/client";
+import { getCategories, getProduct, getUser } from "../../lib/dataFunctions";
 
 import styles from "../../styles/Product.module.css";
 
@@ -19,15 +22,12 @@ type ProductWithCategory = Prisma.ProductGetPayload<{
 }>;
 
 interface ProductProps {
-  product: ProductWithCategory;
-  user?: {
-    id: number;
-    firstName: string;
-    isLogged: boolean;
-  };
+  product?: ProductWithCategory;
+  user?: UserContextTypes;
+  categories: CategoriesContextType;
 }
 
-const Product: React.FC<ProductProps> = ({ product, user }) => {
+const Product: React.FC<ProductProps> = ({ product, user, categories }) => {
   if (!product) {
     return <Error statusCode={404} />;
   }
@@ -45,7 +45,7 @@ const Product: React.FC<ProductProps> = ({ product, user }) => {
     category,
   } = product;
   return (
-    <Layout value={user}>
+    <Layout categories={categories} user={user}>
       <Breadcrumbs category={category} product={{ name, slug }} />
       <div className="heading">{name}</div>
       <div className={styles.contentWrapper}>
@@ -93,23 +93,12 @@ const Product: React.FC<ProductProps> = ({ product, user }) => {
 };
 
 export const getServerSideProps = withSession(async ({ req, query }) => {
-  const product = await prisma.product.findUnique({
-    where: {
-      slug: query.slug,
-    },
-    include: {
-      category: true,
-    },
-  });
-
-  if (!product) {
-    return { props: {} };
-  }
-
-  const user = req.session.get("user");
+  const slug = query.slug;
+  const product = await getProduct(slug);
+  const categories = await getCategories();
 
   return {
-    props: { user: user ? user : null, product },
+    props: { categories, product, user: getUser(req) },
   };
 });
 

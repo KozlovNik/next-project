@@ -5,6 +5,6 @@ interface CategoryType {
   name: string;
 }
 
-export type CategoriesContextType = CategoryType[] | null;
+export type CategoriesContextType = CategoryType[];
 
 export const CategoriesContext = createContext<CategoriesContextType>([]);
