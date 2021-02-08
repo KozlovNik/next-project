@@ -1,23 +1,24 @@
 import { Prisma } from "@prisma/client";
 import { prisma } from "./prismaClient";
 
-export const getProductData = async (page: any = 1) => {
-  let queries = {};
+interface getProductDataType {
+  page?: any;
+  category?: string;
+}
 
+export const getProductData = async ({
+  page = 1,
+  category,
+}: getProductDataType = {}) => {
   if (
     Array.isArray(page) ||
     !Number.isInteger(Number(page)) ||
     Number(page) < 1
   ) {
     return {};
-  } else {
-    queries = {
-      skip: Number(page) - 1,
-      take: 1,
-    };
   }
-  const products = await prisma.product.findMany({
-    ...queries,
+
+  let queries: Prisma.ProductFindManyArgs = {
     select: {
       id: true,
       name: true,
@@ -25,10 +26,33 @@ export const getProductData = async (page: any = 1) => {
       price: true,
       category: true,
     },
-  });
-  const total = await prisma.product.count();
+    skip: Number(page) - 1,
+    take: 2,
+  };
 
-  return { products, total };
+  let where;
+  if (category) {
+    where = {
+      category: {
+        slug: category,
+      },
+    };
+    queries = {
+      ...queries,
+      where,
+    };
+  }
+
+  const products = await prisma.product.findMany({
+    ...queries,
+  });
+  const total = await prisma.product.count({ where });
+  prisma.$disconnect();
+  const count = products.length;
+  const pageCount = Math.ceil(total / 2);
+  const currentPage: number = page;
+
+  return { products, total, count, pageCount, currentPage };
 };
 
 export const getUser = (req: any) => {
@@ -37,12 +61,14 @@ export const getUser = (req: any) => {
 };
 
 export const getCategories = async () => {
-  return await prisma.category.findMany({
+  const categories = await prisma.category.findMany({
     select: {
       name: true,
       slug: true,
     },
   });
+  prisma.$disconnect();
+  return categories;
 };
 
 export const getProduct = async (slug: string) => {
@@ -54,6 +80,8 @@ export const getProduct = async (slug: string) => {
       category: true,
     },
   });
+
+  prisma.$disconnect();
 
   if (!product) {
     return null;

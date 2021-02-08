@@ -19,17 +19,18 @@ export interface CatalogPageProps {
 
 const CatalogPage: React.FC<CatalogPageProps> = ({
   user,
-  productData: { products, total },
+  productData: { products, ...rest },
   categories,
 }) => {
   const router = useRouter();
+  const categoriesList = [...categories, { name: "Акции", slug: "akcii" }];
 
   return (
     <Layout categories={categories} user={user}>
       <div className={styles.wrapper}>
         <Breadcrumbs
           category={
-            categories.filter(
+            categoriesList.filter(
               (cat) => router.query.categorySlug === cat.slug
             )[0]
           }
@@ -53,7 +54,7 @@ const CatalogPage: React.FC<CatalogPageProps> = ({
                 />
               ))}
           </div>
-          <Pagination />
+          {products && products.length > 0 && <Pagination {...rest} />}
         </div>
       </div>
     </Layout>
