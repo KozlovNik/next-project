@@ -1,4 +1,5 @@
-import { memo } from "react";
+import { memo, useState } from "react";
+import useUser from "../hooks/useUser";
 
 import Logo from "./Logo";
 import ProfileImage from "./svgs/Profile";
@@ -7,9 +8,8 @@ import CartImage from "./svgs/Cart";
 import Search from "./svgs/Search";
 import BlackHeart from "./svgs/BlackHeart";
 
-import useUser from "../hooks/useUser";
-
 import styles from "./NavbarMiddle.module.css";
+import { useRouter } from "next/router";
 
 interface NavbarMiddleProps {
   setCloseLogin: () => void;
@@ -18,15 +18,30 @@ interface NavbarMiddleProps {
 const NavbarMiddle: React.FC<NavbarMiddleProps> = ({ setCloseLogin }) => {
   const { logout, user } = useUser();
 
+  const [query, setQuery] = useState("");
+
+  const router = useRouter();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setQuery("");
+    router.push(`/catalog?text=${query}`);
+  };
+
   return (
     <nav className={styles.navMiddle}>
       <div className={styles.wrapper}>
-        <div className={styles.search}>
-          <input className={styles.input} placeholder="Поиск по товарам" />
-          <button className={styles.button}>
+        <form className={styles.search} onSubmit={handleSubmit}>
+          <input
+            className={styles.input}
+            placeholder="Поиск по товарам"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          <button className={styles.button} type="submit">
             <Search initialColor="#fff" hoverColor="#fff" width={15} />
           </button>
-        </div>
+        </form>
         <div className={styles.logoWrapper}>
           <Logo color="#4F4E4E" />
         </div>
