@@ -59,3 +59,20 @@ a {
     overflow-x: visible;
   }
 }
+
+.popup-content {
+  margin: auto;
+  background: rgb(255, 255, 255);
+  padding: 20px;
+  width: 200px;
+  min-height: 200px;
+  height: 200px;
+  max-height: 200px;
+  padding: 5px;
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+}
+
+.popup-arrow {
+  color: rgb(255, 255, 255);
+}
