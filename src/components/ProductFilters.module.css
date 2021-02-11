@@ -1,0 +1,9 @@
+.filters {
+  display: flex;
+}
+
+@media screen and (max-width: 750px) {
+  .filters {
+    flex-direction: column;
+  }
+}

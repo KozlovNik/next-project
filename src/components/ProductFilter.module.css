@@ -3,12 +3,13 @@
   font-weight: 100;
   display: inline-block;
   padding: 5px;
-  padding-right: 20px;
+  padding-right: 25px;
   border: 1px solid #d4d4d4;
   border-radius: 5px;
   position: relative;
   margin: 0 5px;
   display: inline-block;
+  width: fit-content;
 }
 
 .label:hover {
@@ -19,7 +20,7 @@
 .label::after {
   position: absolute;
   top: 8px;
-  right: 3px;
+  right: 5px;
   width: 2px;
   height: 2px;
   content: "";
@@ -28,7 +29,11 @@
   display: inline-block;
   padding: 3px;
   transform: rotate(45deg);
-  transition: all 0.1s;
+  transition: all 0.3s;
+}
+
+.labelActive::after {
+  transform: rotate(225deg);
 }
 
 .products .div {
@@ -40,17 +45,3 @@
     margin: 0 10px 10px 0;
   }
 }
-
-/* .label:active::after {
-  position: absolute;
-  top: 8px;
-  right: 3px;
-  width: 2px;
-  height: 2px;
-  content: "";
-  border: solid #b6b6b6;
-  border-width: 0 1px 1px 0;
-  display: inline-block;
-  padding: 3px;
-  transform: rotate(225deg);
-} */

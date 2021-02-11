@@ -30,7 +30,7 @@ const Reset: React.FC<ResetProps> = ({ user }) => {
   const [showForm, setShowForm] = useState(true);
   const router = useRouter();
   return (
-    <Layout value={user}>
+    <Layout user={user}>
       <h1 className="heading">СМЕНА ПАРОЛЯ</h1>
       {showForm ? (
         <Formik

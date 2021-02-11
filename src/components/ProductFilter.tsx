@@ -1,8 +1,24 @@
 import React from "react";
+import classNames from "classnames";
 import styles from "./ProductFilter.module.css";
 
-const ProductFilter = ({ label }: any) => {
-  return <div className={styles.label}>{label} </div>;
-};
+interface ProductFilterProps {
+  label: string;
+  open?: boolean;
+}
+// React.forwardRef(({ open, ...props }, ref) => (
+const ProductFilter = React.forwardRef<HTMLDivElement, ProductFilterProps>(
+  ({ open, label, ...props }, ref) => {
+    return (
+      <span
+        className={classNames(styles.label, { [styles.labelActive]: open })}
+        ref={ref}
+        {...props}
+      >
+        {label}
+      </span>
+    );
+  }
+);
 
 export default ProductFilter;

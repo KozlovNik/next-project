@@ -1,19 +1,27 @@
+import { NextRouter, useRouter } from "next/router";
 import styles from "./Radio.module.css";
 
 interface RadioProps {
   value: string;
   name: string;
   children: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  query: NextRouter["query"];
 }
 
-const Radio: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = ({
-  value,
-  name,
-  children,
-}) => {
+const Radio: React.FC<RadioProps> = (props) => {
+  const { children, query, name, value, onChange } = props;
+  const checked = value === query[name]?.toString();
   return (
     <label className={styles.inputContainer}>
-      <input type="radio" name={name} value={value} /> {children}
+      <input
+        type="radio"
+        onChange={onChange}
+        name={name}
+        value={value}
+        checked={checked}
+      />
+      {children}
       <span className={styles.checkmark} />
     </label>
   );

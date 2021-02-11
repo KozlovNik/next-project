@@ -5,6 +5,7 @@
 
 .content {
   flex-basis: 1000px;
+  position: relative;
 }
 
 .products {

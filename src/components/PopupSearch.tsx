@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./PopupSearch.module.css";
 import classNames from "classnames";
 import useEscapeKey from "../hooks/useEscapeKey";
@@ -15,6 +15,8 @@ const PopupSearch = ({ handleCloseSearch, close }: PopupSearchProps) => {
   useEscapeKey(handleCloseSearch);
 
   const router = useRouter();
+
+  const [value, setValue] = useState("");
 
   useEffect(() => {
     if (labelRef && labelRef.current) {
@@ -38,7 +40,9 @@ const PopupSearch = ({ handleCloseSearch, close }: PopupSearchProps) => {
 
   const handleKeyUp = (e: React.KeyboardEvent) => {
     if (e.code === "Enter") {
-      router.push(`/catalog?text=${e.target.value}`);
+      handleCloseSearch();
+      setValue("");
+      router.push(`/catalog?text=${value}`);
     }
   };
 
@@ -51,9 +55,11 @@ const PopupSearch = ({ handleCloseSearch, close }: PopupSearchProps) => {
       ref={labelRef}
     >
       <input
+        onChange={(e) => setValue(e.target.value)}
         onKeyUp={handleKeyUp}
         className={styles.input}
         placeholder="Поиск по товарам"
+        value={value}
       />
     </label>
   );

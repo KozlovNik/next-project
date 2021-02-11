@@ -1,5 +1,4 @@
 .form {
-  height: calc(100% - 20px);
   width: calc(100% - 20px);
   margin: 10px;
   display: flex;

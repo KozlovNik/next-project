@@ -7,7 +7,7 @@ interface getProductDataType {
 }
 
 export const getProductData = async ({
-  page = 1,
+  page,
   category,
 }: getProductDataType = {}) => {
   if (
@@ -15,7 +15,7 @@ export const getProductData = async ({
     !Number.isInteger(Number(page)) ||
     Number(page) < 1
   ) {
-    return {};
+    page = 1;
   }
 
   let queries: Prisma.ProductFindManyArgs = {
@@ -26,7 +26,7 @@ export const getProductData = async ({
       price: true,
       category: true,
     },
-    skip: Number(page) - 1,
+    skip: (page - 1) * 2,
     take: 2,
   };
 
@@ -51,7 +51,6 @@ export const getProductData = async ({
   const count = products.length;
   const pageCount = Math.ceil(total / 2);
   const currentPage: number = page;
-
   return { products, total, count, pageCount, currentPage };
 };
 

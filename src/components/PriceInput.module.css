@@ -1,0 +1,17 @@
+.inputContainer {
+  color: #787878;
+  font-weight: 300;
+  cursor: pointer;
+  font-size: 12px;
+  margin-right: 5px;
+}
+
+.inputContainer input {
+    width: 40px;
+    border: 1px solid #B6B6B6;
+    border-radius: 5px;
+    height: 20px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    padding: 0 5px;
+}

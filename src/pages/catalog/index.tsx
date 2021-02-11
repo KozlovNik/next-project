@@ -16,7 +16,10 @@ const Catalog: React.FC<CatalogPageProps> = (props) => {
 export default Catalog;
 
 export const getServerSideProps = withSession(async ({ req, query }) => {
-  const productData = await getProductData({ category: query.categorySlug });
+  const productData = await getProductData({
+    category: query.categorySlug,
+    page: query.page,
+  });
   const categories = await getCategories();
 
   return {

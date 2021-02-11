@@ -1,7 +1,6 @@
 import { useState, useContext } from "react";
 import classNames from "classnames";
 import { CategoriesContext } from "../lib/categoryContext";
-
 import Link from "next/link";
 
 import styles from "./Sidebar.module.css";
