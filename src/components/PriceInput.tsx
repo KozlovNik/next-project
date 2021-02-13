@@ -3,22 +3,31 @@ import styles from "./PriceInput.module.css";
 
 interface PriceInputProps {
   children: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setQuery: React.Dispatch<React.SetStateAction<NextRouter["query"]>>;
   name: string;
   query: NextRouter["query"];
 }
 
 const PriceInput: React.FC<PriceInputProps> = ({
+  setQuery,
   children,
   query,
   name,
   ...rest
 }) => {
-  let queryValue = query[name];
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery((query) => ({ ...query, [e.target.name]: e.target.value }));
+  };
   return (
     <label className={styles.inputContainer}>
       {children}
-      <input type="number" value={queryValue} name={name} {...rest} />
+      <input
+        type="text"
+        value={query[name] || ""}
+        onChange={onChange}
+        name={name}
+        {...rest}
+      />
     </label>
   );
 };

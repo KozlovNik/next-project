@@ -1,8 +1,6 @@
-import { useState } from "react";
 import { UserContextTypes } from "../lib/userContext";
 import { getProductDataTypes, getCategoriesTypes } from "../lib/dataFunctions";
-import { useRouter } from "next/router";
-import useSWR from "swr";
+import useCatalogData from "../hooks/useCatalogData";
 import fetchJson from "../lib/fetchJson";
 
 import ProductCard from "./ProductCard";
@@ -14,6 +12,8 @@ import Spinner from "./Spinner";
 import ProductFilters from "./ProductFilters";
 
 import styles from "./CatalogPage.module.css";
+import { getQueryString } from "../lib/queries";
+import { useState } from "react";
 
 export interface CatalogPageProps {
   productData: getProductDataTypes;
@@ -26,36 +26,34 @@ const CatalogPage: React.FC<CatalogPageProps> = ({
   productData,
   categories,
 }) => {
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const categoriesList = [...categories, { name: "Акции", slug: "akcii" }];
-  const { data, mutate } = useSWR(
-    `/api/products?category=${router.query.categorySlug || ""}`,
-    {
-      initialData: { ...productData },
-      revalidateOnFocus: false,
-      revalidateOnMount: false,
-    }
+
+  const { mutate, data, router, error, isValidating } = useCatalogData(
+    productData
   );
+  console.log("hello");
+
+  const { categorySlug, page, ...restQueries } = router.query;
+
+  const categoriesList = [...categories, { name: "Акции", slug: "akcii" }];
 
   const handlePageChange = async ({ selected }: { selected: number }) => {
-    router.push(
-      `/catalog/${router.query.categorySlug || ""}?page=${selected + 1}`,
-      undefined,
-      { shallow: true, scroll: true }
-    );
+    const queryString = getQueryString({
+      page: (selected + 1).toString(),
+      ...restQueries,
+    });
+    router.push(`/catalog/${categorySlug || ""}?${queryString}`, undefined, {
+      shallow: true,
+      scroll: true,
+    });
 
-    setLoading(true);
     await mutate(
       fetchJson(
-        `/api/products?category=${router.query.categorySlug || ""}&page=${
-          selected + 1
-        }`,
+        `/api/products?category=${categorySlug || ""}&${queryString}`,
         {}
       ),
       false
     );
-    setTimeout(() => setLoading(false), 500);
   };
 
   let productContent;
@@ -63,7 +61,7 @@ const CatalogPage: React.FC<CatalogPageProps> = ({
     const { products, ...rest } = data;
     productContent = (
       <>
-        {loading && <Spinner />}
+        <Spinner show={loading && !error} />
         <ProductFilters />
         <div className={styles.products}>
           {products &&
@@ -88,12 +86,10 @@ const CatalogPage: React.FC<CatalogPageProps> = ({
       <div className={styles.wrapper}>
         <Breadcrumbs
           category={
-            categoriesList.filter(
-              (cat) => router.query.categorySlug === cat.slug
-            )[0]
+            categoriesList.filter((cat) => categorySlug === cat.slug)[0]
           }
         />
-        <Sidebar categorySlug={router.query.categorySlug?.toString()} />
+        <Sidebar />
         <div className={styles.content}>{productContent}</div>
       </div>
     </Layout>

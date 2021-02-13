@@ -2,16 +2,19 @@
   position: absolute;
   text-align: center;
   width: 100%;
-  height: 100%;
-  z-index: 10;
   background-color: rgb(219, 219, 219);
-  opacity: 0.5;
   top: 0;
+  height: 100%;
   left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 5px;
+  z-index: 10;
+  opacity: 1;
+  visibility: hidden;
+  transition: all 10s;
+  /* overflow: hidden; */
 }
 
 .loader {
@@ -39,4 +42,11 @@
   .loaderWrapper {
     display: none;
   }
+}
+
+.show {
+  visibility: visible;
+  opacity: 0.5;
+  transition: opacity 0.5s;
+  transition: visibility 0s, opacity 0.5s linear;
 }

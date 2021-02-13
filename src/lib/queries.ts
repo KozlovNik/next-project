@@ -1,12 +1,14 @@
-export const omit: Omit = (obj, prop) => {
+export const excludeProp: ExcludeProp = (obj, prop) => {
   const { [prop]: omittedProp, ...newObj } = obj;
   return newObj;
 };
 
-export const setAll: SetAll = (obj, val) => {
+export const setValue: SetValue = (obj, val, values) => {
   let newObj = { ...obj };
   for (let query in newObj) {
-    newObj[query] = val;
+    if (values?.includes(query)) {
+      newObj[query] = val;
+    }
   }
   return newObj;
 };
@@ -14,8 +16,11 @@ export const setAll: SetAll = (obj, val) => {
 export function getQueryString(props: Query) {
   let queryString = [];
   for (let query in props) {
-    queryString.push(`${query}=${props[query]}`);
+    if (props[query]) {
+      queryString.push(`${query}=${props[query]}`);
+    }
   }
+
   return queryString.join("&");
 }
 
@@ -25,6 +30,10 @@ interface Dict<T> {
 
 type Query = Dict<string | string[]>;
 
-type Omit = <T>(obj: Dict<T>, prop: string) => Dict<T>;
+type ExcludeProp = <T>(obj: Dict<T>, prop: string) => Dict<T>;
 
-type SetAll = <T>(obj: Dict<T>, val: T) => Dict<T>;
+type SetValue = <T>(
+  obj: Dict<T>,
+  val: T,
+  values?: string | string[]
+) => Dict<T>;

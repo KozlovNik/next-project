@@ -1,4 +1,4 @@
-import Popup from "reactjs-popup";
+import PopupProductFilter from "./PopupProductFilter";
 import ProductFilter from "./ProductFilter";
 import Radio from "./Radio";
 import Checkbox from "./Checkbox";
@@ -10,84 +10,92 @@ import styles from "./ProductFilters.module.css";
 const ProductFilters = () => {
   return (
     <div className={styles.filters}>
-      <Popup
+      <PopupProductFilter
         trigger={(open) => (
           <ProductFilter open={open} label="Сортировака по:" />
         )}
-        position="bottom left"
-        closeOnDocumentClick
       >
-        <FilterForm
-          render={(props) => (
-            <>
-              <Radio name="price" value="asc" {...props}>
-                Сначала дешевле
-              </Radio>
-              <Radio name="price" value="desc" {...props}>
-                Сначала дороже
-              </Radio>
-            </>
-          )}
-        />
-      </Popup>
-      <Popup
+        {(close) => (
+          <FilterForm
+            fields="price"
+            close={close}
+            render={(props) => (
+              <>
+                <Radio name="price" value="asc" {...props}>
+                  Сначала дешевле
+                </Radio>
+                <Radio name="price" value="desc" {...props}>
+                  Сначала дороже
+                </Radio>
+              </>
+            )}
+          />
+        )}
+      </PopupProductFilter>
+      <PopupProductFilter
         trigger={(open) => <ProductFilter open={open} label="Бренды" />}
-        position="bottom left"
-        closeOnDocumentClick
       >
-        <FilterForm
-          render={(props) => (
-            <>
-              <Checkbox name="brand" value="black-professional" {...props}>
-                Black Professional
-              </Checkbox>
-              <Checkbox name="brand" value="bialetti" {...props}>
-                Bialetti
-              </Checkbox>
-            </>
-          )}
-        />
-      </Popup>
-      <Popup
+        {(close) => (
+          <FilterForm
+            fields="brand"
+            close={close}
+            render={(props) => (
+              <>
+                <Checkbox name="brand" value="black-professional" {...props}>
+                  Black Professional
+                </Checkbox>
+                <Checkbox name="brand" value="bialetti" {...props}>
+                  Bialetti
+                </Checkbox>
+              </>
+            )}
+          />
+        )}
+      </PopupProductFilter>
+      <PopupProductFilter
         trigger={(open) => <ProductFilter open={open} label="Страны" />}
-        position="bottom left"
-        closeOnDocumentClick
       >
-        <FilterForm
-          render={(props) => (
-            <>
-              <Checkbox name="country" value="russia" {...props}>
-                Россия
-              </Checkbox>
-              <Checkbox name="country" value="france" {...props}>
-                Франция
-              </Checkbox>
-              <Checkbox name="country" value="italy" {...props}>
-                Италия
-              </Checkbox>
-            </>
-          )}
-        />
-      </Popup>
+        {(close) => (
+          <FilterForm
+            fields="country"
+            close={close}
+            render={(props) => (
+              <>
+                <Checkbox name="country" value="russia" {...props}>
+                  Россия
+                </Checkbox>
+                <Checkbox name="country" value="france" {...props}>
+                  Франция
+                </Checkbox>
+                <Checkbox name="country" value="italy" {...props}>
+                  Италия
+                </Checkbox>
+              </>
+            )}
+          />
+        )}
+      </PopupProductFilter>
 
-      <Popup
+      <PopupProductFilter
         trigger={(open) => <ProductFilter open={open} label="Цена" />}
-        position="bottom left"
-        closeOnDocumentClick
       >
-        <FilterForm
-          render={(props) => (
-            <>
-              <PriceInput name="price_min" {...props}>
-                От
-              </PriceInput>
-              <PriceInput name="price_max" {...props}>
-                До
-              </PriceInput>
-            </>
-          )}
-        />
-      </Popup>
+        {(close) => (
+          <FilterForm
+            fields={["price_min", "price_max"]}
+            close={close}
+            render={(props) => (
+              <>
+                <PriceInput name="price_min" {...props}>
+                  От
+                </PriceInput>
+                <PriceInput name="price_max" {...props}>
+                  До
+                </PriceInput>
+              </>
+            )}
+          />
+        )}
+      </PopupProductFilter>
     </div>
   );
 };

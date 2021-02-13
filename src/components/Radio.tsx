@@ -1,17 +1,20 @@
-import { NextRouter, useRouter } from "next/router";
+import { NextRouter } from "next/router";
 import styles from "./Radio.module.css";
 
 interface RadioProps {
   value: string;
   name: string;
   children: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   query: NextRouter["query"];
+  setQuery: React.Dispatch<React.SetStateAction<NextRouter["query"]>>;
 }
 
 const Radio: React.FC<RadioProps> = (props) => {
-  const { children, query, name, value, onChange } = props;
+  const { children, query, name, value, setQuery } = props;
   const checked = value === query[name]?.toString();
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery((query) => ({ ...query, [e.target.name]: e.target.value }));
+  };
   return (
     <label className={styles.inputContainer}>
       <input
