@@ -7,7 +7,11 @@ import PriceInput from "./PriceInput";
 
 import styles from "./ProductFilters.module.css";
 
-const ProductFilters = () => {
+interface ProductFiltersProps {
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const ProductFilters: React.FC<ProductFiltersProps> = ({ setLoading }) => {
   return (
     <div className={styles.filters}>
       <PopupProductFilter
@@ -19,6 +23,7 @@ const ProductFilters = () => {
           <FilterForm
             fields="price"
             close={close}
+            setLoading={setLoading}
             render={(props) => (
               <>
                 <Radio name="price" value="asc" {...props}>
@@ -39,6 +44,7 @@ const ProductFilters = () => {
           <FilterForm
             fields="brand"
             close={close}
+            setLoading={setLoading}
             render={(props) => (
               <>
                 <Checkbox name="brand" value="black-professional" {...props}>
@@ -58,6 +64,7 @@ const ProductFilters = () => {
         {(close) => (
           <FilterForm
             fields="country"
+            setLoading={setLoading}
             close={close}
             render={(props) => (
               <>
@@ -81,6 +88,7 @@ const ProductFilters = () => {
       >
         {(close) => (
           <FilterForm
+            setLoading={setLoading}
             fields={["price_min", "price_max"]}
             close={close}
             render={(props) => (

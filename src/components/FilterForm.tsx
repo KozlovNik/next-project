@@ -10,11 +10,17 @@ type Query = NextRouter["query"];
 
 interface FilterFormProps {
   render: (props: { query: Query; setQuery: any }) => React.ReactNode;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   close: any;
   fields: string | string[];
 }
 
-const FilterForm: React.FC<FilterFormProps> = ({ render, close, fields }) => {
+const FilterForm: React.FC<FilterFormProps> = ({
+  render,
+  close,
+  fields,
+  setLoading,
+}) => {
   const formRef = useRef<HTMLFormElement>(null);
   const { router, mutate } = useCatalogData();
   const [query, setQuery] = useState<Query>(
@@ -49,6 +55,7 @@ const FilterForm: React.FC<FilterFormProps> = ({ render, close, fields }) => {
                 scroll: false,
               }
             );
+            setLoading(true);
             await mutate(
               fetchJson(
                 `/api/products?category=${
@@ -58,6 +65,7 @@ const FilterForm: React.FC<FilterFormProps> = ({ render, close, fields }) => {
               ),
               false
             );
+            setLoading(false);
             close();
           }}
         >

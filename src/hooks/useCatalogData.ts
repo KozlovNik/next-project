@@ -4,7 +4,7 @@ import useSWR from "swr";
 
 export default function useCatalogData(initialData?: getProductDataTypes) {
   const router = useRouter();
-  const { data, mutate, error, isValidating } = useSWR(
+  const { data, mutate, error } = useSWR(
     `/api/products?category=${router.query.categorySlug || ""}`,
     {
       initialData,
@@ -13,5 +13,5 @@ export default function useCatalogData(initialData?: getProductDataTypes) {
     }
   );
 
-  return { mutate, data, router, error, isValidating };
+  return { mutate, data, router, error };
 }

@@ -28,10 +28,7 @@ const CatalogPage: React.FC<CatalogPageProps> = ({
 }) => {
   const [loading, setLoading] = useState(false);
 
-  const { mutate, data, router, error, isValidating } = useCatalogData(
-    productData
-  );
-  console.log("hello");
+  const { mutate, data, router, error } = useCatalogData(productData);
 
   const { categorySlug, page, ...restQueries } = router.query;
 
@@ -47,6 +44,7 @@ const CatalogPage: React.FC<CatalogPageProps> = ({
       scroll: true,
     });
 
+    setLoading(true);
     await mutate(
       fetchJson(
         `/api/products?category=${categorySlug || ""}&${queryString}`,
@@ -54,6 +52,7 @@ const CatalogPage: React.FC<CatalogPageProps> = ({
       ),
       false
     );
+    setLoading(false);
   };
 
   let productContent;
@@ -62,7 +61,7 @@ const CatalogPage: React.FC<CatalogPageProps> = ({
     productContent = (
       <>
         <Spinner show={loading && !error} />
-        <ProductFilters />
+        <ProductFilters setLoading={setLoading} />
         <div className={styles.products}>
           {products &&
             products.map(({ slug, ...rest }) => (
