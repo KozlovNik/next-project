@@ -26,18 +26,32 @@ model Category {
   products Product[]
 }
 
+model Country {
+  id      Int       @id @default(autoincrement())
+  name    String    @unique
+  Product Product[]
+}
+
+model Brand {
+  id      Int       @id @default(autoincrement())
+  name    String    @unique
+  Product Product[]
+}
+
 model Product {
   id          Int      @id @default(autoincrement())
   name        String   @unique
   slug        String   @unique
-  brand       String
   price       Float
-  material    String
+  material    String?
   roasting    String?
-  ingredients String
-  country     String
+  ingredients String?
+  country     Country  @relation(fields: [countryId], references: [id])
+  countryId   Int
   about       String
-  weight      String   @default("1000")
+  weight      String?
   category    Category @relation(fields: [categoryId], references: [id])
   categoryId  Int
+  brand       Brand    @relation(fields: [brandId], references: [id])
+  brandId     Int
 }

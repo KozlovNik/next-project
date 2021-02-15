@@ -1,6 +1,5 @@
 import Error from "next/error";
 import withSession from "../../lib/session";
-import { prisma } from "../../lib/prismaClient";
 import { Prisma } from "@prisma/client";
 import { UserContextTypes } from "../../lib/userContext";
 import { CategoriesContextType } from "../../lib/categoryContext";
@@ -18,7 +17,7 @@ import { getCategories, getProduct, getUser } from "../../lib/dataFunctions";
 import styles from "../../styles/Product.module.css";
 
 type ProductWithCategory = Prisma.ProductGetPayload<{
-  include: { category: true };
+  include: { category: true; brand: true; country: true };
 }>;
 
 interface ProductProps {
@@ -65,7 +64,7 @@ const Product: React.FC<ProductProps> = ({ product, user, categories }) => {
           </div>
           <div className={styles.chars}>
             <div className={styles.charWrapper}>
-              Бренд: <span className={styles.char}>{brand}</span>
+              Бренд: <span className={styles.char}>{brand.name}</span>
             </div>
             <div className={styles.charWrapper}>
               Материал упаковки: <span className={styles.char}>{material}</span>
@@ -75,11 +74,13 @@ const Product: React.FC<ProductProps> = ({ product, user, categories }) => {
                 Обжарка: <span className={styles.char}>{roasting}</span>
               </div>
             )}
+            {ingredients && (
+              <div className={styles.charWrapper}>
+                Состав: <span className={styles.char}>{ingredients}</span>
+              </div>
+            )}
             <div className={styles.charWrapper}>
-              Состав: <span className={styles.char}>{ingredients}</span>
-            </div>
-            <div className={styles.charWrapper}>
-              Страна: <span className={styles.char}>{country}</span>
+              Страна: <span className={styles.char}>{country.name}</span>
             </div>
             <div className={styles.charWrapper}>
               Фасовка: <span className={styles.char}>{weight} г.</span>

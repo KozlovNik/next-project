@@ -77,6 +77,8 @@ export const getProduct = async (slug: string) => {
     },
     include: {
       category: true,
+      brand: true,
+      country: true,
     },
   });
 

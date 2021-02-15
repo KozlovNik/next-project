@@ -31,7 +31,13 @@ const AboutProduct: React.FC<AboutProduct> = ({ info }) => {
       <div className={styles.tab}>
         <div className={styles.tabWrapper}>
           {tab === "about" ? (
-            <div className={styles.aboutTab}>{info}</div>
+            <>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: info,
+                }}
+              ></div>
+            </>
           ) : (
             <div className={styles.feedback}>
               <span className={styles.title}>Отзывы</span>
