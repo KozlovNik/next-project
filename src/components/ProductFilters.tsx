@@ -1,3 +1,5 @@
+import { getBrandsTypes, getCountriesTypes } from "../lib/dataFunctions";
+
 import PopupProductFilter from "./PopupProductFilter";
 import ProductFilter from "./ProductFilter";
 import Radio from "./Radio";
@@ -6,12 +8,17 @@ import FilterForm from "./FilterForm";
 import PriceInput from "./PriceInput";
 
 import styles from "./ProductFilters.module.css";
+import { firstLetterUpper } from "../lib/utilFunctions";
 
 interface ProductFiltersProps {
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  countries: getCountriesTypes;
+  brands: getBrandsTypes;
 }
 
-const ProductFilters: React.FC<ProductFiltersProps> = ({ setLoading }) => {
+const ProductFilters: React.FC<ProductFiltersProps> = ({
+  countries,
+  brands,
+}) => {
   return (
     <div className={styles.filters}>
       <PopupProductFilter
@@ -23,7 +30,6 @@ const ProductFilters: React.FC<ProductFiltersProps> = ({ setLoading }) => {
           <FilterForm
             fields="price"
             close={close}
-            setLoading={setLoading}
             render={(props) => (
               <>
                 <Radio name="price" value="asc" {...props}>
@@ -44,15 +50,13 @@ const ProductFilters: React.FC<ProductFiltersProps> = ({ setLoading }) => {
           <FilterForm
             fields="brand"
             close={close}
-            setLoading={setLoading}
             render={(props) => (
               <>
-                <Checkbox name="brand" value="black-professional" {...props}>
-                  Black Professional
-                </Checkbox>
-                <Checkbox name="brand" value="bialetti" {...props}>
-                  Bialetti
-                </Checkbox>
+                {brands.map(({ name }) => (
+                  <Checkbox name="brand" value={name} {...props}>
+                    {firstLetterUpper(name)}
+                  </Checkbox>
+                ))}
               </>
             )}
           />
@@ -64,19 +68,14 @@ const ProductFilters: React.FC<ProductFiltersProps> = ({ setLoading }) => {
         {(close) => (
           <FilterForm
             fields="country"
-            setLoading={setLoading}
             close={close}
             render={(props) => (
               <>
-                <Checkbox name="country" value="russia" {...props}>
-                  Россия
-                </Checkbox>
-                <Checkbox name="country" value="france" {...props}>
-                  Франция
-                </Checkbox>
-                <Checkbox name="country" value="italy" {...props}>
-                  Италия
-                </Checkbox>
+                {countries.map(({ name }) => (
+                  <Checkbox name="country" value={name} {...props}>
+                    {firstLetterUpper(name)}
+                  </Checkbox>
+                ))}
               </>
             )}
           />
@@ -88,15 +87,14 @@ const ProductFilters: React.FC<ProductFiltersProps> = ({ setLoading }) => {
       >
         {(close) => (
           <FilterForm
-            setLoading={setLoading}
-            fields={["price_min", "price_max"]}
+            fields={["minPrice", "maxPrice"]}
             close={close}
             render={(props) => (
               <>
-                <PriceInput name="price_min" {...props}>
+                <PriceInput name="minPrice" {...props}>
                   От
                 </PriceInput>
-                <PriceInput name="price_max" {...props}>
+                <PriceInput name="maxPrice" {...props}>
                   До
                 </PriceInput>
               </>

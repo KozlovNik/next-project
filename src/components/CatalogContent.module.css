@@ -1,34 +1,28 @@
-.wrapper {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.content {
-  flex-basis: 1000px;
-  position: relative;
-}
-
 .products {
   display: flex;
   flex-wrap: wrap;
+  /* justify-content: space-between; */
 }
 
 .product {
   flex-basis: 0;
 }
 
+.content {
+  flex-basis: 1020px;
+  padding: 10px;
+  position: relative;
+}
+
 @media screen and (max-width: 1240px) {
   .content {
     flex-basis: 20%;
     flex-grow: 1;
+    padding: 0;
   }
 }
 
 @media screen and (max-width: 750px) {
-  .wrapper {
-    flex-direction: column;
-  }
-
   .products {
     flex-direction: column;
   }

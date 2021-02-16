@@ -9,13 +9,13 @@ interface BreadcrumbsProps {
 }
 
 const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ category, product }) => {
-  const router = useRouter();
+  const { pathname } = useRouter();
 
-  let categories;
-  if (category && router.pathname === "/catalog/[categorySlug]") {
-    categories = <span className={styles.active}> • {category.name} </span>;
+  let catalog = null;
+  if (category && pathname === "/catalog/[categorySlug]") {
+    catalog = <span className={styles.active}> • {category.name} </span>;
   } else if (category) {
-    categories = (
+    catalog = (
       <>
         <span> • </span>
         <Link href={`/catalog/${category.slug}`}>
@@ -23,8 +23,6 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ category, product }) => {
         </Link>
       </>
     );
-  } else {
-    categories = null;
   }
 
   return (
@@ -32,7 +30,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ category, product }) => {
       <Link href="/">
         <a className={styles.link}> Главная </a>
       </Link>
-      {router.pathname === "/catalog" ? (
+      {pathname === "/catalog" ? (
         <span className={styles.active}> • Каталог </span>
       ) : (
         <>
@@ -43,7 +41,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ category, product }) => {
         </>
       )}
 
-      {categories}
+      {catalog}
 
       {product && <span className={styles.active}> • {product.name}</span>}
     </div>

@@ -1,0 +1,25 @@
+.wrapper {
+  background-color: #d66565;
+  width: 8px;
+  position: relative;
+  cursor: pointer;
+}
+
+.innerWrapper {
+  position: absolute;
+  width: 8px;
+  height: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hr {
+  display: block;
+  width: 3px;
+  height: 0.5px;
+  background-color: white;
+}

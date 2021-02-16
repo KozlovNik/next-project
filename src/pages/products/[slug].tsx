@@ -82,9 +82,11 @@ const Product: React.FC<ProductProps> = ({ product, user, categories }) => {
             <div className={styles.charWrapper}>
               Страна: <span className={styles.char}>{country.name}</span>
             </div>
-            <div className={styles.charWrapper}>
-              Фасовка: <span className={styles.char}>{weight} г.</span>
-            </div>
+            {weight && (
+              <div className={styles.charWrapper}>
+                Фасовка: <span className={styles.char}>{weight} г.</span>
+              </div>
+            )}
           </div>
         </div>
       </div>

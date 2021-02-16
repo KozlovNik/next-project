@@ -1,4 +1,4 @@
-import withSession from "../../lib/session";
+import withSession from "../lib/session";
 import {
   getProductData,
   getUser,
@@ -9,16 +9,16 @@ import {
   getProductDataTypes,
   getCountriesTypes,
   getBrandsTypes,
-} from "../../lib/dataFunctions";
-import { UserContextTypes } from "../../lib/userContext";
+} from "../lib/dataFunctions";
+import { UserContextTypes } from "../lib/userContext";
 import { useRouter } from "next/router";
 
-import Breadcrumbs from "../../components/Breadcrumbs";
-import Sidebar from "../../components/Sidebar";
-import CatalogContent from "../../components/CatalogContent";
-import Layout from "../../components/Layout";
+import Breadcrumbs from "../components/Breadcrumbs";
+import Sidebar from "../components/Sidebar";
+import CatalogContent from "../components/CatalogContent";
+import Layout from "../components/Layout";
 
-import styles from "../../styles/Catalog.module.css";
+import styles from "../styles/Catalog.module.css";
 
 export interface CatalogProps {
   productData: getProductDataTypes;
@@ -35,13 +35,7 @@ const Catalog: React.FC<CatalogProps> = ({ categories, user, ...rest }) => {
 
   return (
     <Layout categories={categories} user={user}>
-      <div className={styles.wrapper}>
-        <Breadcrumbs
-          category={categories.find(({ slug }) => categorySlug === slug)}
-        />
-        <Sidebar />
-        <CatalogContent {...rest} />
-      </div>
+      <CatalogContent {...rest} />
     </Layout>
   );
 };

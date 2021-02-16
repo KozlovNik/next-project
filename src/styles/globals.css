@@ -25,12 +25,13 @@ body {
 body,
 html {
   height: 100%;
+  scroll-behavior: smooth;
 }
 
 body {
   position: relative;
   z-index: 1;
-  min-width: 320px;
+  min-width: 360px;
   margin-right: calc(100% - 100vw);
   overflow-x: hidden;
 }

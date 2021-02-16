@@ -29,13 +29,13 @@ model Category {
 model Country {
   id      Int       @id @default(autoincrement())
   name    String    @unique
-  Product Product[]
+  products Product[]
 }
 
 model Brand {
   id      Int       @id @default(autoincrement())
   name    String    @unique
-  Product Product[]
+  products Product[]
 }
 
 model Product {

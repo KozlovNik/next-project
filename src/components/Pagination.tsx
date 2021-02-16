@@ -1,3 +1,4 @@
+import React from "react";
 import ReactPaginate, { ReactPaginateProps } from "react-paginate";
 
 import styles from "./Pagination.module.css";
@@ -11,8 +12,8 @@ interface PaginationProps {
 }
 
 const Pagination: React.FC<PaginationProps> = (props) => {
-  // console.log(props)
   const { total, pageCount, count, currentPage, handlePageChange } = props;
+
   return (
     <div className={styles.wrapper}>
       {pageCount && pageCount > 1 && (
@@ -29,6 +30,7 @@ const Pagination: React.FC<PaginationProps> = (props) => {
           breakLinkClassName={styles.link}
           pageLinkClassName={styles.link}
           initialPage={currentPage - 1}
+          forcePage={currentPage - 1}
           disableInitialCallback={true}
           onPageChange={handlePageChange}
         />

@@ -1,38 +1,37 @@
-import { UserContextTypes } from "../lib/userContext";
-import { getProductDataTypes, getCategoriesTypes } from "../lib/dataFunctions";
+import { useState } from "react";
 import useCatalogData from "../hooks/useCatalogData";
 import fetchJson from "../lib/fetchJson";
+import { getQueryString } from "../lib/queries";
+import {
+  getBrandsTypes,
+  getCountriesTypes,
+  getProductDataTypes,
+} from "../lib/dataFunctions";
 
 import ProductCard from "./ProductCard";
-import Sidebar from "./Sidebar";
 import Pagination from "./Pagination";
-import Breadcrumbs from "./Breadcrumbs";
-import Layout from "./Layout";
 import Spinner from "./Spinner";
 import ProductFilters from "./ProductFilters";
 
-import styles from "./CatalogPage.module.css";
-import { getQueryString } from "../lib/queries";
-import { useState } from "react";
+import styles from "./CatalogContent.module.css";
+import { LoadingContext } from "../lib/loadingContext";
 
-export interface CatalogPageProps {
+interface CatalogContentProps {
   productData: getProductDataTypes;
-  user?: UserContextTypes;
-  categories: getCategoriesTypes;
+  countries: getCountriesTypes;
+  brands: getBrandsTypes;
 }
 
-const CatalogPage: React.FC<CatalogPageProps> = ({
-  user,
+const CatalogContent: React.FC<CatalogContentProps> = ({
   productData,
-  categories,
+  countries,
+  brands,
 }) => {
-  const [loading, setLoading] = useState(false);
-
   const { mutate, data, router, error } = useCatalogData(productData);
 
-  const { categorySlug, page, ...restQueries } = router.query;
+  const [loading, setLoading] = useState(false);
 
-  const categoriesList = [...categories, { name: "Акции", slug: "akcii" }];
+  const { categorySlug, page, ...restQueries } = router.query;
 
   const handlePageChange = async ({ selected }: { selected: number }) => {
     const queryString = getQueryString({
@@ -55,13 +54,17 @@ const CatalogPage: React.FC<CatalogPageProps> = ({
     setLoading(false);
   };
 
-  let productContent;
-  if (data) {
-    const { products, ...rest } = data;
-    productContent = (
-      <>
+  if (!data) {
+    return null;
+  }
+
+  const { products, ...rest } = data;
+
+  return (
+    <div className={styles.content}>
+      <LoadingContext.Provider value={{ loading, setLoading }}>
         <Spinner show={loading && !error} />
-        <ProductFilters setLoading={setLoading} />
+        <ProductFilters countries={countries} brands={brands} />
         <div className={styles.products}>
           {products &&
             products.map(({ slug, ...rest }) => (
@@ -76,23 +79,9 @@ const CatalogPage: React.FC<CatalogPageProps> = ({
         {products && products.length > 0 && (
           <Pagination {...rest} handlePageChange={handlePageChange} />
         )}
-      </>
-    );
-  }
-
-  return (
-    <Layout categories={categories} user={user}>
-      <div className={styles.wrapper}>
-        <Breadcrumbs
-          category={
-            categoriesList.filter((cat) => categorySlug === cat.slug)[0]
-          }
-        />
-        <Sidebar />
-        <div className={styles.content}>{productContent}</div>
-      </div>
-    </Layout>
+      </LoadingContext.Provider>
+    </div>
   );
 };
 
-export default CatalogPage;
+export default CatalogContent;
