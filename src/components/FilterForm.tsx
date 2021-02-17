@@ -4,6 +4,7 @@ import { getQueryString, excludeProp, setValue } from "../lib/queries";
 import useCatalogData from "../hooks/useCatalogData";
 import fetchJson from "../lib/fetchJson";
 import { Scrollbars } from "react-custom-scrollbars";
+import usePath from "../hooks/usePath";
 
 import Thumb from "./Thumb";
 
@@ -21,7 +22,8 @@ interface FilterFormProps {
 const FilterForm: React.FC<FilterFormProps> = ({ render, close, fields }) => {
   const formRef = useRef<HTMLFormElement>(null);
   const { setLoading } = useContext(LoadingContext);
-  const { router, mutate } = useCatalogData();
+  const { router, mutate } = useCatalogData(undefined, {revalidateOnMount: false});
+  const { pathname } = usePath();
   const [query, setQuery] = useState<Query>(
     excludeProp(router.query, "categorySlug")
   );
@@ -52,17 +54,13 @@ const FilterForm: React.FC<FilterFormProps> = ({ render, close, fields }) => {
             onClick={async (e) => {
               const queryString = getQueryString({ ...query, page: "1" });
               e.preventDefault();
-              router.push(
-                `/catalog/${router.query.categorySlug ?? ""}?${queryString}`,
-                undefined,
-                {
-                  shallow: true,
-                  scroll: false,
-                }
-              );
-              console.log(queryString);
+              router.push(`${pathname}?${queryString}`, undefined, {
+                shallow: true,
+                scroll: false,
+              });
+              
               setLoading(true);
-              const res = await mutate(
+              await mutate(
                 fetchJson(
                   `/api/products?category=${
                     router.query.categorySlug || ""

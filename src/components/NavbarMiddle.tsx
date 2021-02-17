@@ -25,7 +25,7 @@ const NavbarMiddle: React.FC<NavbarMiddleProps> = ({ setCloseLogin }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setQuery("");
-    router.push(`/catalog?text=${query}`);
+    router.push(`/search?text=${query}`);
   };
 
   return (

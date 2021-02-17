@@ -7,6 +7,7 @@ import {
   getCountriesTypes,
   getProductDataTypes,
 } from "../lib/dataFunctions";
+import usePath from "../hooks/usePath";
 
 import ProductCard from "./ProductCard";
 import Pagination from "./Pagination";
@@ -31,6 +32,8 @@ const CatalogContent: React.FC<CatalogContentProps> = ({
 
   const [loading, setLoading] = useState(false);
 
+  const { pathname } = usePath();
+
   const { categorySlug, page, ...restQueries } = router.query;
 
   const handlePageChange = async ({ selected }: { selected: number }) => {
@@ -38,7 +41,7 @@ const CatalogContent: React.FC<CatalogContentProps> = ({
       page: (selected + 1).toString(),
       ...restQueries,
     });
-    router.push(`/catalog/${categorySlug || ""}?${queryString}`, undefined, {
+    router.push(`${pathname}?${queryString}`, undefined, {
       shallow: true,
       scroll: true,
     });

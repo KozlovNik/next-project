@@ -9,6 +9,7 @@ interface getProductDataType {
   country?: string;
   minPrice?: string;
   maxPrice?: string;
+  text?: string;
 }
 
 export const getProductData = async ({
@@ -19,9 +20,8 @@ export const getProductData = async ({
   country,
   minPrice,
   maxPrice,
+  text,
 }: getProductDataType = {}) => {
-  console.log(brand);
-  console.log(price);
   if (
     Array.isArray(page) ||
     !Number.isInteger(Number(page)) ||
@@ -49,9 +49,17 @@ export const getProductData = async ({
       price: order,
     },
   };
-  console.log("category", category);
 
   let where = {};
+  if (text) {
+    where = {
+      name: {
+        contains: text,
+        mode: "insensitive"
+      },
+    };
+  }
+
   if (category) {
     where = {
       category: {
@@ -98,10 +106,6 @@ export const getProductData = async ({
     ...queries,
     where,
   };
-
-  console.log(queries);
-
-  console.log(queries);
 
   const products = await prisma.product.findMany({
     ...queries,
