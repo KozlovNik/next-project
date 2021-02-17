@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { getProductDataTypes } from "../../lib/dataFunctions";
 
 interface WithSliderHandlersProps {
   numberToShow: number;
   totalImageNumber: number;
+  productData?: getProductDataTypes;
 }
 
 export interface SliderProps {
@@ -12,6 +14,7 @@ export interface SliderProps {
     transform: string;
   };
   counter: number;
+  productData?: getProductDataTypes;
 }
 
 const WithSliderHandlers = (WrapperComponent: React.FC<SliderProps>) => (

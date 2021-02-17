@@ -10,7 +10,9 @@ const SliderSuggestion: React.FC<SliderProps> = ({
   style,
   goBackward,
   goForward,
+  productData,
 }) => {
+  console.log("products", productData);
   return (
     <>
       <TitleBlock title="РЕКОМЕНДАЦИИ">
@@ -20,13 +22,8 @@ const SliderSuggestion: React.FC<SliderProps> = ({
 
       <div className={styles.slider}>
         <div className={styles.WithSliderHandlers} style={style}>
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          {productData &&
+            productData.products.map((product) => <ProductCard {...product} />)}
         </div>
       </div>
     </>

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import styles from "./SliderMain.module.css";
 import classNames from "classnames";
+import Link from "next/link";
+
+import styles from "./SliderMain.module.css";
 
 const imgArr = [1, 2, 3];
 
@@ -35,9 +37,12 @@ const SliderMain = () => {
           />
         ))}
       </div>
-      <div className={styles.toCatalog}>
-        <span className={styles.toCatalogWrapper}>ПЕРЕЙТИ В КАТАЛОГ</span>
-      </div>
+      <Link href="/catalog">
+        <a className={styles.toCatalog}>
+          <span className={styles.toCatalogWrapper}>ПЕРЕЙТИ В КАТАЛОГ</span>
+        </a>
+      </Link>
+
       <div className={styles.circles}>
         {imgArr.map((ind) => (
           <div

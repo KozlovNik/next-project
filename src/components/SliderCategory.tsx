@@ -1,6 +1,7 @@
 import { useState, memo, useContext } from "react";
 import classNames from "classnames";
 import { CategoriesContext } from "../lib/categoryContext";
+import Link from "next/link";
 
 import ForwardArrow from "./svgs/ForwardArrow";
 import BackwardArrow from "./svgs/BackwardArrow";
@@ -17,25 +18,27 @@ interface ImageSlideProps {
 const ImageSlide: React.FC<ImageSlideProps> = memo(({ name, slug }) => {
   const [showShadow, setShowShadow] = useState(false);
   return (
-    <a className={styles.imageWrapper}>
-      <img
-        onMouseEnter={() => setShowShadow(true)}
-        onMouseLeave={() => setShowShadow(false)}
-        className={classNames(styles.image, { [styles.shadow]: showShadow })}
-        src={`/category-slider/${slug}.jpg`}
-      />
-      <div
-        className={styles.hl}
-        onMouseEnter={() => setShowShadow(true)}
-        onMouseLeave={() => setShowShadow(false)}
-      />
-      <div
-        className={styles.vl}
-        onMouseEnter={() => setShowShadow(true)}
-        onMouseLeave={() => setShowShadow(false)}
-      />
-      <div className={styles.imageTitle}>{name}</div>
-    </a>
+    <Link href={`/catalog/${slug}`}>
+      <a className={styles.imageWrapper}>
+        <img
+          onMouseEnter={() => setShowShadow(true)}
+          onMouseLeave={() => setShowShadow(false)}
+          className={classNames(styles.image, { [styles.shadow]: showShadow })}
+          src={`/category-slider/${slug}.jpg`}
+        />
+        <div
+          className={styles.hl}
+          onMouseEnter={() => setShowShadow(true)}
+          onMouseLeave={() => setShowShadow(false)}
+        />
+        <div
+          className={styles.vl}
+          onMouseEnter={() => setShowShadow(true)}
+          onMouseLeave={() => setShowShadow(false)}
+        />
+        <div className={styles.imageTitle}>{name}</div>
+      </a>
+    </Link>
   );
 });
 

@@ -14,7 +14,7 @@ interface ProductCardProps {
   name: string;
   slug: string;
   price: number;
-  className: string;
+  className?: string;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
