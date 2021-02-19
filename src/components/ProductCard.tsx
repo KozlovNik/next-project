@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { useRouter } from "next/router";
 
 import Starred from "../components/Starred";
 import classNames from "classnames";
@@ -15,6 +16,8 @@ interface ProductCardProps {
   slug: string;
   price: number;
   className?: string;
+  inCart: boolean;
+  handleAddToCart: (id: number) => void;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -22,9 +25,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
   slug,
   name,
   price,
+  inCart,
+  handleAddToCart,
+  id,
 }) => {
   const link = `/products/${slug}`;
-  const onClick = () => {};
+  const router = useRouter();
   return (
     <div className={classNames([styles.productCard], className)}>
       <Starred className={styles.heart} classLabelName={styles.label} />
@@ -39,7 +45,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <a className={styles.title}>{name}</a>
       </Link>
       <div className={styles.price}>{price} руб.</div>
-      <Button onClick={onClick}>Добавить</Button>
+      {inCart ? (
+        <Button onClick={() => router.push("/cart")}>Перейти в корзину</Button>
+      ) : (
+        <Button onClick={() => handleAddToCart(id)}>Добавить</Button>
+      )}
     </div>
   );
 };

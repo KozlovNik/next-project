@@ -1,3 +1,5 @@
+import { LoadingContext } from "../lib/loadingContext";
+import { Product } from "@prisma/client";
 import { useState } from "react";
 import useCatalogData from "../hooks/useCatalogData";
 import fetchJson from "../lib/fetchJson";
@@ -15,18 +17,25 @@ import Spinner from "./Spinner";
 import ProductFilters from "./ProductFilters";
 
 import styles from "./CatalogContent.module.css";
-import { LoadingContext } from "../lib/loadingContext";
 
 interface CatalogContentProps {
   productData: getProductDataTypes;
   countries: getCountriesTypes;
   brands: getBrandsTypes;
+  cartItems: {
+    id: number;
+    quantity: number;
+    product: Product;
+  }[];
+  handleAddToCart: (id: number) => void;
 }
 
 const CatalogContent: React.FC<CatalogContentProps> = ({
   productData,
   countries,
   brands,
+  cartItems,
+  handleAddToCart,
 }) => {
   const { mutate, data, router, error } = useCatalogData(productData);
 
@@ -70,10 +79,13 @@ const CatalogContent: React.FC<CatalogContentProps> = ({
         <ProductFilters countries={countries} brands={brands} />
         <div className={styles.products}>
           {products &&
-            products.map(({ slug, ...rest }) => (
+            products.map(({ slug, id, ...rest }) => (
               <ProductCard
                 className={styles.product}
                 key={slug}
+                id={id}
+                inCart={cartItems.some((e) => e.product.id === id) ?? false}
+                handleAddToCart={handleAddToCart}
                 slug={slug}
                 {...rest}
               />
