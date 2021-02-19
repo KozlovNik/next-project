@@ -1,0 +1,107 @@
+.order {
+  flex: 1;
+  margin-left: 20px;
+}
+
+.form {
+  color: #4f4e4e;
+  background-color: rgb(196, 196, 196, 0.2);
+  border-radius: 5px;
+}
+
+.block {
+  padding: 20px;
+  padding-bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.hl {
+  height: 1px;
+  background-color: #fff;
+  border: none;
+}
+
+.sub {
+  font-size: 20px;
+  margin-bottom: 10px;
+  flex: 1 0 100%;
+}
+
+.label,
+.empty,
+.textAreaLabel {
+  display: inline-block;
+  height: 100%;
+  flex-basis: 240px;
+  margin-bottom: 20px;
+}
+
+.textAreaLabel {
+  flex: 1 0 100%;
+}
+
+.empty {
+  height: 0;
+  margin: 0;
+}
+
+.labelText,
+.para {
+  font-size: 12px;
+}
+
+.para {
+  margin-bottom: 10px;
+}
+
+.input,
+.textarea {
+  height: 35px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+  padding: 5px 10px;
+  color: #4f4e4e;
+}
+
+.textarea {
+  height: 80px;
+}
+
+.input::placeholder {
+  color: rgb(79, 79, 79, 0.5);
+}
+
+.radioWrapper {
+  flex: 1 0 calc(100% - 40px);
+  margin-bottom: 10px;
+}
+
+.radioLabel {
+  margin-right: 20px;
+  font-size: 14px;
+}
+
+.star {
+  color: #b66060;
+}
+
+.button {
+  margin: 20px;
+  width: calc(100% - 40px);
+}
+
+@media screen and (max-width: 1150px) {
+  .order {
+    margin: 0;
+  }
+
+  .label,
+  .empty,
+  .textAreaLabel {
+    flex: 1 0 100%;
+  }
+}

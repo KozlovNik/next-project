@@ -1,149 +1,80 @@
-import Button from "../components/Button";
-import ProductCardMini from "../components/ProductCardMini";
-import styles from "../styles/Cart.module.css";
-import Layout from "../components/Layout";
+import { useState } from "react";
+import {
+  getCategories,
+  getCategoriesTypes,
+  getUser,
+  getCart,
+  getCartTypes,
+} from "../lib/dataFunctions";
+import fetcher from "../lib/fetchJson";
+import withSession from "../lib/session";
+import { UserContextTypes } from "../lib/userContext";
 
-const Cart = () => {
+import Layout from "../components/Layout";
+import Order from "../components/Order";
+import Cart from "../components/Cart";
+
+import styles from "../styles/Cart.module.css";
+
+interface CartProps {
+  user?: UserContextTypes;
+  categories: getCategoriesTypes;
+  cart: getCartTypes;
+}
+
+const CartPage: React.FC<CartProps> = (props) => {
+  const { user, categories, cart } = props;
+
+  const [cartItems, setCartItems] = useState(cart?.cartItems);
+
+  let content;
+
+  const deleteCartItem = async (itemId: number) => {
+    await fetcher(`/api/cartItems/${itemId}`, { method: "DELETE" });
+    const newCartItems = cartItems?.filter(({ id }) => id !== itemId);
+    setCartItems(newCartItems);
+  };
+
+  const updateQuantity = async (itemId: number, quantity: number) => {
+    try {
+      const cartItem = await fetcher(`/api/cartItems/${itemId}`, {
+        method: "PUT",
+        body: JSON.stringify({ quantity }),
+      });
+      const newCartItems = cartItems?.map(({ id, ...rest }) =>
+        id === cartItem.id ? cartItem : { id, ...rest }
+      );
+      setCartItems(newCartItems);
+    } catch {}
+  };
+
   return (
-    <Layout>
+    <Layout user={user} categories={categories}>
       <div className={styles.wrapper}>
-        <div className={styles.items}>
-          <h1 className="heading">КОРЗИНА</h1>
-          <ProductCardMini />
-          <ProductCardMini />
-          <ProductCardMini />
-          <ProductCardMini />
-          <ProductCardMini />
-          <ProductCardMini />
-          <ProductCardMini />
-        </div>
-        <div className={styles.order}>
-          <div className="heading">ОФОРМЛЕНИЕ ЗАКАЗА</div>
-          <form className={styles.form}>
-            <div className={styles.block}>
-              <div className={styles.sub}>ПОКУПАТЕЛЬ</div>
-              <label className={styles.label}>
-                <div className={styles.labelText}>
-                  Номер телефона <span className={styles.star}>*</span>
-                </div>
-                <input type="text" className={styles.input} />
-              </label>
-              <label className={styles.label}>
-                <div className={styles.labelText}>
-                  Email <span className={styles.star}>*</span>
-                </div>
-                <input type="text" className={styles.input} />
-              </label>
-              <label className={styles.label}>
-                <div className={styles.labelText}>
-                  Фамилия <span className={styles.star}>*</span>
-                </div>
-                <input type="text" className={styles.input} />
-              </label>
-              <label className={styles.label}>
-                <div className={styles.labelText}>
-                  Имя <span className={styles.star}>*</span>
-                </div>
-                <input type="text" className={styles.input} />
-              </label>
-            </div>
-            <div className={styles.hl} />
-            <div className={styles.block}>
-              <div className={styles.sub}>ПОЛУЧАТЕЛЬ</div>
-              <div className={styles.para}>
-                Добавьте получателя, если вы покупаете не для себя, или хотите,
-                чтобы товар забрал другой человек.
-              </div>
-              <div className={styles.radioWrapper}>
-                <label className={styles.radioLabel}>
-                  <input type="radio" name="receiver" value="лично" /> Я
-                  получатель
-                </label>
-                <label className={styles.radioLabel}>
-                  <input type="radio" name="receiver" value="другой человек" />{" "}
-                  Указать получателя
-                </label>
-              </div>
-              <label className={styles.label}>
-                <div className={styles.labelText}>
-                  Номер телефона <span className={styles.star}>*</span>
-                </div>
-                <input type="text" className={styles.input} />
-              </label>
-              <div className={styles.empty} />
-              <label className={styles.label}>
-                <div className={styles.labelText}>
-                  Фамилия <span className={styles.star}>*</span>
-                </div>
-                <input type="text" className={styles.input} />
-              </label>
-              <label className={styles.label}>
-                <div className={styles.labelText}>
-                  Имя <span className={styles.star}>*</span>
-                </div>
-                <input type="text" className={styles.input} />
-              </label>
-            </div>
-            <div className={styles.hl} />
-            <div className={styles.block}>
-              <div className={styles.sub}>ДОСТАВКА</div>
-              <div className={styles.radioWrapper}>
-                <label className={styles.radioLabel}>
-                  <input type="radio" name="delivery" value="самовывоз" />{" "}
-                  Самовывоз
-                </label>
-                <label className={styles.radioLabel}>
-                  <input type="radio" name="delivery" value="курьер" /> Курьер
-                </label>
-              </div>
-              <label className={styles.label}>
-                <input
-                  type="text"
-                  className={styles.input}
-                  placeholder="Адрес, дом, корпус"
-                />
-              </label>
-              <div className={styles.empty} />
-              <label className={styles.label}>
-                <input
-                  type="text"
-                  className={styles.input}
-                  placeholder="Квартира / офис"
-                />
-              </label>
-              <div className={styles.empty} />
-              <label className={styles.label}>
-                <input className={styles.input} />
-              </label>
-              <div className={styles.empty} />
-            </div>
-            <div className={styles.block}>
-              <div className={styles.sub}>ОПЛАТА</div>
-              <div className={styles.radioWrapper}>
-                <label className={styles.radioLabel}>
-                  <input type="radio" name="payment" value="карта" />{" "}
-                  Онлайн-оплата картой
-                </label>
-                <label className={styles.radioLabel}>
-                  <input type="radio" name="payment" value="наличные" /> При
-                  получении
-                </label>
-              </div>
-            </div>
-            <div className={styles.hl} />
-            <div className={styles.block}>
-              <div className={styles.sub}>ЗАВЕРШЕНИЕ ЗАКАЗА</div>
-              <label className={styles.textAreaLabel}>
-                <input className={styles.textarea} type="text" />
-              </label>
-              <div className={styles.total}>Итого: 5034 руб.</div>
-            </div>
-            <Button className={styles.button}>Перейти к оплате </Button>
-          </form>
-        </div>
+        {cartItems && cartItems.length > 0 ? (
+          <>
+            <Cart
+              cartItems={cartItems}
+              deleteCartItem={deleteCartItem}
+              updateQuantity={updateQuantity}
+            />
+            <Order />
+          </>
+        ) : (
+          <h1 className="heading">ВАША КОРЗИНА ПУСТА</h1>
+        )}
       </div>
     </Layout>
   );
 };
 
-export default Cart;
+export const getServerSideProps = withSession(async ({ req, res }) => {
+  const cart = await getCart({ req, res });
+  const categories = await getCategories();
+
+  return {
+    props: { categories, user: getUser(req), cart },
+  };
+});
+
+export default CartPage;

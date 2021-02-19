@@ -1,27 +1,50 @@
-import React from "react";
+import { Product } from "@prisma/client";
+import Link from "next/link";
+
 import ButtonClose from "./ButtonClose";
 import ProductCounter from "./ProductCounter";
+
 import styles from "./ProductCardMini.module.css";
 
-const ProductCartMini = () => {
+interface ProductCardMiniProps {
+  id: number;
+  quantity: number;
+  product: Product;
+  deleteCartItem: (id: number) => void;
+  updateQuantity: (id: number, quantity: number) => void;
+}
+
+const ProductCardMini: React.FC<ProductCardMiniProps> = (props) => {
+  const {
+    id,
+    quantity,
+    product: { name, price, slug },
+    deleteCartItem,
+    updateQuantity,
+  } = props;
+
+  const link = `/products/${slug}`;
+
   return (
     <div className={styles.wrapper}>
-      <div className={styles.imageWrapper}>
-        <img className={styles.image} src="/product.jpg" />
-      </div>
+      <Link href={link}>
+        <a className={styles.imageWrapper}>
+          <img className={styles.image} src={`${link}.jpg`} />
+        </a>
+      </Link>
       <div className={styles.mid}>
-        <div className={styles.name}>
-          Кофе Caracolillo Caracolillo, 1000 гр.
-        </div>
-        <div className={styles.pricePerProduct}>120 руб./шт.</div>
-        <div className={styles.price}>120 руб.</div>
+        <Link href={link}>
+          <a className={styles.name}>{name}</a>
+        </Link>
+        <div className={styles.pricePerProduct}>{price} руб./шт.</div>
+        <div className={styles.price}>{quantity * price} руб.</div>
       </div>
       <div className={styles.right}>
-        <ButtonClose color="#B6B6B6" />
-        <ProductCounter />
+        <ButtonClose onClick={() => deleteCartItem(id)} color="#B6B6B6" />
+        <ProductCounter id={id} quantity={quantity} updateQuantity={updateQuantity} />
       </div>
     </div>
   );
 };
 
-export default ProductCartMini;
+export default ProductCardMini;

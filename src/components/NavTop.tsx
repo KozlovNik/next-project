@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import Logo from "./Logo";
 import SearchMobile from "./svgs/Search";
 import ProfileImage from "./svgs/Profile";
@@ -59,9 +61,11 @@ const NavTop: React.FC<NavTopProps> = ({
           <a onClick={setCloseAccount} className={styles.link}>
             <ProfileImage initialColor="white" hoverColor="#787878" />
           </a>
-          <a className={styles.link}>
-            <CartImage initialColor="white" hoverColor="#787878" />
-          </a>
+          <Link href="/cart">
+            <a className={styles.link}>
+              <CartImage initialColor="white" hoverColor="#787878" />
+            </a>
+          </Link>
         </div>
       </nav>
     </nav>

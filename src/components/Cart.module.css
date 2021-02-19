@@ -1,0 +1,11 @@
+.items {
+  flex-basis: 550px;
+  height: 100%;
+}
+
+@media screen and (max-width: 1150px) {
+  .items {
+    flex-basis: 100px;
+    height: 100%;
+  }
+}

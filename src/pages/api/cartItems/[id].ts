@@ -16,11 +16,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const { quantity } = JSON.parse(req.body);
 
     try {
+      if (quantity < 1 || quantity > 100) {
+        throw new Error();
+      }
       const cartItem = await prisma.cartItem.update({
         where: { id },
         data: { quantity },
+        include: { product: true },
       });
-      
+
       return res.json(cartItem);
     } catch {
       return res.status(400).json({ message: "Bad request" });

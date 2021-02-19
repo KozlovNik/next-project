@@ -24,12 +24,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
   price,
 }) => {
   const link = `/products/${slug}`;
+  const onClick = () => {};
   return (
     <div className={classNames([styles.productCard], className)}>
       <Starred className={styles.heart} classLabelName={styles.label} />
       <Link href={link}>
         <a>
-          <img className={styles.image} src={`/products/${slug}.jpg`} alt="" />
+          <img className={styles.image} src={`${link}.jpg`} alt="" />
         </a>
       </Link>
       <Feedback />
@@ -38,7 +39,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <a className={styles.title}>{name}</a>
       </Link>
       <div className={styles.price}>{price} руб.</div>
-      <Button>Добавить</Button>
+      <Button onClick={onClick}>Добавить</Button>
     </div>
   );
 };

@@ -1,4 +1,6 @@
 import { Prisma } from "@prisma/client";
+import { NextApiRequest, NextApiResponse } from "next";
+import { setCookie } from "./cookies";
 import { prisma } from "./prismaClient";
 
 interface getProductDataType {
@@ -55,7 +57,7 @@ export const getProductData = async ({
     where = {
       name: {
         contains: text,
-        mode: "insensitive"
+        mode: "insensitive",
       },
     };
   }
@@ -171,7 +173,40 @@ export const getBrands = async () => {
   return brands;
 };
 
+export const getCart = async ({
+  req,
+  res,
+}: {
+  req: NextApiRequest;
+  res: NextApiResponse;
+}) => {
+  const cartId = req.cookies["cartId"];
+  let cart;
+  const select = {
+    id: true,
+    cartItems: { select: { id: true, quantity: true, product: true } },
+  };
+  if (cartId) {
+    cart = await prisma.cart.findUnique({
+      select,
+      where: { id: Number(cartId) },
+    });
+  } else {
+    cart = await prisma.cart.create({
+      select,
+      data: {},
+    });
+    setCookie(res, "cartId", cart.id, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      sameSite: true,
+      httpOnly: true,
+    });
+  }
+  return cart;
+};
+
 export type getCategoriesTypes = Prisma.PromiseReturnType<typeof getCategories>;
+export type getCartTypes = Prisma.PromiseReturnType<typeof getCart>;
 export type getBrandsTypes = Prisma.PromiseReturnType<typeof getBrands>;
 export type getCountriesTypes = Prisma.PromiseReturnType<typeof getCountries>;
 export type getProductDataTypes = Prisma.PromiseReturnType<

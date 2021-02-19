@@ -1,5 +1,7 @@
 import { memo, useState } from "react";
+import { useRouter } from "next/router";
 import useUser from "../hooks/useUser";
+import Link from "next/link";
 
 import Logo from "./Logo";
 import ProfileImage from "./svgs/Profile";
@@ -9,7 +11,6 @@ import Search from "./svgs/Search";
 import BlackHeart from "./svgs/BlackHeart";
 
 import styles from "./NavbarMiddle.module.css";
-import { useRouter } from "next/router";
 
 interface NavbarMiddleProps {
   setCloseLogin: () => void;
@@ -66,9 +67,11 @@ const NavbarMiddle: React.FC<NavbarMiddleProps> = ({ setCloseLogin }) => {
           <a className={styles.link}>
             <BlackHeart />
           </a>
-          <a className={styles.link}>
-            <CartImage />
-          </a>
+          <Link href="/cart">
+            <a className={styles.link}>
+              <CartImage />
+            </a>
+          </Link>
         </div>
       </div>
     </nav>

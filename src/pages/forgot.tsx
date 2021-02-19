@@ -21,7 +21,7 @@ const Forgot: React.FC<ForgotProps> = ({ user }) => {
   const [error, setError] = useError();
   const [showForm, setShowForm] = useState(true);
   return (
-    <Layout value={user}>
+    <Layout user={user}>
       <h1 className="heading">ВОССТАНОВЛЕНИЕ ПАРОЛЯ</h1>
       {showForm ? (
         <Formik
