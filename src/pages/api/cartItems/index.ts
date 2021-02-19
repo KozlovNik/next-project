@@ -26,14 +26,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     try {
-      await prisma.cartItem.create({
+      const cartItem = await prisma.cartItem.create({
         data: {
           cartId: Number(cartId),
           productId: Number(productId),
           quantity: 1,
         },
+        select: { id: true, quantity: true, product: true },
       });
-      return res.status(201).json({ message: "success" });
+      return res.status(201).json(cartItem);
     } catch {
       return res.status(404).json({ message: "Not found" });
     }
