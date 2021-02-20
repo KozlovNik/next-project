@@ -212,3 +212,4 @@ export type getCountriesTypes = Prisma.PromiseReturnType<typeof getCountries>;
 export type getProductDataTypes = Prisma.PromiseReturnType<
   typeof getProductData
 >;
+export type getProductTypes = Prisma.PromiseReturnType<typeof getProduct>;
