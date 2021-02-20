@@ -1,4 +1,3 @@
-import { useState } from "react";
 import withSession from "../../lib/session";
 import {
   getProductData,
@@ -15,7 +14,6 @@ import {
 } from "../../lib/dataFunctions";
 import { UserContextTypes } from "../../lib/userContext";
 import { useRouter } from "next/router";
-import fetcher from "../../lib/fetchJson";
 
 import Breadcrumbs from "../../components/Breadcrumbs";
 import Sidebar from "../../components/Sidebar";
@@ -23,6 +21,7 @@ import CatalogContent from "../../components/CatalogContent";
 import Layout from "../../components/Layout";
 
 import styles from "../../styles/Catalog.module.css";
+import useCartItemsReducer from "../../hooks/useCartItemsReducer";
 
 export interface CatalogProps {
   productData: getProductDataTypes;
@@ -43,15 +42,9 @@ const Catalog: React.FC<CatalogProps> = ({
     query: { categorySlug },
   } = useRouter();
 
-  const [cartItems, setCartItems] = useState(cart?.cartItems ?? []);
-
-  const handleAddToCart = async (productId: number) => {
-    const item = await fetcher("/api/cartItems", {
-      method: "POST",
-      body: JSON.stringify({ productId }),
-    });
-    setCartItems([...cartItems, item]);
-  };
+  const { cartItems, handleAddToCart } = useCartItemsReducer(
+    cart?.cartItems || []
+  );
 
   return (
     <Layout categories={categories} user={user}>

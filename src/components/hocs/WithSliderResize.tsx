@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-// import { WithSliderHandlersProps } from "./WithSliderHandlers";
 
-const WithSliderResize = (Component: React.FC<any>) => (props: any) => {
+const WithSliderResize = (Component: React.FC) => (props: any) => {
   const [numberToShow, setNumberToShow] = useState<number>();
 
   if (typeof window !== "undefined") {

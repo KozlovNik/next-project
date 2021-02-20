@@ -1,18 +1,37 @@
-import styles from "./SliderSuggestion.module.css";
+import { Product } from "@prisma/client";
+import { WithSliderHandlersProps } from "./hocs/WithSliderHandlers";
+
 import ProductCard from "./ProductCard";
 import CatArrForward from "./svgs/CatArrForward";
 import CatArrBackward from "./svgs/CatArrBackward";
-import WithSliderHandlers, { SliderProps } from "./hocs/WithSliderHandlers";
+import WithSliderHandlers from "./hocs/WithSliderHandlers";
 import WithSliderResize from "./hocs/WithSliderResize";
 import TitleBlock from "./TitleBlock";
+
+import styles from "./SliderSuggestion.module.css";
+
+export interface SliderProps extends WithSliderHandlersProps {
+  goForward: () => void;
+  goBackward: () => void;
+  style: {
+    transform: string;
+  };
+  handleAddToCart: (id: number) => void;
+  cartItems?: {
+    id: number;
+    quantity: number;
+    product: Product;
+  }[];
+}
 
 const SliderSuggestion: React.FC<SliderProps> = ({
   style,
   goBackward,
   goForward,
   productData,
+  cartItems,
+  handleAddToCart,
 }) => {
-  console.log("products", productData);
   return (
     <>
       <TitleBlock title="РЕКОМЕНДАЦИИ">
@@ -23,7 +42,16 @@ const SliderSuggestion: React.FC<SliderProps> = ({
       <div className={styles.slider}>
         <div className={styles.WithSliderHandlers} style={style}>
           {productData &&
-            productData.products.map((product) => <ProductCard {...product} />)}
+            productData.products.map((product) => (
+              <ProductCard
+                key={product.id}
+                handleAddToCart={handleAddToCart}
+                inCart={
+                  cartItems?.some((i) => i.product.id === product.id) ?? false
+                }
+                {...product}
+              />
+            ))}
         </div>
       </div>
     </>

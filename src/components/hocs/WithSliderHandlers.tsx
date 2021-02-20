@@ -1,24 +1,17 @@
+import { SliderProps } from "../SliderSuggestion";
 import { useState } from "react";
 import { getProductDataTypes } from "../../lib/dataFunctions";
+import { Product } from "@prisma/client";
 
-interface WithSliderHandlersProps {
+export interface WithSliderHandlersProps {
   numberToShow: number;
   totalImageNumber: number;
   productData?: getProductDataTypes;
-}
-
-export interface SliderProps {
-  goForward: () => void;
-  goBackward: () => void;
-  style: {
-    transform: string;
-  };
   counter: number;
-  productData?: getProductDataTypes;
 }
 
 const WithSliderHandlers = (WrapperComponent: React.FC<SliderProps>) => (
-  props: WithSliderHandlersProps
+  props: any
 ) => {
   const { numberToShow, totalImageNumber } = props;
   const maxVal = totalImageNumber - numberToShow;
