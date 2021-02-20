@@ -1,10 +1,9 @@
 import { memo } from "react";
-import { useRouter } from "next/router";
 
 import Starred from "../components/Starred";
 import classNames from "classnames";
 import Feedback from "../components/Feedback";
-import Button from "../components/Button";
+import ButtonAddToCart from "../components/ButtonAddToCart";
 
 import Link from "next/link";
 
@@ -30,7 +29,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
   id,
 }) => {
   const link = `/products/${slug}`;
-  const router = useRouter();
   return (
     <div className={classNames([styles.productCard], className)}>
       <Starred className={styles.heart} classLabelName={styles.label} />
@@ -45,11 +43,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <a className={styles.title}>{name}</a>
       </Link>
       <div className={styles.price}>{price} руб.</div>
-      {inCart ? (
-        <Button onClick={() => router.push("/cart")}>Перейти в корзину</Button>
-      ) : (
-        <Button onClick={() => handleAddToCart(id)}>Добавить</Button>
-      )}
+      <ButtonAddToCart
+        inCart={inCart}
+        handleAddToCart={async () => await handleAddToCart(id)}
+      />
     </div>
   );
 };

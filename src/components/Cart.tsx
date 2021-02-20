@@ -1,4 +1,3 @@
-import { getCartTypes } from "../lib/dataFunctions";
 import { Product } from "@prisma/client";
 
 import ProductCardMini from "./ProductCardMini";

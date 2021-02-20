@@ -1,36 +1,53 @@
+import useCartItemsReducer from "../../hooks/useCartItemsReducer";
 import Error from "next/error";
+import {
+  getCart,
+  getCategories,
+  getCategoriesTypes,
+  getProduct,
+  getUser,
+  getProductTypes,
+  getCartTypes,
+} from "../../lib/dataFunctions";
 import withSession from "../../lib/session";
-import { Prisma } from "@prisma/client";
 import { UserContextTypes } from "../../lib/userContext";
-import { CategoriesContextType } from "../../lib/categoryContext";
 
 import Breadcrumbs from "../../components/Breadcrumbs";
 import Feedback from "../../components/Feedback";
 import Starred from "../../components/Starred";
 import Share from "../../components/Share";
 import ProductCounter from "../../components/ProductCounter";
-import Button from "../../components/Button";
+import ButtonAddToCart from "../../components/ButtonAddToCart";
 import AboutProduct from "../../components/AboutProduct";
 import Layout from "../../components/Layout";
-import { getCategories, getProduct, getUser } from "../../lib/dataFunctions";
 
 import styles from "../../styles/Product.module.css";
 
-type ProductWithCategory = Prisma.ProductGetPayload<{
-  include: { category: true; brand: true; country: true };
-}>;
-
 interface ProductProps {
-  product?: ProductWithCategory;
+  product?: getProductTypes;
   user?: UserContextTypes;
-  categories: CategoriesContextType;
+  categories: getCategoriesTypes;
+  cart: getCartTypes;
 }
 
-const Product: React.FC<ProductProps> = ({ product, user, categories }) => {
+const Product: React.FC<ProductProps> = ({
+  product,
+  user,
+  categories,
+  cart,
+}) => {
+  const { cartItems, handleAddToCart, updateQuantity } = useCartItemsReducer(
+    cart?.cartItems ?? []
+  );
+
+  const cartItem = cartItems.filter((i) => i.product.id === product?.id)[0];
+
   if (!product) {
     return <Error statusCode={404} />;
   }
+
   const {
+    id,
     name,
     slug,
     brand,
@@ -43,6 +60,7 @@ const Product: React.FC<ProductProps> = ({ product, user, categories }) => {
     about,
     category,
   } = product;
+
   return (
     <Layout categories={categories} user={user}>
       <Breadcrumbs category={category} product={{ name, slug }} />
@@ -59,8 +77,13 @@ const Product: React.FC<ProductProps> = ({ product, user, categories }) => {
           </div>
           <div className={styles.buyWrapper}>
             <div className={styles.price}>{price} руб.</div>
-            <ProductCounter />
-            <Button>Добавить</Button>
+            {cartItem && (
+              <ProductCounter {...cartItem} updateQuantity={updateQuantity} />
+            )}
+            <ButtonAddToCart
+              inCart={cartItem ? true : false}
+              handleAddToCart={() => handleAddToCart(id)}
+            />
           </div>
           <div className={styles.chars}>
             <div className={styles.charWrapper}>
@@ -95,13 +118,13 @@ const Product: React.FC<ProductProps> = ({ product, user, categories }) => {
   );
 };
 
-export const getServerSideProps = withSession(async ({ req, query }) => {
-  const slug = query.slug;
-  const product = await getProduct(slug);
+export const getServerSideProps = withSession(async ({ req, query, res }) => {
+  const product = await getProduct(query.slug);
   const categories = await getCategories();
+  const cart = await getCart({ req, res });
 
   return {
-    props: { categories, product, user: getUser(req) },
+    props: { categories, product, user: getUser(req), cart },
   };
 });
 

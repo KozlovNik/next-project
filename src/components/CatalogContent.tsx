@@ -84,7 +84,7 @@ const CatalogContent: React.FC<CatalogContentProps> = ({
                 className={styles.product}
                 key={slug}
                 id={id}
-                inCart={cartItems.some((e) => e.product.id === id) ?? false}
+                inCart={cartItems?.some((e) => e.product.id === id) ?? false}
                 handleAddToCart={handleAddToCart}
                 slug={slug}
                 {...rest}
