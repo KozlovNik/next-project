@@ -8,15 +8,16 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
+  id        Int        @id @default(autoincrement())
+  email     String     @unique
   firstName String
   lastName  String
   password  String
   phone     String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now())
   address   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  Feedback  Feedback[]
 }
 
 model Category {
@@ -49,24 +50,38 @@ model Product {
   slug        String     @unique
   price       Float
   material    String?
-  roasting    String?
-  ingredients String?
-  country     Country    @relation(fields: [countryId], references: [id])
-  countryId   Int
   about       String
-  weight      String?
-  category    Category   @relation(fields: [categoryId], references: [id])
   categoryId  Int
-  brand       Brand      @relation(fields: [brandId], references: [id])
+  ingredients String?
+  roasting    String?
+  weight      String?
+  countryId   Int
   brandId     Int
-  cartItems    CartItem[]
+  brand       Brand      @relation(fields: [brandId], references: [id])
+  category    Category   @relation(fields: [categoryId], references: [id])
+  country     Country    @relation(fields: [countryId], references: [id])
+  cartItems   CartItem[]
+  Feedback    Feedback[]
 }
 
 model CartItem {
   id        Int     @id @default(autoincrement())
   quantity  Int
-  product   Product @relation(fields: [productId], references: [id])
   productId Int
-  cart      Cart    @relation(fields: [cartId], references: [id])
   cartId    Int
+  cart      Cart    @relation(fields: [cartId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model Feedback {
+  id           Int       @id @default(autoincrement())
+  userid       Int
+  productid    Int
+  comment      String
+  rating       Int
+  date_created DateTime @default(now())
+  Product      Product  @relation(fields: [productid], references: [id])
+  User         User     @relation(fields: [userid], references: [id])
+
+  @@unique([userid, productid], name: "Feedback_userid_productid_key")
 }
