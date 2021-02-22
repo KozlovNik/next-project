@@ -61,7 +61,7 @@ model Product {
   category    Category   @relation(fields: [categoryId], references: [id])
   country     Country    @relation(fields: [countryId], references: [id])
   cartItems   CartItem[]
-  Feedback    Feedback[]
+  feedback    Feedback[]
 }
 
 model CartItem {
@@ -79,9 +79,9 @@ model Feedback {
   productid    Int
   comment      String
   rating       Int
-  date_created DateTime @default(now())
-  Product      Product  @relation(fields: [productid], references: [id])
-  User         User     @relation(fields: [userid], references: [id])
+  dateCreated DateTime @default(now())
+  product      Product  @relation(fields: [productid], references: [id])
+  user         User     @relation(fields: [userid], references: [id])
 
   @@unique([userid, productid], name: "Feedback_userid_productid_key")
 }
