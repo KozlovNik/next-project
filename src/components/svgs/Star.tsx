@@ -1,8 +1,11 @@
-import React from "react";
-import WithSvgState, { SvgProps } from "../hocs/WithSvgState";
+interface StarProps {
+  color?: string;
+  width?: number | string;
+  className?: string
+}
 
-const Star: React.FC<SvgProps> = ({
-  color,
+const Star: React.FC<StarProps> = ({
+  color = "#c4c4c4",
   width = 17,
   ...rest
 }) => {
@@ -23,4 +26,4 @@ const Star: React.FC<SvgProps> = ({
   );
 };
 
-export default WithSvgState(Star);
+export default Star;

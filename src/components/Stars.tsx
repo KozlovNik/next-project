@@ -1,21 +1,15 @@
-import { useState } from "react";
 import Star from "./svgs/Star";
 
 import styles from "./Stars.module.css";
 
-const Stars = () => {
-  const [rating] = useState(2);
+interface StarsProps {
+  rating?: number | null;
+}
 
+const Stars: React.FC<StarsProps> = ({ rating }) => {
   const stars = [...Array(5)].map((_, i) => {
-    const color = i > rating ? "#C4C4C4" : "#DCE01B";
-    return (
-      <Star
-        key={i}
-        initialColor={color}
-        hoverColor={color}
-        className={styles.star}
-      />
-    );
+    const color = !rating || i > rating - 1 ? "#C4C4C4" : "#DCE01B";
+    return <Star key={i} color={color} className={styles.star} />;
   });
 
   return <span>{stars}</span>;
