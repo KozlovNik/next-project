@@ -10,7 +10,7 @@ export default withSession(async (req, res) => {
     const { productId: productid, comment, rating } = JSON.parse(req.body);
     try {
       const feedback = await prisma.feedback.create({
-        data: { comment, rating, productid, userid: user.id },
+        data: { comment, rating: Number(rating), productid, userid: user.id },
       });
       prisma.$disconnect();
       return res.json(feedback);
