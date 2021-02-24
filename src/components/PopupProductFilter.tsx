@@ -1,8 +1,6 @@
 import { useRef } from "react";
 
 import Popup from "reactjs-popup";
-import ProductFilter from "./ProductFilter";
-import FilterForm from "./FilterForm";
 
 interface PopupProductFilter {
   trigger: (isOpen: boolean) => JSX.Element;

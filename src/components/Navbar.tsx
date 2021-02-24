@@ -1,4 +1,6 @@
-import { useState, memo, useEffect } from "react";
+import { useState, memo, useEffect, useContext } from "react";
+import { CloseLoginContext } from "../lib/closeLoginContext";
+
 import PopupAccount from "./PopupAccount";
 import PopupMenu from "./PopupMenu";
 import PopupSearch from "./PopupSearch";
@@ -9,14 +11,16 @@ import PopupLogin from "../components/PopupLogin";
 
 import styles from "./Navbar.module.css";
 
-const Navbar = () => {
+interface NavbarProps {}
+
+const Navbar: React.FC<NavbarProps> = () => {
   const [closeMenu, setCloseMenu] = useState(true);
   const [closeAccount, setCloseAccount] = useState(true);
   const [closeSearch, setCloseSearch] = useState(true);
-  const [closeLogin, setCloseLogin] = useState(true);
+  const { setCloseLogin, closeLogin } = useContext(CloseLoginContext);
 
   useEffect(() => {
-    const body = document.body
+    const body = document.body;
     if (!closeLogin) {
       body?.classList.add("body-overflow");
     } else {

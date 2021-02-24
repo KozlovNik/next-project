@@ -1,7 +1,10 @@
-import React, { useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
+import { CloseLoginContext } from "../lib/closeLoginContext";
 import classNames from "classnames";
 import { useState } from "react";
 import { Popup } from "reactjs-popup";
+import { UserContext } from "../lib/userContext";
+import fetcher from "../lib/fetchJson";
 
 import Button from "./Button";
 import Stars from "./Stars";
@@ -27,8 +30,26 @@ interface AboutProduct {
 const AboutProduct: React.FC<AboutProduct> = ({ info, feedback, name, id }) => {
   const [tab, setTab] = useState<"about" | "feedback">("about");
   const [data, setData] = useState(feedback);
+  const { setCloseLogin } = useContext(CloseLoginContext);
+  const user = useContext(UserContext);
+  const [hasPost, setHasPost] = useState<boolean>(true);
 
   const ref = useRef<any>(null);
+
+  useEffect(() => {
+    async function userHasPost() {
+      const res = await fetch(`/api/feedback?productId=${id}`, {
+        method: "HEAD",
+      });
+      if (res.ok) {
+        setHasPost(true);
+      } else {
+        setHasPost(false);
+      }
+    }
+
+    userHasPost();
+  }, [feedback, hasPost]);
 
   let close;
   if (ref) {
@@ -37,7 +58,17 @@ const AboutProduct: React.FC<AboutProduct> = ({ info, feedback, name, id }) => {
 
   const addFeedback = (fb: any) => {
     setData([fb, ...data]);
+    setHasPost(true)
   };
+
+  let button;
+  if (hasPost) {
+    button = null;
+  } else {
+    button = (
+      <Button onClick={() => setCloseLogin(false)}>Добавить отзыв</Button>
+    );
+  }
   return (
     <div className={styles.wrapper} id="feedback">
       <span
@@ -69,24 +100,28 @@ const AboutProduct: React.FC<AboutProduct> = ({ info, feedback, name, id }) => {
           ) : (
             <div className={styles.feedback}>
               <span className={styles.title}>Отзывы</span>
-              <Popup
-                trigger={
-                  <span>
-                    <Button>Добавить отзыв</Button>
-                  </span>
-                }
-                className="pop"
-                position="bottom right"
-                closeOnDocumentClick
-                ref={ref}
-              >
-                <AddFeedback
-                  close={close}
-                  addFeedback={addFeedback}
-                  name={name}
-                  id={id}
-                />
-              </Popup>
+              {user && user.isLogged && !hasPost ? (
+                <Popup
+                  trigger={
+                    <span>
+                      <Button>Добавить отзыв</Button>
+                    </span>
+                  }
+                  className="pop"
+                  position="bottom right"
+                  closeOnDocumentClick
+                  ref={ref}
+                >
+                  <AddFeedback
+                    close={close}
+                    addFeedback={addFeedback}
+                    name={name}
+                    id={id}
+                  />
+                </Popup>
+              ) : (
+                button
+              )}
 
               {data && data.length > 0 ? (
                 <>
