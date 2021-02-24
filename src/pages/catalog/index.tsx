@@ -73,6 +73,7 @@ export const getServerSideProps = withSession(
     const brands = await getBrands();
     const cart = await getCart({ req, res });
 
+
     return {
       props: {
         categories,
@@ -85,3 +86,5 @@ export const getServerSideProps = withSession(
     };
   }
 );
+
+

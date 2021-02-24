@@ -38,6 +38,7 @@ export default withSession(async (req, res) => {
       user = await prisma.user.create({
         data: { ...rest, password: hash },
       });
+      prisma.$disconnect();
     } catch (e) {
       return res.status(409).end();
     }

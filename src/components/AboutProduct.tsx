@@ -1,17 +1,45 @@
+import React, { useRef } from "react";
 import classNames from "classnames";
 import { useState } from "react";
-import styles from "./AboutProduct.module.css";
+import { Popup } from "reactjs-popup";
+
 import Button from "./Button";
 import Stars from "./Stars";
+import AddFeedback from "./AddFeedback";
+
+import styles from "./AboutProduct.module.css";
 
 interface AboutProduct {
   info: string;
+  feedback: {
+    comment: string;
+    rating: number;
+    user: {
+      firstName: string;
+      lastName: string;
+    };
+    dateCreated: Date;
+  }[];
+  name: string;
+  id: number;
 }
 
-const AboutProduct: React.FC<AboutProduct> = ({ info }) => {
+const AboutProduct: React.FC<AboutProduct> = ({ info, feedback, name, id }) => {
   const [tab, setTab] = useState<"about" | "feedback">("about");
+  const [data, setData] = useState(feedback);
+
+  const ref = useRef<any>(null);
+
+  let close;
+  if (ref) {
+    close = () => ref.current.close();
+  }
+
+  const addFeedback = (fb: any) => {
+    setData([fb, ...data]);
+  };
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} id="feedback">
       <span
         onClick={() => setTab("about")}
         className={classNames(styles.tabLabel, {
@@ -41,20 +69,43 @@ const AboutProduct: React.FC<AboutProduct> = ({ info }) => {
           ) : (
             <div className={styles.feedback}>
               <span className={styles.title}>Отзывы</span>
-              <Button>Добавить отзыв</Button>
-              <div className={styles.name}>Иванов Иван</div>
-              <div className={styles.date}>21.01.2021</div>
-              <Stars />
-              <div className={styles.message}>
-                Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру
-                сгенерировать несколько абзацев более менее осмысленного текста
-                рыбы на русском языке, а начинающему оратору отточить навык
-                публичных выступлений в домашних условиях. При создании
-                генератора мы использовали небезизвестный универсальный код
-                речей. Текст генерируется абзацами случайным образом от двух до
-                десяти предложений в абзаце, что позволяет сделать текст более
-                привлекательным и живым для визуально-слухового восприятия.
-              </div>
+              <Popup
+                trigger={
+                  <span>
+                    <Button>Добавить отзыв</Button>
+                  </span>
+                }
+                className="pop"
+                position="bottom right"
+                closeOnDocumentClick
+                ref={ref}
+              >
+                <AddFeedback
+                  close={close}
+                  addFeedback={addFeedback}
+                  name={name}
+                  id={id}
+                />
+              </Popup>
+
+              {data && data.length > 0 ? (
+                <>
+                  {data.map(({ comment, user, dateCreated, rating }, id) => (
+                    <React.Fragment key={id}>
+                      <div className={styles.name}>
+                        {user.lastName} {user.firstName}
+                      </div>
+                      <div className={styles.date}>
+                        {new Date(dateCreated).toLocaleDateString()}
+                      </div>
+                      <Stars rating={rating} />
+                      <div className={styles.message}>{comment}</div>
+                    </React.Fragment>
+                  ))}
+                </>
+              ) : (
+                <div className={styles.noFeedback}>Нет отзывов</div>
+              )}
             </div>
           )}
         </div>

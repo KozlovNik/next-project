@@ -13,7 +13,7 @@ const PopupProductFilter: React.FC<PopupProductFilter> = ({
   trigger,
   children,
 }) => {
-  const ref = useRef<any>(null);
+  const ref = useRef<any>();
   let close;
   if (ref) {
     close = () => ref.current.close();

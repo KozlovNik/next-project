@@ -17,6 +17,7 @@ interface ProductCardProps {
   className?: string;
   inCart: boolean;
   handleAddToCart: (id: number) => void;
+  feedback: any;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -27,6 +28,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   inCart,
   handleAddToCart,
   id,
+  feedback,
 }) => {
   const link = `/products/${slug}`;
   return (
@@ -37,7 +39,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <img className={styles.image} src={`${link}.jpg`} alt="" />
         </a>
       </Link>
-      <Feedback />
+      <Feedback feedback={feedback} slug={slug} />
 
       <Link href={link}>
         <a className={styles.title}>{name}</a>

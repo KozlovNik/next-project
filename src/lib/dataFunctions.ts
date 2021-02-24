@@ -44,6 +44,7 @@ export const getProductData = async ({
       slug: true,
       price: true,
       category: true,
+      feedback: { select: { rating: true } },
     },
     skip: (page - 1) * 12,
     take: 12,
@@ -147,6 +148,14 @@ export const getProduct = async (slug: string) => {
       category: true,
       brand: true,
       country: true,
+      feedback: {
+        select: {
+          comment: true,
+          rating: true,
+          user: { select: { firstName: true, lastName: true, id: true } },
+          dateCreated: true,
+        },
+      },
     },
   });
 
@@ -196,11 +205,12 @@ export const getCart = async ({
       select,
       data: {},
     });
+    prisma.$disconnect();
     setCookie(res, "cartId", cart.id, {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       sameSite: true,
       httpOnly: true,
-      path: '/'
+      path: "/",
     });
   }
   return cart;

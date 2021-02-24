@@ -11,6 +11,8 @@ export default withSession(async (req, res) => {
     },
   });
 
+  prisma.$disconnect()
+
   if (user) {
     const match = await bcrypt.compare(password, user.password);
 

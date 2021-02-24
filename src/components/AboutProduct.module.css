@@ -48,7 +48,8 @@
 
 .name,
 .date,
-.message {
+.message,
+.noFeedback {
   flex: 1 0 100%;
 }
 
@@ -59,5 +60,6 @@
 }
 
 .message {
-    margin-top: 5px;
+  margin-bottom: 10px;
 }
+

@@ -59,6 +59,7 @@ const Product: React.FC<ProductProps> = ({
     weight,
     about,
     category,
+    feedback,
   } = product;
 
   return (
@@ -71,7 +72,7 @@ const Product: React.FC<ProductProps> = ({
         </div>
         <div className={styles.infoWrapper}>
           <div className={styles.icons}>
-            <Feedback />
+            <Feedback slug={slug} feedback={feedback} />
             <Starred />
             <Share />
           </div>
@@ -113,7 +114,7 @@ const Product: React.FC<ProductProps> = ({
           </div>
         </div>
       </div>
-      <AboutProduct info={about} />
+      <AboutProduct feedback={feedback} name={name} id={id} info={about} />
     </Layout>
   );
 };
@@ -124,7 +125,12 @@ export const getServerSideProps = withSession(async ({ req, query, res }) => {
   const cart = await getCart({ req, res });
 
   return {
-    props: { categories, product, user: getUser(req), cart },
+    props: {
+      categories,
+      product: JSON.parse(JSON.stringify(product)),
+      user: getUser(req),
+      cart,
+    },
   };
 });
 

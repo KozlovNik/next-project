@@ -65,12 +65,24 @@ a {
   margin: auto;
   background: rgb(255, 255, 255);
   padding: 20px;
-  width: 200px;
+  min-width: 200px;
   min-height: 50px;
   max-height: 200px;
   padding: 5px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.3);
   border-radius: 5px;
+}
+
+.pop-content {
+  min-height: 250px;
+  height: fit-content;
+  max-height: 400px;
+}
+
+@media screen and (max-width: 800px) {
+  .pop-content {
+    max-width: calc(100% - 80px);
+  }
 }
 
 .popup-arrow {

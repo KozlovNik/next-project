@@ -1,14 +1,20 @@
 import useError from "../hooks/useError";
+import {
+  getCategories,
+  getCategoriesTypes,
+  getUser,
+} from "../lib/dataFunctions";
 import { Form, Formik } from "formik";
+import * as Yup from "yup";
+import withSession from "../lib/session";
+import Router from "next/router";
+
+import Error from "../components/Error";
 import CustomField from "../components/CustomField";
 import Layout from "../components/Layout";
 import Button from "../components/Button";
-import * as Yup from "yup";
-import withSession from "../lib/session";
-import Error from "../components/Error";
 
 import styles from "../styles/Register.module.css";
-import Router from "next/router";
 
 const reqText = "Поле не может быть пустым";
 
@@ -18,12 +24,13 @@ interface RegisterProps {
     firstName: string;
     isLogged: boolean;
   };
+  categories: getCategoriesTypes;
 }
 
-const Register: React.FC<RegisterProps> = () => {
+const Register: React.FC<RegisterProps> = ({ categories, user }) => {
   const [error, setError] = useError();
   return (
-    <Layout>
+    <Layout categories={categories} user={user}>
       <Formik
         validationSchema={Yup.object({
           firstName: Yup.string().required(reqText),
@@ -94,7 +101,7 @@ const Register: React.FC<RegisterProps> = () => {
 export default Register;
 
 export const getServerSideProps = withSession(async ({ req }) => {
-  const user = req.session.get("user");
+  const user = getUser(req);
   if (user) {
     return {
       redirect: {
@@ -104,7 +111,9 @@ export const getServerSideProps = withSession(async ({ req }) => {
     };
   }
 
+  const categories = await getCategories();
+
   return {
-    props: {},
+    props: { categories },
   };
 });

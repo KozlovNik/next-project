@@ -34,6 +34,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         },
         select: { id: true, quantity: true, product: true },
       });
+      prisma.$disconnect()
       return res.status(201).json(cartItem);
     } catch {
       return res.status(404).json({ message: "Not found" });

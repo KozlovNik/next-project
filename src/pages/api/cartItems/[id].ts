@@ -7,7 +7,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "DELETE") {
     try {
       const cartItem = await prisma.cartItem.delete({ where: { id } });
-
+      prisma.$disconnect()
       return res.json(cartItem);
     } catch {
       return res.status(404).json({ message: "Not found" });
@@ -24,7 +24,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         data: { quantity },
         include: { product: true },
       });
-
+      prisma.$disconnect()
       return res.json(cartItem);
     } catch {
       return res.status(400).json({ message: "Bad request" });
