@@ -18,6 +18,7 @@ model User {
   updatedAt DateTime   @default(now())
   address   String
   Feedback  Feedback[]
+  favorites Favorite[]
 }
 
 model Category {
@@ -62,6 +63,7 @@ model Product {
   country     Country    @relation(fields: [countryId], references: [id])
   cartItems   CartItem[]
   feedback    Feedback[]
+  favorites   Favorite[]
 }
 
 model CartItem {
@@ -74,14 +76,23 @@ model CartItem {
 }
 
 model Feedback {
-  id           Int       @id @default(autoincrement())
-  userid       Int
-  productid    Int
-  comment      String
-  rating       Int
+  userid      Int
+  productid   Int
+  comment     String
+  rating      Int
   dateCreated DateTime @default(now())
-  product      Product  @relation(fields: [productid], references: [id])
-  user         User     @relation(fields: [userid], references: [id])
+  product     Product  @relation(fields: [productid], references: [id])
+  user        User     @relation(fields: [userid], references: [id])
 
   @@unique([userid, productid], name: "Feedback_userid_productid_key")
+}
+
+model Favorite {
+  userId    Int
+  productId Int
+  mark      String  @default("")
+  product   Product @relation(fields: [productId], references: [id])
+  user      User    @relation(fields: [userId], references: [id])
+
+  @@unique([userId, productId], name: "Favorite_userId_productId_key")
 }
