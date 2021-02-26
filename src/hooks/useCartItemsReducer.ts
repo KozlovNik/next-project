@@ -3,7 +3,6 @@ import { useReducer } from "react";
 import fetcher from "../lib/fetchJson";
 
 interface CartItem {
-  id: number;
   quantity: number;
   product: Product;
 }
@@ -11,17 +10,17 @@ interface CartItem {
 type Action =
   | { type: "add"; cartItem: CartItem }
   | { type: "update"; cartItem: CartItem }
-  | { type: "remove"; itemId: number };
+  | { type: "remove"; productId: number };
 
 function reducer(state: CartItem[], action: Action): CartItem[] {
   switch (action.type) {
     case "add":
       return [...state, action.cartItem];
     case "remove":
-      return state.filter(({ id }) => id !== action.itemId);
+      return state.filter(({ product }) => product.id !== action.productId);
     case "update":
       return state.map((item) =>
-        item.id === action.cartItem.id ? action.cartItem : item
+        item.product.id === action.cartItem.product.id ? action.cartItem : item
       );
     default:
       return state;
@@ -49,11 +48,12 @@ export default function useCartItemsReducer(initialState: CartItem[]) {
     } catch {}
   };
 
-  const deleteCartItem = async (itemId: number) => {
+  const deleteCartItem = async (productId: number) => {
     try {
-      await fetcher(`/api/cartItems/${itemId}`, { method: "DELETE" });
-      dispatch({ type: "remove", itemId });
+      await fetcher(`/api/cartItems/${productId}`, { method: "DELETE" });
+      dispatch({ type: "remove", productId });
     } catch (err) {}
   };
+
   return { cartItems, handleAddToCart, deleteCartItem, updateQuantity };
 }

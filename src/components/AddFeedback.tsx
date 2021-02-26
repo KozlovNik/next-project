@@ -28,6 +28,7 @@ const AddFeedback: React.FC<AddFeedbackProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      console.log(values, id)
       const feedback = await fetcher("/api/feedback", {
         method: "POST",
         body: JSON.stringify({ ...values, productId: id }),

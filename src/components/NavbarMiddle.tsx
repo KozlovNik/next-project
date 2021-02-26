@@ -50,7 +50,13 @@ const NavbarMiddle: React.FC<NavbarMiddleProps> = ({ setCloseLogin }) => {
           {user && user.isLogged && (
             <>
               <span className={styles.username}>{user.firstName}</span>
-              <a onClick={async () => await logout()} className={styles.link}>
+              <a
+                onClick={async () => {
+                  await logout();
+                  router.push("/");
+                }}
+                className={styles.link}
+              >
                 <LogoutImage />
               </a>
             </>
@@ -64,9 +70,18 @@ const NavbarMiddle: React.FC<NavbarMiddleProps> = ({ setCloseLogin }) => {
             </>
           )}
 
-          <a className={styles.link}>
-            <BlackHeart />
-          </a>
+          {user && user.isLogged ? (
+            <Link href="/favorites">
+              <a className={styles.link}>
+                <BlackHeart />
+              </a>
+            </Link>
+          ) : (
+            <a onClick={setCloseLogin} className={styles.link}>
+              <BlackHeart />
+            </a>
+          )}
+
           <Link href="/cart">
             <a className={styles.link}>
               <CartImage />

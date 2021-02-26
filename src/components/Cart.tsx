@@ -6,7 +6,6 @@ import styles from "./Cart.module.css";
 
 interface CartProps {
   cartItems: {
-    id: number;
     quantity: number;
     product: Product;
   }[];
@@ -27,7 +26,7 @@ const Cart: React.FC<CartProps> = ({
           <ProductCardMini
             deleteCartItem={deleteCartItem}
             updateQuantity={updateQuantity}
-            key={props.id}
+            key={props.product.id}
             {...props}
           />
         ))}

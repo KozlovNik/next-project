@@ -1,7 +1,8 @@
 import { useEffect, useRef, useContext } from "react";
 import ButtonClose from "./ButtonClose";
 import useUser from "../hooks/useUser";
-import useSWR from "swr";
+import { CloseLoginContext } from "../lib/closeLoginContext";
+import { useRouter } from "next/router";
 
 import Link from "next/link";
 import classNames from "classnames";
@@ -26,6 +27,7 @@ const PopupAccount = ({
   const linkRef3 = useRef(null);
 
   const { logout, user } = useUser();
+  const router = useRouter();
 
   useEscapeKey(handleClick);
 
@@ -55,7 +57,13 @@ const PopupAccount = ({
       </div>
       <div className={styles.menuContent} ref={linkRef2}>
         {user && user.isLogged && (
-          <a className={styles.authLink} onClick={async () => await logout()}>
+          <a
+            className={styles.authLink}
+            onClick={async () => {
+              await logout();
+              router.push("/");
+            }}
+          >
             Выйти из аккаунта
           </a>
         )}
@@ -76,7 +84,15 @@ const PopupAccount = ({
           </>
         )}
 
-        <a className={styles.starred}>Закладки</a>
+        {user && user.isLogged ? (
+          <Link href="/favorites">
+            <a className={styles.starred}>Закладки</a>
+          </Link>
+        ) : (
+          <a className={styles.starred} onClick={setCloseLogin}>
+            Закладки
+          </a>
+        )}
       </div>
     </div>
   );

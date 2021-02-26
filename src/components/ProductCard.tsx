@@ -18,6 +18,8 @@ interface ProductCardProps {
   inCart: boolean;
   handleAddToCart: (id: number) => void;
   feedback: any;
+  handleToggleStarred: (id: number) => void;
+  favoritesIds: number[];
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -29,11 +31,20 @@ const ProductCard: React.FC<ProductCardProps> = ({
   handleAddToCart,
   id,
   feedback,
+  handleToggleStarred,
+  favoritesIds,
 }) => {
   const link = `/products/${slug}`;
   return (
     <div className={classNames([styles.productCard], className)}>
-      <Starred className={styles.heart} classLabelName={styles.label} />
+      <Starred
+        isStarred={favoritesIds?.includes(id) ?? false}
+        handleToggleStarred={() => {
+          handleToggleStarred(id);
+        }}
+        className={styles.heart}
+        classLabelName={styles.label}
+      />
       <Link href={link}>
         <a>
           <img className={styles.image} src={`${link}.jpg`} alt="" />

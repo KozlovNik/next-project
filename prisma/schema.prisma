@@ -67,24 +67,25 @@ model Product {
 }
 
 model CartItem {
-  id        Int     @id @default(autoincrement())
-  quantity  Int
+  quantity  Int     @default(1)
   productId Int
   cartId    Int
   cart      Cart    @relation(fields: [cartId], references: [id])
   product   Product @relation(fields: [productId], references: [id])
+
+  @@unique([cartId, productId], name: "CartItem_userid_productid_key")
 }
 
 model Feedback {
-  userid      Int
-  productid   Int
+  userId      Int
+  productId   Int
   comment     String
   rating      Int
   dateCreated DateTime @default(now())
-  product     Product  @relation(fields: [productid], references: [id])
-  user        User     @relation(fields: [userid], references: [id])
+  product     Product  @relation(fields: [productId], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
 
-  @@unique([userid, productid], name: "Feedback_userid_productid_key")
+  @@unique([userId, productId], name: "Feedback_userid_productid_key")
 }
 
 model Favorite {

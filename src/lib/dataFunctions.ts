@@ -114,6 +114,8 @@ export const getProductData = async ({
     ...queries,
   });
 
+  // console.log(products)
+
   const total = await prisma.product.count({ where });
 
   prisma.$disconnect();
@@ -193,7 +195,7 @@ export const getCart = async ({
   let cart;
   const select = {
     id: true,
-    cartItems: { select: { id: true, quantity: true, product: true } },
+    cartItems: { select: { quantity: true, product: true } },
   };
   if (cartId) {
     cart = await prisma.cart.findUnique({
@@ -216,6 +218,23 @@ export const getCart = async ({
   return cart;
 };
 
+export const getFavorites = async (userId: number) => {
+  const favorites = await prisma.favorite.findMany({
+    where: { userId },
+    select: {
+      mark: true,
+      product: { select: { id: true, name: true, slug: true, price: true } },
+    },
+  });
+  prisma.$disconnect();
+  return favorites;
+};
+
+export const getFavoritesIds = (arr: any) => {
+  console.log('arr', arr)
+  return arr?.map(({ product }: any) => product.id) || [];
+};
+
 export type getCategoriesTypes = Prisma.PromiseReturnType<typeof getCategories>;
 export type getCartTypes = Prisma.PromiseReturnType<typeof getCart>;
 export type getBrandsTypes = Prisma.PromiseReturnType<typeof getBrands>;
@@ -224,3 +243,4 @@ export type getProductDataTypes = Prisma.PromiseReturnType<
   typeof getProductData
 >;
 export type getProductTypes = Prisma.PromiseReturnType<typeof getProduct>;
+export type getFavoritesTypes = Prisma.PromiseReturnType<typeof getFavorites>;

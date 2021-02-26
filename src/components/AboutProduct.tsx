@@ -4,7 +4,6 @@ import classNames from "classnames";
 import { useState } from "react";
 import { Popup } from "reactjs-popup";
 import { UserContext } from "../lib/userContext";
-import fetcher from "../lib/fetchJson";
 
 import Button from "./Button";
 import Stars from "./Stars";
@@ -25,11 +24,18 @@ interface AboutProduct {
   }[];
   name: string;
   id: number;
+  setFeedback: any;
 }
 
-const AboutProduct: React.FC<AboutProduct> = ({ info, feedback, name, id }) => {
+const AboutProduct: React.FC<AboutProduct> = ({
+  info,
+  feedback,
+  setFeedback,
+  name,
+  id,
+}) => {
   const [tab, setTab] = useState<"about" | "feedback">("about");
-  const [data, setData] = useState(feedback);
+
   const { setCloseLogin } = useContext(CloseLoginContext);
   const user = useContext(UserContext);
   const [hasPost, setHasPost] = useState<boolean>(true);
@@ -57,8 +63,8 @@ const AboutProduct: React.FC<AboutProduct> = ({ info, feedback, name, id }) => {
   }
 
   const addFeedback = (fb: any) => {
-    setData([fb, ...data]);
-    setHasPost(true)
+    setFeedback([fb, ...feedback]);
+    setHasPost(true);
   };
 
   let button;
@@ -123,20 +129,22 @@ const AboutProduct: React.FC<AboutProduct> = ({ info, feedback, name, id }) => {
                 button
               )}
 
-              {data && data.length > 0 ? (
+              {feedback && feedback.length > 0 ? (
                 <>
-                  {data.map(({ comment, user, dateCreated, rating }, id) => (
-                    <React.Fragment key={id}>
-                      <div className={styles.name}>
-                        {user.lastName} {user.firstName}
-                      </div>
-                      <div className={styles.date}>
-                        {new Date(dateCreated).toLocaleDateString()}
-                      </div>
-                      <Stars rating={rating} />
-                      <div className={styles.message}>{comment}</div>
-                    </React.Fragment>
-                  ))}
+                  {feedback.map(
+                    ({ comment, user, dateCreated, rating }, id) => (
+                      <React.Fragment key={id}>
+                        <div className={styles.name}>
+                          {user.lastName} {user.firstName}
+                        </div>
+                        <div className={styles.date}>
+                          {new Date(dateCreated).toLocaleDateString()}
+                        </div>
+                        <Stars rating={rating} />
+                        <div className={styles.message}>{comment}</div>
+                      </React.Fragment>
+                    )
+                  )}
                 </>
               ) : (
                 <div className={styles.noFeedback}>Нет отзывов</div>

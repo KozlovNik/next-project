@@ -17,17 +17,19 @@ import Spinner from "./Spinner";
 import ProductFilters from "./ProductFilters";
 
 import styles from "./CatalogContent.module.css";
+import favorites from "../pages/api/favorites";
 
 interface CatalogContentProps {
   productData: getProductDataTypes;
   countries: getCountriesTypes;
   brands: getBrandsTypes;
   cartItems: {
-    id: number;
     quantity: number;
     product: Product;
   }[];
   handleAddToCart: (id: number) => void;
+  handleToggleStarred: (id: number) => void;
+  favoritesIds: number[]
 }
 
 const CatalogContent: React.FC<CatalogContentProps> = ({
@@ -36,6 +38,8 @@ const CatalogContent: React.FC<CatalogContentProps> = ({
   brands,
   cartItems,
   handleAddToCart,
+  favoritesIds,
+  handleToggleStarred
 }) => {
   const { mutate, data, router, error } = useCatalogData(productData);
 
@@ -81,12 +85,14 @@ const CatalogContent: React.FC<CatalogContentProps> = ({
           {products &&
             products.map(({ slug, id, ...rest }) => (
               <ProductCard
+                handleToggleStarred={handleToggleStarred}
                 className={styles.product}
                 key={slug}
                 id={id}
                 inCart={cartItems?.some((e) => e.product.id === id) ?? false}
                 handleAddToCart={handleAddToCart}
                 slug={slug}
+                favoritesIds={favoritesIds}
                 {...rest}
               />
             ))}

@@ -8,6 +8,8 @@ import {
   getUser,
   getProductTypes,
   getCartTypes,
+  getFavorites,
+  getFavoritesIds,
 } from "../../lib/dataFunctions";
 import withSession from "../../lib/session";
 import { UserContextTypes } from "../../lib/userContext";
@@ -22,12 +24,14 @@ import AboutProduct from "../../components/AboutProduct";
 import Layout from "../../components/Layout";
 
 import styles from "../../styles/Product.module.css";
+import { useState } from "react";
 
 interface ProductProps {
   product?: getProductTypes;
   user?: UserContextTypes;
   categories: getCategoriesTypes;
   cart: getCartTypes;
+  favorites: number[];
 }
 
 const Product: React.FC<ProductProps> = ({
@@ -35,12 +39,16 @@ const Product: React.FC<ProductProps> = ({
   user,
   categories,
   cart,
+  favorites,
 }) => {
   const { cartItems, handleAddToCart, updateQuantity } = useCartItemsReducer(
     cart?.cartItems ?? []
   );
+  const [feedback, setFeedback] = useState(product?.feedback || []);
 
   const cartItem = cartItems.filter((i) => i.product.id === product?.id)[0];
+
+  const [favoritesIds, setFavoritesIds] = useState(favorites);
 
   if (!product) {
     return <Error statusCode={404} />;
@@ -59,8 +67,24 @@ const Product: React.FC<ProductProps> = ({
     weight,
     about,
     category,
-    feedback,
   } = product;
+
+  const handleToggleStarred = async () => {
+    if (favoritesIds.includes(id)) {
+      try {
+        await fetch(`/api/favorites/${id}`, { method: "DELETE" });
+        setFavoritesIds(favoritesIds.filter((i) => i !== id));
+      } catch {}
+    } else {
+      try {
+        await fetch(`/api/favorites`, {
+          method: "POST",
+          body: JSON.stringify({ productId: id }),
+        });
+        setFavoritesIds([...favoritesIds, id]);
+      } catch {}
+    }
+  };
 
   return (
     <Layout categories={categories} user={user}>
@@ -73,13 +97,20 @@ const Product: React.FC<ProductProps> = ({
         <div className={styles.infoWrapper}>
           <div className={styles.icons}>
             <Feedback slug={slug} feedback={feedback} />
-            <Starred />
+            <Starred
+              handleToggleStarred={handleToggleStarred}
+              isStarred={favoritesIds.includes(id)}
+            />
             <Share />
           </div>
           <div className={styles.buyWrapper}>
             <div className={styles.price}>{price} руб.</div>
             {cartItem && (
-              <ProductCounter {...cartItem} updateQuantity={updateQuantity} />
+              <ProductCounter
+                {...cartItem}
+                id={id}
+                updateQuantity={updateQuantity}
+              />
             )}
             <ButtonAddToCart
               inCart={cartItem ? true : false}
@@ -114,22 +145,34 @@ const Product: React.FC<ProductProps> = ({
           </div>
         </div>
       </div>
-      <AboutProduct feedback={feedback} name={name} id={id} info={about} />
+      <AboutProduct
+        feedback={feedback}
+        setFeedback={setFeedback}
+        name={name}
+        id={id}
+        info={about}
+      />
     </Layout>
   );
 };
 
 export const getServerSideProps = withSession(async ({ req, query, res }) => {
+  const user = getUser(req);
   const product = await getProduct(query.slug);
   const categories = await getCategories();
   const cart = await getCart({ req, res });
+  let favorites = null;
+  if (user?.id) {
+    favorites = await getFavorites(user.id);
+  }
 
   return {
     props: {
       categories,
       product: JSON.parse(JSON.stringify(product)),
-      user: getUser(req),
+      user,
       cart,
+      favorites: getFavoritesIds(favorites),
     },
   };
 });

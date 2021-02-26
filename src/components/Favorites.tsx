@@ -1,6 +1,7 @@
 import useFavoritesReducer from "../hooks/useFavoritesReducer";
 import { getFavoritesTypes } from "../lib/dataFunctions";
 import classNames from "classnames";
+import Link from "next/link";
 
 import PopupMark from "./PopupMark";
 import Basket from "./svgs/Basket";
@@ -35,13 +36,15 @@ const Favorites: React.FC<FavoritesProps> = ({ favorites }) => {
             <Popup
               trigger={
                 <div className={classNames(styles.cell, styles.name)}>
-                  {name}
+                  <Link href={`/products/${slug}`}>
+                    <a>{name}</a>
+                  </Link>
                 </div>
               }
               className="image"
               position="top left"
               closeOnDocumentClick
-              on="hover"
+              on={["hover", "focus"]}
               arrow={false}
             >
               <img className={styles.image} src={`/products/${slug}.jpg`} />
@@ -52,7 +55,15 @@ const Favorites: React.FC<FavoritesProps> = ({ favorites }) => {
               <PopupMark mark={mark} updateFavorite={updateFavorite} id={id} />
             </div>
             <div className={styles.cell}>
-              <CartMini className={styles.img} />
+              <CartMini
+                className={styles.img}
+                onClick={() => {
+                  fetch(`/api/cartItems`, {
+                    method: "POST",
+                    body: JSON.stringify({ productId: id }),
+                  });
+                }}
+              />
               <Basket
                 onClick={() => deleteFavorite(id)}
                 className={styles.img}

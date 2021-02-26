@@ -7,7 +7,6 @@ import ProductCounter from "./ProductCounter";
 import styles from "./ProductCardMini.module.css";
 
 interface ProductCardMiniProps {
-  id: number;
   quantity: number;
   product: Product;
   deleteCartItem: (id: number) => void;
@@ -16,9 +15,8 @@ interface ProductCardMiniProps {
 
 const ProductCardMini: React.FC<ProductCardMiniProps> = (props) => {
   const {
-    id,
     quantity,
-    product: { name, price, slug },
+    product: { name, price, slug, id },
     deleteCartItem,
     updateQuantity,
   } = props;
@@ -41,7 +39,11 @@ const ProductCardMini: React.FC<ProductCardMiniProps> = (props) => {
       </div>
       <div className={styles.right}>
         <ButtonClose onClick={() => deleteCartItem(id)} color="#B6B6B6" />
-        <ProductCounter id={id} quantity={quantity} updateQuantity={updateQuantity} />
+        <ProductCounter
+          id={id}
+          quantity={quantity}
+          updateQuantity={updateQuantity}
+        />
       </div>
     </div>
   );

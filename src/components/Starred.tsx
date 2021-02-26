@@ -1,25 +1,43 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { CloseLoginContext } from "../lib/closeLoginContext";
+import fetcher from "../lib/fetchJson";
+import { UserContext } from "../lib/userContext";
+import { getFavorites } from "../lib/dataFunctions";
+
 import SplitPane from "./SplitPane";
 import Heart from "./svgs/Heart";
+import useUser from "../hooks/useUser";
 
 interface StarredProps {
   classLabelName?: string;
   className?: string;
+  isStarred: boolean;
+  handleToggleStarred: () => void;
 }
 
-const Starred: React.FC<StarredProps> = (props) => {
-  const [color, setColor] = useState("#fff");
+const Starred: React.FC<StarredProps> = ({
+  isStarred,
+  handleToggleStarred,
+  ...rest
+}) => {
+  const { setCloseLogin } = useContext(CloseLoginContext);
+
+  const { user } = useUser();
+
+  let callback = () => {
+    if (user && user.isLogged) {
+      handleToggleStarred();
+    } else {
+      setCloseLogin(false);
+    }
+  };
 
   return (
     <SplitPane
-      {...props}
-      label={
-        color === "#D66565" ? "Удалить из закладок" : "Добавить в закладки"
-      }
-      icon={<Heart color={color} />}
-      handleClick={() => {
-        setColor((color) => (color === "#D66565" ? "#fff" : "#D66565"));
-      }}
+      {...rest}
+      label={isStarred ? "Удалить из закладок" : "Добавить в закладки"}
+      icon={<Heart color={isStarred ? "#D66565" : "#fff"} />}
+      handleClick={() => callback()}
     />
   );
 };
