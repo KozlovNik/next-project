@@ -19,7 +19,7 @@ interface ProductCardProps {
   handleAddToCart: (id: number) => void;
   feedback?: any;
   handleToggleStarred: (id: number) => void;
-  favoritesIds: number[];
+  favoritesIds?: number[];
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
