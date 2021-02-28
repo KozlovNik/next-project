@@ -6,7 +6,11 @@ import Button from "../components/Button";
 import withSession from "../lib/session";
 import Error from "../components/Error";
 import { UserContextTypes } from "../lib/userContext";
-import { getUser } from "../lib/dataFunctions";
+import {
+  getCategories,
+  getCategoriesTypes,
+  getUser,
+} from "../lib/dataFunctions";
 import * as Yup from "yup";
 import fetchJson from "../lib/fetchJson";
 import { useState } from "react";
@@ -15,13 +19,14 @@ import styles from "../styles/Forgot.module.css";
 
 interface ForgotProps {
   user?: UserContextTypes;
+  categories: getCategoriesTypes;
 }
 
-const Forgot: React.FC<ForgotProps> = ({ user }) => {
+const Forgot: React.FC<ForgotProps> = ({ user, categories }) => {
   const [error, setError] = useError();
   const [showForm, setShowForm] = useState(true);
   return (
-    <Layout user={user}>
+    <Layout user={user} categories={categories}>
       <h1 className="heading">ВОССТАНОВЛЕНИЕ ПАРОЛЯ</h1>
       {showForm ? (
         <Formik
@@ -76,7 +81,9 @@ export const getServerSideProps = withSession(async ({ req }) => {
       },
     };
   }
+
+  const categories = getCategories();
   return {
-    props: {},
+    props: { categories },
   };
 });
