@@ -17,7 +17,6 @@ import Spinner from "./Spinner";
 import ProductFilters from "./ProductFilters";
 
 import styles from "./CatalogContent.module.css";
-import favorites from "../pages/api/favorites";
 
 interface CatalogContentProps {
   productData: getProductDataTypes;
