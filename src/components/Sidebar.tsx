@@ -20,7 +20,7 @@ const Sidebar: React.FC = () => {
         КАТАЛОГ
       </h3>
       <ul className={classNames(styles.list, active ? "" : styles.hidden)}>
-        {categories.map(({ name, slug }) => (
+        {categories.map(({ name, slug }: any) => (
           <li key={slug} className={styles.item}>
             <Link href={`/catalog/${slug}`}>
               <a

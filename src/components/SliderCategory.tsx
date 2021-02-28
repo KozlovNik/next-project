@@ -75,7 +75,7 @@ const SliderCategory: React.FC<SliderProps> = ({
 
         <div className={styles.WithSliderHandlers} style={style}>
           {categories &&
-            categories.map(({ name, slug }) => (
+            categories.map(({ name, slug }: any) => (
               <ImageSlide key={slug} name={name} slug={slug} />
             ))}
         </div>
