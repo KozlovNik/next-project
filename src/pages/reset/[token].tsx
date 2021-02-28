@@ -14,6 +14,7 @@ import jwt from "jsonwebtoken";
 import styles from "../../styles/Reset.module.css";
 import fetchJson from "../../lib/fetchJson";
 import { useState } from "react";
+import { getCategories, getCategoriesTypes } from "../../lib/dataFunctions";
 
 const reqText = "Поле не может быть пустым";
 
@@ -23,14 +24,15 @@ interface ResetProps {
     firstName: string;
     isLogged: boolean;
   };
+  categories: getCategoriesTypes;
 }
 
-const Reset: React.FC<ResetProps> = ({ user }) => {
+const Reset: React.FC<ResetProps> = ({ user, categories }) => {
   const [error, setError] = useError();
   const [showForm, setShowForm] = useState(true);
   const router = useRouter();
   return (
-    <Layout user={user}>
+    <Layout user={user} categories={categories}>
       <h1 className="heading">СМЕНА ПАРОЛЯ</h1>
       {showForm ? (
         <Formik
@@ -96,7 +98,9 @@ export const getServerSideProps = withSession(async ({ req, query, res }) => {
     return redirect;
   }
 
+  const categories = getCategories();
+
   return {
-    props: {},
+    props: { categories },
   };
 });
