@@ -18,7 +18,7 @@ interface ProductCardProps {
   inCart: boolean;
   handleAddToCart: (id: number) => void;
   feedback?: any;
-  handleToggleStarred: (id: number) => void;
+  handleToggleStarred?: (id: number) => void;
   favoritesIds?: number[];
 }
 
