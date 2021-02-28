@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import ForwardArrow from "./svgs/ForwardArrow";
 import BackwardArrow from "./svgs/BackwardArrow";
-import WithSliderHandlers, { SliderProps } from "./hocs/WithSliderHandlers";
+import WithSliderHandlers from "./hocs/WithSliderHandlers";
 import TitleBlock from "./TitleBlock";
 
 import styles from "./SliderCategory.module.css";
@@ -42,7 +42,7 @@ const ImageSlide: React.FC<ImageSlideProps> = memo(({ name, slug }) => {
   );
 });
 
-const SliderCategory: React.FC<SliderProps> = ({
+const SliderCategory: React.FC<any> = ({
   style,
   counter,
   goBackward,
