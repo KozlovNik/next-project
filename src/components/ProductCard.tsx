@@ -40,7 +40,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <Starred
         isStarred={favoritesIds?.includes(id) ?? false}
         handleToggleStarred={() => {
-          handleToggleStarred(id);
+          handleToggleStarred && handleToggleStarred(id);
         }}
         className={styles.heart}
         classLabelName={styles.label}
