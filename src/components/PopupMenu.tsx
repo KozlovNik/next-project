@@ -3,6 +3,7 @@ import styles from "./PopupMenu.module.css";
 import ButtonClose from "./ButtonClose";
 import { navList } from "../constants";
 import classNames from "classnames";
+import Link from "next/link";
 
 interface PopupMenuProps {
   handleClick: () => void;
@@ -20,16 +21,18 @@ const PopupMenu = ({ handleClick, close }: PopupMenuProps) => {
       </div>
       <div className={styles.menuContent}>
         <ul className={styles.list}>
-          {navList.map((text) => (
-            <li key={text} className={styles.item}>
-              <a
-                className={styles.link}
-                onClick={() => {
-                  handleClick();
-                }}
-              >
-                {text}
-              </a>
+          {navList.map(({ name, slug }) => (
+            <li key={name} className={styles.item}>
+              <Link href={`/catalog/${slug}`}>
+                <a
+                  className={styles.link}
+                  onClick={() => {
+                    handleClick();
+                  }}
+                >
+                  {name}
+                </a>
+              </Link>
             </li>
           ))}
         </ul>

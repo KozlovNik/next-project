@@ -1,5 +1,0 @@
--- AlterTable
-ALTER TABLE "Product" ALTER COLUMN "country" DROP NOT NULL,
-ALTER COLUMN "ingredients" DROP NOT NULL,
-ALTER COLUMN "weight" DROP NOT NULL,
-ALTER COLUMN "weight" DROP DEFAULT;

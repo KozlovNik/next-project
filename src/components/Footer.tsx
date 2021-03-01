@@ -38,7 +38,10 @@ const Footer = () => {
             <p className={styles.contact}>shop@tastycoffee.ru</p>
           </div>
 
-          <FooterNav items={navList} heading="Каталог товаров" />
+          <FooterNav
+            items={navList.map(({ name }) => name)}
+            heading="Каталог товаров"
+          />
           <FooterNav items={companyInfoList} heading="Компания" />
           <FooterNav items={storeList} heading="Интернет-магазин" />
         </div>
