@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useRef } from "react";
-import { CloseLoginContext } from "../lib/closeLoginContext";
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { useContext, useEffect, useRef, useState } from "react";
 import classNames from "classnames";
-import { useState } from "react";
 import { Popup } from "reactjs-popup";
+import { CloseLoginContext } from "../lib/closeLoginContext";
 import { UserContext } from "../lib/userContext";
 
 import Button from "./Button";
@@ -11,7 +11,7 @@ import AddFeedback from "./AddFeedback";
 
 import styles from "./AboutProduct.module.css";
 
-interface AboutProduct {
+interface AboutProductProps {
   info: string;
   feedback: {
     comment: string;
@@ -27,7 +27,7 @@ interface AboutProduct {
   setFeedback: any;
 }
 
-const AboutProduct: React.FC<AboutProduct> = ({
+const AboutProduct: React.FC<AboutProductProps> = ({
   info,
   feedback,
   setFeedback,
@@ -96,13 +96,11 @@ const AboutProduct: React.FC<AboutProduct> = ({
       <div className={styles.tab}>
         <div className={styles.tabWrapper}>
           {tab === "about" ? (
-            <>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: info,
-                }}
-              ></div>
-            </>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: info,
+              }}
+            />
           ) : (
             <div className={styles.feedback}>
               <span className={styles.title}>Отзывы</span>
@@ -132,8 +130,9 @@ const AboutProduct: React.FC<AboutProduct> = ({
               {feedback && feedback.length > 0 ? (
                 <>
                   {feedback.map(
-                    ({ comment, user, dateCreated, rating }, id) => (
-                      <React.Fragment key={id}>
+                    /* eslint-disable */
+                    ({ comment, user, dateCreated, rating }, idx) => (
+                      <React.Fragment key={idx}>
                         <div className={styles.name}>
                           {user.lastName} {user.firstName}
                         </div>
@@ -144,6 +143,7 @@ const AboutProduct: React.FC<AboutProduct> = ({
                         <div className={styles.message}>{comment}</div>
                       </React.Fragment>
                     )
+                    /* eslint-enable */
                   )}
                 </>
               ) : (

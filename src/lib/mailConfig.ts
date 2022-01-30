@@ -22,4 +22,4 @@ if (process.env.NODE_ENV === "production") {
     },
   };
 }
-export let transporter = nodemailer.createTransport(mailConfig);
+export const transporter = nodemailer.createTransport(mailConfig);

@@ -1,13 +1,13 @@
-import { getProductDataTypes } from "../lib/dataFunctions";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import { GetProductDataTypes } from "../lib/dataFunctions";
 
 export default function useCatalogData(
-  initialData?: getProductDataTypes,
+  initialData?: GetProductDataTypes,
   options = { revalidateOnMount: true }
 ) {
   const router = useRouter();
-  let condition =
+  const condition =
     router.pathname === "/search"
       ? `/search?text=${router.query.text || ""}`
       : `/api/products?category=${router.query.categorySlug || ""}`;

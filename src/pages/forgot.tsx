@@ -1,5 +1,7 @@
-import useError from "../hooks/useError";
 import { Form, Formik } from "formik";
+import * as Yup from "yup";
+import { useState } from "react";
+import useError from "../hooks/useError";
 import CustomField from "../components/CustomField";
 import Layout from "../components/Layout";
 import Button from "../components/Button";
@@ -8,18 +10,16 @@ import Error from "../components/Error";
 import { UserContextTypes } from "../lib/userContext";
 import {
   getCategories,
-  getCategoriesTypes,
+  GetCategoriesTypes,
   getUser,
 } from "../lib/dataFunctions";
-import * as Yup from "yup";
 import fetchJson from "../lib/fetchJson";
-import { useState } from "react";
 
 import styles from "../styles/Forgot.module.css";
 
 interface ForgotProps {
   user?: UserContextTypes;
-  categories: getCategoriesTypes;
+  categories: GetCategoriesTypes;
 }
 
 const Forgot: React.FC<ForgotProps> = ({ user, categories }) => {

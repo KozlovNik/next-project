@@ -1,13 +1,15 @@
-import useCartItemsReducer from "../../hooks/useCartItemsReducer";
+/* eslint-disable no-empty */
 import Error from "next/error";
+import { useState } from "react";
+import useCartItemsReducer from "../../hooks/useCartItemsReducer";
 import {
   getCart,
   getCategories,
-  getCategoriesTypes,
+  GetCategoriesTypes,
   getProduct,
   getUser,
-  getProductTypes,
-  getCartTypes,
+  GetProductTypes,
+  GetCartTypes,
   getFavorites,
   getFavoritesIds,
 } from "../../lib/dataFunctions";
@@ -24,13 +26,12 @@ import AboutProduct from "../../components/AboutProduct";
 import Layout from "../../components/Layout";
 
 import styles from "../../styles/Product.module.css";
-import { useState } from "react";
 
 interface ProductProps {
-  product?: getProductTypes;
+  product?: GetProductTypes;
   user?: UserContextTypes;
-  categories: getCategoriesTypes;
-  cart: getCartTypes;
+  categories: GetCategoriesTypes;
+  cart: GetCartTypes;
   favorites: number[];
 }
 
@@ -113,7 +114,7 @@ const Product: React.FC<ProductProps> = ({
               />
             )}
             <ButtonAddToCart
-              inCart={cartItem ? true : false}
+              inCart={!!cartItem}
               handleAddToCart={() => handleAddToCart(id)}
             />
           </div>

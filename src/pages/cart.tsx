@@ -1,9 +1,9 @@
 import {
   getCategories,
-  getCategoriesTypes,
+  GetCategoriesTypes,
   getUser,
   getCart,
-  getCartTypes,
+  GetCartTypes,
 } from "../lib/dataFunctions";
 import withSession from "../lib/session";
 import { UserContextTypes } from "../lib/userContext";
@@ -17,8 +17,8 @@ import styles from "../styles/Cart.module.css";
 
 interface CartProps {
   user?: UserContextTypes;
-  categories: getCategoriesTypes;
-  cart: getCartTypes;
+  categories: GetCategoriesTypes;
+  cart: GetCartTypes;
 }
 
 const CartPage: React.FC<CartProps> = (props) => {

@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { setCookie } from "./cookies";
 import { prisma } from "./prismaClient";
 
-interface getProductDataType {
+interface GetProductDataType {
   page?: any;
   category?: string;
   price?: string;
@@ -23,12 +23,9 @@ export const getProductData = async ({
   minPrice,
   maxPrice,
   text,
-}: getProductDataType = {}) => {
-  if (
-    Array.isArray(page) ||
-    !Number.isInteger(Number(page)) ||
-    Number(page) < 1
-  ) {
+}: GetProductDataType = {}) => {
+  if (!Number.isInteger(Number(page)) || Number(page) < 1) {
+    // eslint-disable-next-line no-param-reassign
     page = 1;
   }
 
@@ -114,8 +111,6 @@ export const getProductData = async ({
     ...queries,
   });
 
-  // console.log(products)
-
   const total = await prisma.product.count({ where });
 
   prisma.$disconnect();
@@ -127,7 +122,7 @@ export const getProductData = async ({
 
 export const getUser = (req: any) => {
   const user = req.session.get("user");
-  return user ? user : null;
+  return user || null;
 };
 
 export const getCategories = async () => {
@@ -191,7 +186,7 @@ export const getCart = async ({
   req: NextApiRequest;
   res: NextApiResponse;
 }) => {
-  const cartId = req.cookies["cartId"];
+  const { cartId } = req.cookies;
   let cart;
   const select = {
     id: true,
@@ -208,7 +203,7 @@ export const getCart = async ({
       data: {},
     });
     prisma.$disconnect();
-    setCookie(res, "cartId", cart.id, {
+    setCookie(res, "cartId", cart.id.toString(), {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       sameSite: true,
       httpOnly: true,
@@ -230,17 +225,15 @@ export const getFavorites = async (userId: number) => {
   return favorites;
 };
 
-export const getFavoritesIds = (arr: any) => {
-  console.log('arr', arr)
-  return arr?.map(({ product }: any) => product.id) || [];
-};
+export const getFavoritesIds = (arr: any) =>
+  arr?.map(({ product }: any) => product.id) || [];
 
-export type getCategoriesTypes = Prisma.PromiseReturnType<typeof getCategories>;
-export type getCartTypes = Prisma.PromiseReturnType<typeof getCart>;
-export type getBrandsTypes = Prisma.PromiseReturnType<typeof getBrands>;
-export type getCountriesTypes = Prisma.PromiseReturnType<typeof getCountries>;
-export type getProductDataTypes = Prisma.PromiseReturnType<
+export type GetCategoriesTypes = Prisma.PromiseReturnType<typeof getCategories>;
+export type GetCartTypes = Prisma.PromiseReturnType<typeof getCart>;
+export type GetBrandsTypes = Prisma.PromiseReturnType<typeof getBrands>;
+export type GetCountriesTypes = Prisma.PromiseReturnType<typeof getCountries>;
+export type GetProductDataTypes = Prisma.PromiseReturnType<
   typeof getProductData
 >;
-export type getProductTypes = Prisma.PromiseReturnType<typeof getProduct>;
-export type getFavoritesTypes = Prisma.PromiseReturnType<typeof getFavorites>;
+export type GetProductTypes = Prisma.PromiseReturnType<typeof getProduct>;
+export type GetFavoritesTypes = Prisma.PromiseReturnType<typeof getFavorites>;

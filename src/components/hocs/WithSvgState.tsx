@@ -15,8 +15,8 @@ export interface SvgProps extends OwnProps {
   color: string;
 }
 
-const WithSvgState = (WrappedComponent: React.FC<SvgProps>) => {
-  return (props: OwnProps) => {
+const WithSvgState =
+  (WrappedComponent: React.FC<SvgProps>) => (props: OwnProps) => {
     const {
       initialColor = "#787878",
       hoverColor = "#D66565",
@@ -43,6 +43,5 @@ const WithSvgState = (WrappedComponent: React.FC<SvgProps>) => {
       />
     );
   };
-};
 
 export default WithSvgState;

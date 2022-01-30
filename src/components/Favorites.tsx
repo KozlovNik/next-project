@@ -1,23 +1,22 @@
-import useFavoritesReducer from "../hooks/useFavoritesReducer";
-import { getFavoritesTypes } from "../lib/dataFunctions";
 import classNames from "classnames";
 import Link from "next/link";
+import Popup from "reactjs-popup";
+import useFavoritesReducer from "../hooks/useFavoritesReducer";
+import { GetFavoritesTypes } from "../lib/dataFunctions";
 
 import PopupMark from "./PopupMark";
 import Basket from "./svgs/Basket";
 import CartMini from "./svgs/CartMini";
-import Popup from "reactjs-popup";
 
 import styles from "./Favorites.module.css";
 
 interface FavoritesProps {
-  favorites: getFavoritesTypes;
+  favorites: GetFavoritesTypes;
 }
 
 const Favorites: React.FC<FavoritesProps> = ({ favorites }) => {
-  const { favoriteItems, deleteFavorite, updateFavorite } = useFavoritesReducer(
-    favorites
-  );
+  const { favoriteItems, deleteFavorite, updateFavorite } =
+    useFavoritesReducer(favorites);
   return favoriteItems.length > 0 ? (
     <div>
       <h1 className="heading">ВАШИ ЗАКЛАДКИ</h1>
@@ -47,7 +46,11 @@ const Favorites: React.FC<FavoritesProps> = ({ favorites }) => {
               on={["hover", "focus"]}
               arrow={false}
             >
-              <img className={styles.image} src={`/products/${slug}.jpg`} />
+              <img
+                alt={`${slug}`}
+                className={styles.image}
+                src={`/products/${slug}.jpg`}
+              />
             </Popup>
 
             <div className={styles.cell}>{price}р.</div>

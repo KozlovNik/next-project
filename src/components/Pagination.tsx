@@ -30,7 +30,7 @@ const Pagination: React.FC<PaginationProps> = (props) => {
           pageLinkClassName={styles.link}
           initialPage={currentPage - 1}
           forcePage={currentPage - 1}
-          disableInitialCallback={true}
+          disableInitialCallback
           onPageChange={handlePageChange}
         />
       )}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import { NextRouter } from "next/router";
 import styles from "./Checkbox.module.css";
 
@@ -9,15 +10,20 @@ interface CheckboxProps {
   query: NextRouter["query"];
 }
 
-const Checkbox: React.FC<CheckboxProps> = (props) => {
-  const { children, query, name, value, setQuery } = props;
+const Checkbox: React.FC<CheckboxProps> = ({
+  children,
+  query,
+  name,
+  value,
+  setQuery,
+}) => {
   const checked = query[name]?.includes(value) ?? false;
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, checked } = e.target;
-    let qValue = query[name];
+    const qValue = query[name];
     const valArr = qValue ? qValue.toString().split(",") : [];
-    let newVal = checked
+    const newVal = checked
       ? [...valArr, value]
       : valArr.filter((v) => v !== value);
 

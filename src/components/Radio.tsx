@@ -13,7 +13,7 @@ const Radio: React.FC<RadioProps> = (props) => {
   const { children, query, name, value, setQuery } = props;
   const checked = value === query[name]?.toString();
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery((query) => ({ ...query, [e.target.name]: e.target.value }));
+    setQuery((q) => ({ ...q, [e.target.name]: e.target.value }));
   };
   return (
     <label className={styles.inputContainer}>

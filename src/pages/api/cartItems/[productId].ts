@@ -18,7 +18,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       prisma.$disconnect();
       return res.json(cartItem);
     } catch (err) {
-
       return res.status(404).json({ message: "Not found" });
     }
   } else if (req.method === "PUT") {
@@ -44,4 +43,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(400).json({ message: "Bad request" });
     }
   }
+  return res.status(400).json({ message: "Bad request" });
 };

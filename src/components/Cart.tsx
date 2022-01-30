@@ -17,21 +17,19 @@ const Cart: React.FC<CartProps> = ({
   cartItems,
   deleteCartItem,
   updateQuantity,
-}) => {
-  return (
-    <div className={styles.items}>
-      <h1 className="heading">КОРЗИНА</h1>
-      {cartItems &&
-        cartItems.map((props) => (
-          <ProductCardMini
-            deleteCartItem={deleteCartItem}
-            updateQuantity={updateQuantity}
-            key={props.product.id}
-            {...props}
-          />
-        ))}
-    </div>
-  );
-};
+}) => (
+  <div className={styles.items}>
+    <h1 className="heading">КОРЗИНА</h1>
+    {cartItems &&
+      cartItems.map((props) => (
+        <ProductCardMini
+          deleteCartItem={deleteCartItem}
+          updateQuantity={updateQuantity}
+          key={props.product.id}
+          {...props}
+        />
+      ))}
+  </div>
+);
 
 export default Cart;

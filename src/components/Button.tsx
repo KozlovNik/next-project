@@ -1,6 +1,6 @@
 import { useState, FC, ButtonHTMLAttributes } from "react";
 
-let buttonStyles = {
+const buttonStyles = {
   border: "none",
   minWidth: 150,
   height: 35,

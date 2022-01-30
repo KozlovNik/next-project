@@ -1,13 +1,13 @@
-import { LoadingContext } from "../lib/loadingContext";
 import { Product } from "@prisma/client";
 import { useState } from "react";
+import qs from "qs";
+import { LoadingContext } from "../lib/loadingContext";
 import useCatalogData from "../hooks/useCatalogData";
 import fetchJson from "../lib/fetchJson";
-import { getQueryString } from "../lib/queries";
 import {
-  getBrandsTypes,
-  getCountriesTypes,
-  getProductDataTypes,
+  GetBrandsTypes,
+  GetCountriesTypes,
+  GetProductDataTypes,
 } from "../lib/dataFunctions";
 import usePath from "../hooks/usePath";
 
@@ -19,16 +19,16 @@ import ProductFilters from "./ProductFilters";
 import styles from "./CatalogContent.module.css";
 
 interface CatalogContentProps {
-  productData: getProductDataTypes;
-  countries: getCountriesTypes;
-  brands: getBrandsTypes;
+  productData: GetProductDataTypes;
+  countries: GetCountriesTypes;
+  brands: GetBrandsTypes;
   cartItems: {
     quantity: number;
     product: Product;
   }[];
   handleAddToCart: (id: number) => void;
   handleToggleStarred: (id: number) => void;
-  favoritesIds: number[]
+  favoritesIds: number[];
 }
 
 const CatalogContent: React.FC<CatalogContentProps> = ({
@@ -38,7 +38,7 @@ const CatalogContent: React.FC<CatalogContentProps> = ({
   cartItems,
   handleAddToCart,
   favoritesIds,
-  handleToggleStarred
+  handleToggleStarred,
 }) => {
   const { mutate, data, router, error } = useCatalogData(productData);
 
@@ -49,7 +49,7 @@ const CatalogContent: React.FC<CatalogContentProps> = ({
   const { categorySlug, page, ...restQueries } = router.query;
 
   const handlePageChange = async ({ selected }: { selected: number }) => {
-    const queryString = getQueryString({
+    const queryString = qs.stringify({
       page: (selected + 1).toString(),
       ...restQueries,
     });
@@ -82,7 +82,7 @@ const CatalogContent: React.FC<CatalogContentProps> = ({
         <ProductFilters countries={countries} brands={brands} />
         <div className={styles.products}>
           {products &&
-            products.map(({ slug, id, ...rest }) => (
+            products.map(({ slug, id, ...otherProps }) => (
               <ProductCard
                 handleToggleStarred={handleToggleStarred}
                 className={styles.product}
@@ -92,7 +92,7 @@ const CatalogContent: React.FC<CatalogContentProps> = ({
                 handleAddToCart={handleAddToCart}
                 slug={slug}
                 favoritesIds={favoritesIds}
-                {...rest}
+                {...otherProps}
               />
             ))}
         </div>

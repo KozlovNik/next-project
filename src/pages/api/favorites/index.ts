@@ -4,7 +4,6 @@ import { getFavorites } from "../../../lib/dataFunctions";
 
 export default withSession(async (req, res) => {
   const user = req.session.get("user");
-  console.log(user)
   if (!user || !user.isLogged) {
     return res.status(401).json({ messsage: "Unauthorized" });
   }
@@ -24,4 +23,5 @@ export default withSession(async (req, res) => {
     const favorites = await getFavorites(user.id);
     return res.json({ favorites });
   }
+  return res.status(400).json({ messsage: "Bad request" });
 });

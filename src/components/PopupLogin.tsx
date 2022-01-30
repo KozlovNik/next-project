@@ -1,15 +1,16 @@
-import ButtonClose from "../components/ButtonClose";
-import Button from "../components/Button";
-import CustomField from "../components/CustomField";
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import { Form, Formik } from "formik";
+import { useRouter } from "next/router";
+import * as Yup from "yup";
+import Link from "next/link";
+import ButtonClose from "./ButtonClose";
+import Button from "./Button";
+import CustomField from "./CustomField";
 import useError from "../hooks/useError";
 import useUser from "../hooks/useUser";
 
-import { Form, Formik } from "formik";
-import { useRouter } from "next/router";
-import Error from "../components/Error";
-import * as Yup from "yup";
+import Error from "./Error";
 import useEscapeKey from "../hooks/useEscapeKey";
-import Link from "next/link";
 
 import styles from "./PopupLogin.module.css";
 
@@ -53,7 +54,7 @@ const PopupLogin: React.FC<PopupLoginProps> = ({ close, handleClick }) => {
               router.push("/");
             }
             handleClick();
-          } catch (error) {
+          } catch (e) {
             setError("Неверный логин или пароль");
           }
         }}
@@ -72,12 +73,12 @@ const PopupLogin: React.FC<PopupLoginProps> = ({ close, handleClick }) => {
             Войти
           </Button>
           <div className={styles.links}>
-            <Link href="/register">
+            <Link href="/register" passHref>
               <a className={styles.link} onClick={handleClick}>
                 Регистрация
               </a>
             </Link>
-            <Link href="/forgot">
+            <Link href="/forgot" passHref>
               <a className={styles.link}>Восстановить пароль</a>
             </Link>
           </div>

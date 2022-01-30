@@ -1,7 +1,7 @@
-import withSession from "../../lib/session";
-import { prisma } from "../../lib/prismaClient";
 import validator from "validator";
 import bcrypt from "bcrypt";
+import withSession from "../../lib/session";
+import { prisma } from "../../lib/prismaClient";
 
 const fields = [
   "firstName",
@@ -16,10 +16,12 @@ export default withSession(async (req, res) => {
   if (req.method === "POST") {
     const data = JSON.parse(req.body);
 
-    for (let field of fields) {
-      if (!data.hasOwnProperty(field) || validator.isEmpty(data[field])) {
-        return res.status(404).end();
-      }
+    const hasEmptyFields = fields.some(
+      (field) => !(field in data) || validator.isEmpty(data[field])
+    );
+
+    if (hasEmptyFields) {
+      return res.status(404).end();
     }
 
     if (
@@ -46,8 +48,9 @@ export default withSession(async (req, res) => {
     const { id, firstName } = user;
     req.session.set("user", { id, firstName, isLogged: true });
     await req.session.save();
-    res.status(201).end();
-  } else {
-    res.status(405).json({ message: `${req.method} method is not allowed` });
+    return res.status(201).end();
   }
+  return res
+    .status(405)
+    .json({ message: `${req.method} method is not allowed` });
 });

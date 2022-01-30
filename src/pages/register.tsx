@@ -1,13 +1,13 @@
+import { Form, Formik } from "formik";
+import * as Yup from "yup";
+import Router from "next/router";
 import useError from "../hooks/useError";
 import {
   getCategories,
-  getCategoriesTypes,
+  GetCategoriesTypes,
   getUser,
 } from "../lib/dataFunctions";
-import { Form, Formik } from "formik";
-import * as Yup from "yup";
 import withSession from "../lib/session";
-import Router from "next/router";
 
 import Error from "../components/Error";
 import CustomField from "../components/CustomField";
@@ -24,7 +24,7 @@ interface RegisterProps {
     firstName: string;
     isLogged: boolean;
   };
-  categories: getCategoriesTypes;
+  categories: GetCategoriesTypes;
 }
 
 const Register: React.FC<RegisterProps> = ({ categories, user }) => {

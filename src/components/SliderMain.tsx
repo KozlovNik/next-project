@@ -12,9 +12,7 @@ const SliderMain = () => {
 
   const intervalHandler = () => {
     if (id) clearInterval(id);
-    return setInterval(() => {
-      return setCounter((c) => (c > 1 ? 0 : c + 1));
-    }, 5000);
+    return setInterval(() => setCounter((c) => (c > 1 ? 0 : c + 1)), 5000);
   };
 
   useEffect(() => {

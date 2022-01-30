@@ -1,14 +1,31 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import classNames from "classnames";
+import Link from "next/link";
 import useEscapeKey from "../hooks/useEscapeKey";
 import styles from "./PopupMenu.module.css";
 import ButtonClose from "./ButtonClose";
 import { navList } from "../constants";
-import classNames from "classnames";
-import Link from "next/link";
+
+type HandleClick = () => void;
 
 interface PopupMenuProps {
-  handleClick: () => void;
+  handleClick: HandleClick;
   close: boolean;
 }
+
+interface ItemProps {
+  onClick: HandleClick;
+  title: string;
+}
+
+// fix later
+const Item = ({ onClick, title }: ItemProps) => (
+  <li className={styles.infoItem}>
+    <button onClick={onClick} className={styles.infoLink}>
+      {title}
+    </button>
+  </li>
+);
 
 const PopupMenu = ({ handleClick, close }: PopupMenuProps) => {
   useEscapeKey(handleClick);
@@ -23,13 +40,8 @@ const PopupMenu = ({ handleClick, close }: PopupMenuProps) => {
         <ul className={styles.list}>
           {navList.map(({ name, slug }) => (
             <li key={name} className={styles.item}>
-              <Link href={`/catalog/${slug}`}>
-                <a
-                  className={styles.link}
-                  onClick={() => {
-                    handleClick();
-                  }}
-                >
+              <Link href={`/catalog/${slug}`} passHref>
+                <a className={styles.link} onClick={handleClick}>
                   {name}
                 </a>
               </Link>
@@ -37,36 +49,9 @@ const PopupMenu = ({ handleClick, close }: PopupMenuProps) => {
           ))}
         </ul>
         <ul className={styles.info}>
-          <li className={styles.infoItem}>
-            <a
-              onClick={() => {
-                handleClick();
-              }}
-              className={styles.infoLink}
-            >
-              Доставка
-            </a>
-          </li>
-          <li className={styles.infoItem}>
-            <a
-              onClick={() => {
-                handleClick();
-              }}
-              className={styles.infoLink}
-            >
-              Оплата
-            </a>
-          </li>
-          <li className={styles.infoItem}>
-            <a
-              onClick={() => {
-                handleClick();
-              }}
-              className={styles.infoLink}
-            >
-              Контакты
-            </a>
-          </li>
+          <Item title="Доставка" onClick={handleClick} />
+          <Item title="Оплата" onClick={handleClick} />
+          <Item title="Контакты" onClick={handleClick} />
         </ul>
       </div>
     </div>

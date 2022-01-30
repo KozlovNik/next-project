@@ -1,3 +1,6 @@
+/* eslint-disable no-empty */
+import { useRouter } from "next/router";
+import { useState } from "react";
 import withSession from "../../lib/session";
 import {
   getProductData,
@@ -5,17 +8,16 @@ import {
   getCategories,
   getCountries,
   getBrands,
-  getCategoriesTypes,
-  getProductDataTypes,
-  getCountriesTypes,
-  getBrandsTypes,
+  GetCategoriesTypes,
+  GetProductDataTypes,
+  GetCountriesTypes,
+  GetBrandsTypes,
   getCart,
-  getCartTypes,
+  GetCartTypes,
   getFavorites,
   getFavoritesIds,
 } from "../../lib/dataFunctions";
 import { UserContextTypes } from "../../lib/userContext";
-import { useRouter } from "next/router";
 
 import Breadcrumbs from "../../components/Breadcrumbs";
 import Sidebar from "../../components/Sidebar";
@@ -24,15 +26,14 @@ import Layout from "../../components/Layout";
 
 import styles from "../../styles/Catalog.module.css";
 import useCartItemsReducer from "../../hooks/useCartItemsReducer";
-import { useState } from "react";
 
 export interface CatalogProps {
-  productData: getProductDataTypes;
+  productData: GetProductDataTypes;
   user?: UserContextTypes;
-  categories: getCategoriesTypes;
-  countries: getCountriesTypes;
-  brands: getBrandsTypes;
-  cart: getCartTypes;
+  categories: GetCategoriesTypes;
+  countries: GetCountriesTypes;
+  brands: GetBrandsTypes;
+  cart: GetCartTypes;
   favorites: number[];
 }
 
@@ -104,8 +105,6 @@ export const getServerSideProps = withSession(
     if (user && user.isLogged) {
       favorites = await getFavorites(user.id);
     }
-
-    // console.log('cart', categories)
 
     return {
       props: {

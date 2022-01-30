@@ -2,12 +2,12 @@ import { useRef } from "react";
 
 import Popup from "reactjs-popup";
 
-interface PopupProductFilter {
+interface PopupProductFilterPropTypes {
   trigger: (isOpen: boolean) => JSX.Element;
   children: (close?: () => void) => JSX.Element;
 }
 
-const PopupProductFilter: React.FC<PopupProductFilter> = ({
+const PopupProductFilter: React.FC<PopupProductFilterPropTypes> = ({
   trigger,
   children,
 }) => {

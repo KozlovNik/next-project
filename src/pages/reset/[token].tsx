@@ -1,20 +1,18 @@
-import useError from "../../hooks/useError";
 import { Form, Formik } from "formik";
+import * as Yup from "yup";
+import { useRouter } from "next/router";
+import jwt from "jsonwebtoken";
+import { useState } from "react";
+import useError from "../../hooks/useError";
 import CustomField from "../../components/CustomField";
 import Layout from "../../components/Layout";
 import Button from "../../components/Button";
-import * as Yup from "yup";
 import withSession from "../../lib/session";
 import Error from "../../components/Error";
-import { setCookie } from "../../lib/cookies";
-
-import { useRouter } from "next/router";
-import jwt from "jsonwebtoken";
 
 import styles from "../../styles/Reset.module.css";
 import fetchJson from "../../lib/fetchJson";
-import { useState } from "react";
-import { getCategories, getCategoriesTypes } from "../../lib/dataFunctions";
+import { getCategories, GetCategoriesTypes } from "../../lib/dataFunctions";
 
 const reqText = "Поле не может быть пустым";
 
@@ -24,11 +22,11 @@ interface ResetProps {
     firstName: string;
     isLogged: boolean;
   };
-  categories: getCategoriesTypes;
+  categories: GetCategoriesTypes;
 }
 
 const Reset: React.FC<ResetProps> = ({ user, categories }) => {
-  const [error, setError] = useError();
+  const [error] = useError();
   const [showForm, setShowForm] = useState(true);
   const router = useRouter();
   return (
@@ -80,8 +78,8 @@ const Reset: React.FC<ResetProps> = ({ user, categories }) => {
 
 export default Reset;
 
-export const getServerSideProps = withSession(async ({ req, query, res }) => {
-  let redirect = {
+export const getServerSideProps = withSession(async ({ req, query }) => {
+  const redirect = {
     redirect: {
       destination: "/",
       permanent: false,
@@ -94,7 +92,7 @@ export const getServerSideProps = withSession(async ({ req, query, res }) => {
     return redirect;
   }
 
-  if (req.session.get("user") || !req.cookies["cp"]) {
+  if (req.session.get("user") || !req.cookies.cp) {
     return redirect;
   }
 

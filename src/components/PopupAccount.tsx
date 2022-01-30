@@ -1,11 +1,10 @@
-import { useEffect, useRef, useContext } from "react";
-import ButtonClose from "./ButtonClose";
-import useUser from "../hooks/useUser";
-import { CloseLoginContext } from "../lib/closeLoginContext";
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
-
 import Link from "next/link";
 import classNames from "classnames";
+import ButtonClose from "./ButtonClose";
+import useUser from "../hooks/useUser";
 
 import useEscapeKey from "../hooks/useEscapeKey";
 
@@ -57,7 +56,7 @@ const PopupAccount = ({
       </div>
       <div className={styles.menuContent} ref={linkRef2}>
         {user && user.isLogged && (
-          <a
+          <button
             className={styles.authLink}
             onClick={async () => {
               await logout();
@@ -65,14 +64,14 @@ const PopupAccount = ({
             }}
           >
             Выйти из аккаунта
-          </a>
+          </button>
         )}
         {(!user || !user.isLogged) && (
           <>
-            <a className={styles.authLink} onClick={setCloseLogin}>
+            <button className={styles.authLink} onClick={setCloseLogin}>
               Вход
-            </a>
-            <Link href="/register">
+            </button>
+            <Link href="/register" passHref>
               <a
                 className={styles.authLink}
                 ref={linkRef2}
@@ -85,11 +84,11 @@ const PopupAccount = ({
         )}
 
         {user && user.isLogged ? (
-          <Link href="/favorites">
+          <Link href="/favorites" passHref>
             <a className={styles.starred}>Закладки</a>
           </Link>
         ) : (
-          <a className={styles.starred} onClick={setCloseLogin}>
+          <a href="/" className={styles.starred} onClick={setCloseLogin}>
             Закладки
           </a>
         )}

@@ -1,4 +1,4 @@
-import Catalog, { getServerSideProps as getProps } from "./";
+import Catalog, { getServerSideProps as getProps } from ".";
 
 export default Catalog;
 

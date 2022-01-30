@@ -35,13 +35,11 @@ const ButtonClose: React.FC<ButtonCloseProps> = ({
   onClick,
   color: backgroundColor = "#fff",
   className,
-}) => {
-  return (
-    <div onClick={onClick} style={wrapperStyles} className={className}>
-      <span style={{ ...first, backgroundColor }} />
-      <span style={{ ...second, backgroundColor }} />
-    </div>
-  );
-};
+}) => (
+  <div onClick={onClick} style={wrapperStyles} className={className}>
+    <span style={{ ...first, backgroundColor }} />
+    <span style={{ ...second, backgroundColor }} />
+  </div>
+);
 
 export default ButtonClose;

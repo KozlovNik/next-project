@@ -1,10 +1,10 @@
 import {
   getCategories,
-  getCategoriesTypes,
+  GetCategoriesTypes,
   getUser,
-  getCartTypes,
+  GetCartTypes,
   getFavorites,
-  getFavoritesTypes,
+  GetFavoritesTypes,
 } from "../lib/dataFunctions";
 import withSession from "../lib/session";
 import { UserContextTypes } from "../lib/userContext";
@@ -14,9 +14,9 @@ import Favorites from "../components/Favorites";
 
 interface CartProps {
   user?: UserContextTypes;
-  categories: getCategoriesTypes;
-  cart: getCartTypes;
-  favorites: getFavoritesTypes;
+  categories: GetCategoriesTypes;
+  cart: GetCartTypes;
+  favorites: GetFavoritesTypes;
 }
 
 const FavoritesPage: React.FC<CartProps> = (props) => {

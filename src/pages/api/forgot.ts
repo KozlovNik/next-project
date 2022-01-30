@@ -1,6 +1,6 @@
+import jwt from "jsonwebtoken";
 import { prisma } from "../../lib/prismaClient";
 import { setCookie } from "../../lib/cookies";
-import jwt from "jsonwebtoken";
 import { transporter } from "../../lib/mailConfig";
 import withSession from "../../lib/session";
 
@@ -18,7 +18,7 @@ export default withSession(async (req, res) => {
     return res.status(404).json({ message: "User not found" });
   }
 
-  var token = jwt.sign({ email }, process.env.JWT_SECRET!, {
+  const token = jwt.sign({ email }, process.env.JWT_SECRET!, {
     expiresIn: "1h",
   });
 
@@ -34,7 +34,7 @@ export default withSession(async (req, res) => {
     maxAge: 60 * 60 * 1000,
     httpOnly: true,
     sameSite: true,
-    path: '/'
+    path: "/",
   });
 
   return res.json({ message: "success" });

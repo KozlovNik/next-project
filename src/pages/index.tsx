@@ -3,10 +3,10 @@ import {
   getCategories,
   getUser,
   getProductData,
-  getProductDataTypes,
-  getCategoriesTypes,
+  GetProductDataTypes,
+  GetCategoriesTypes,
   getCart,
-  getCartTypes,
+  GetCartTypes,
 } from "../lib/dataFunctions";
 import { UserContextTypes } from "../lib/userContext";
 import useCartItemsReducer from "../hooks/useCartItemsReducer";
@@ -18,9 +18,9 @@ import SliderSuggestion from "../components/SliderSuggestion";
 
 interface IndexProps {
   user?: UserContextTypes;
-  categories: getCategoriesTypes;
-  productData: getProductDataTypes;
-  cart: getCartTypes;
+  categories: GetCategoriesTypes;
+  productData: GetProductDataTypes;
+  cart: GetCartTypes;
 }
 
 const Index: React.FC<IndexProps> = ({

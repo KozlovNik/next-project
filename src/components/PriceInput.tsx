@@ -16,7 +16,7 @@ const PriceInput: React.FC<PriceInputProps> = ({
   ...rest
 }) => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery((query) => ({ ...query, [e.target.name]: e.target.value }));
+    setQuery((q) => ({ ...q, [e.target.name]: e.target.value }));
   };
   return (
     <label className={styles.inputContainer}>

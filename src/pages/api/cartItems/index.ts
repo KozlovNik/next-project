@@ -14,10 +14,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         },
         select: { quantity: true, product: true },
       });
-      prisma.$disconnect()
+      prisma.$disconnect();
       return res.status(201).json(cartItem);
     } catch {
       return res.status(404).json({ message: "Not found" });
     }
   }
+  return res.status(400).json({ message: "Not found" });
 };

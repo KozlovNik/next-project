@@ -6,13 +6,11 @@ interface TitleBlockProps {
   title: string;
 }
 
-const TitleBlock: React.FC<TitleBlockProps> = ({ children, title }) => {
-  return (
-    <div className={styles.titleBlock}>
-      <h2 className={styles.title}>{title}</h2>
-      {children}
-    </div>
-  );
-};
+const TitleBlock: React.FC<TitleBlockProps> = ({ children, title }) => (
+  <div className={styles.titleBlock}>
+    <h2 className={styles.title}>{title}</h2>
+    {children}
+  </div>
+);
 
 export default memo(TitleBlock);

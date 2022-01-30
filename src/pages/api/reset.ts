@@ -1,8 +1,8 @@
-import withSession from "../../lib/session";
-import { prisma } from "../../lib/prismaClient";
 import validator from "validator";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { prisma } from "../../lib/prismaClient";
+import withSession from "../../lib/session";
 import { setCookie } from "../../lib/cookies";
 
 export default withSession(async (req, res) => {
@@ -22,9 +22,8 @@ export default withSession(async (req, res) => {
 
     const hash = await bcrypt.hash(password, 10);
 
-    let user;
     try {
-      user = await prisma.user.update({
+      await prisma.user.update({
         where: {
           email: decoded.email,
         },
@@ -40,11 +39,12 @@ export default withSession(async (req, res) => {
       maxAge: -1,
       httpOnly: true,
       sameSite: true,
-      path: '/'
+      path: "/",
     });
-    
-    res.json({ message: "success" });
-  } else {
-    res.status(405).json({ message: `${req.method} method is not allowed` });
+
+    return res.json({ message: "success" });
   }
+  return res
+    .status(405)
+    .json({ message: `${req.method} method is not allowed` });
 });

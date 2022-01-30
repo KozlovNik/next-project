@@ -1,8 +1,5 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { CloseLoginContext } from "../lib/closeLoginContext";
-import fetcher from "../lib/fetchJson";
-import { UserContext } from "../lib/userContext";
-import { getFavorites } from "../lib/dataFunctions";
 
 import SplitPane from "./SplitPane";
 import Heart from "./svgs/Heart";
@@ -11,7 +8,7 @@ import useUser from "../hooks/useUser";
 interface StarredProps {
   classLabelName?: string;
   className?: string;
-  isStarred: boolean;
+  isStarred: boolean | undefined;
   handleToggleStarred: () => void;
 }
 
@@ -24,7 +21,7 @@ const Starred: React.FC<StarredProps> = ({
 
   const { user } = useUser();
 
-  let callback = () => {
+  const callback = () => {
     if (user && user.isLogged) {
       handleToggleStarred();
     } else {

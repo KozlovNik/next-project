@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import styles from "./PopupSearch.module.css";
 import classNames from "classnames";
-import useEscapeKey from "../hooks/useEscapeKey";
 import { useRouter } from "next/router";
+import styles from "./PopupSearch.module.css";
+import useEscapeKey from "../hooks/useEscapeKey";
 
 interface PopupSearchProps {
   handleCloseSearch: () => void;

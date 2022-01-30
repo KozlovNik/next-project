@@ -32,10 +32,10 @@ export default withSession(async (req, res) => {
           mark,
         },
       });
-      console.log(favorite);
       return res.json(favorite);
     } catch {
       return res.status(400).json({ message: "Bad request" });
     }
   }
+  return res.status(400).json({ message: "Bad request" });
 });

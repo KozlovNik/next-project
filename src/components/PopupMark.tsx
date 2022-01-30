@@ -6,13 +6,17 @@ import Pen from "./svgs/Pen";
 
 import styles from "./PopupMark.module.css";
 
-interface PopupMark {
+interface PopupMarkPropTypes {
   mark: string;
   updateFavorite: (productId: number, mark: string) => Promise<void>;
   id: number;
 }
 
-const PopupMark: React.FC<PopupMark> = ({ mark, updateFavorite, id }) => {
+const PopupMark: React.FC<PopupMarkPropTypes> = ({
+  mark,
+  updateFavorite,
+  id,
+}) => {
   const [text, setText] = useState(mark);
   const ref = useRef<any>();
 
@@ -20,7 +24,7 @@ const PopupMark: React.FC<PopupMark> = ({ mark, updateFavorite, id }) => {
     e.preventDefault();
     updateFavorite(id, text);
 
-    ref && ref.current.close();
+    ref?.current.close();
   };
 
   return (

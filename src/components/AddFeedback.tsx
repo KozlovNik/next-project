@@ -23,24 +23,26 @@ const AddFeedback: React.FC<AddFeedbackProps> = ({
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setValues((values) => ({ ...values, [e.target.name]: e.target.value }));
+    setValues((v) => ({ ...v, [e.target.name]: e.target.value }));
   };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      console.log(values, id)
       const feedback = await fetcher("/api/feedback", {
         method: "POST",
         body: JSON.stringify({ ...values, productId: id }),
       });
       addFeedback(feedback);
-      close && close();
+      close?.();
+      // eslint-disable-next-line no-empty
     } catch {}
   };
 
   return (
     <form className={styles.popup} onSubmit={handleSubmit}>
-      <div className={styles.header}>Ваш отзыв о товаре "{`${name}`}"</div>
+      <div className={styles.header}>
+        Ваш отзыв о товаре &quot;{`${name}`}&quot;
+      </div>
       <Rating handleChange={handleChange} />
       <textarea
         onChange={handleChange}

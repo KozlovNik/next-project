@@ -15,24 +15,22 @@ const SplitPane: React.FC<SplitPaneProps> = ({
   classLabelName,
   handleClick,
   className,
-}) => {
-  return (
-    <div
+}) => (
+  <div
+    className={
+      className || (handleClick ? styles.splitPane : styles.splitPaneInactive)
+    }
+    onClick={handleClick}
+  >
+    <span>{icon}</span>
+    <span
       className={
-        className || (handleClick ? styles.splitPane : styles.splitPaneInactive)
+        classLabelName || (handleClick ? styles.label : styles.labelInactive)
       }
-      onClick={handleClick}
     >
-      <span>{icon}</span>
-      <span
-        className={
-          classLabelName || (handleClick ? styles.label : styles.labelInactive)
-        }
-      >
-        {label}
-      </span>
-    </div>
-  );
-};
+      {label}
+    </span>
+  </div>
+);
 
 export default SplitPane;

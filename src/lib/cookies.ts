@@ -1,14 +1,15 @@
+/* eslint-disable no-param-reassign */
 import { serialize, CookieSerializeOptions } from "cookie";
 import { NextApiResponse } from "next";
 
 export const setCookie = (
   res: NextApiResponse,
   name: string,
-  value: unknown,
+  value: string,
   options: CookieSerializeOptions = {}
 ) => {
   const stringValue =
-    typeof value === "object" ? "j:" + JSON.stringify(value) : String(value);
+    typeof value === "object" ? `j:${JSON.stringify(value)}` : String(value);
 
   if (!options.maxAge && !options.expires) {
     options.expires = new Date(Date.now() + 60 * 60 * 24 * 1000);

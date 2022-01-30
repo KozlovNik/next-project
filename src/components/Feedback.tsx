@@ -1,5 +1,5 @@
-import { totalRating } from "../lib/utilFunctions";
 import { useRouter } from "next/router";
+import { totalRating } from "../lib/utilFunctions";
 
 import Stars from "./Stars";
 import SplitPane from "./SplitPane";

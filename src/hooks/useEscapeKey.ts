@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
-type handler = () => void;
+type Handler = () => void;
 
-export default function useEscapeKey(handleClick: handler) {
+export default function useEscapeKey(handleClick: Handler) {
   return useEffect(() => {
     const escapeKeyUpHandler = (e: KeyboardEvent) => {
       if (e.code === "Escape") handleClick();

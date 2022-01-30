@@ -1,11 +1,10 @@
 import { memo } from "react";
 
-import Starred from "../components/Starred";
 import classNames from "classnames";
-import Feedback from "../components/Feedback";
-import ButtonAddToCart from "../components/ButtonAddToCart";
-
 import Link from "next/link";
+import Starred from "./Starred";
+import Feedback from "./Feedback";
+import ButtonAddToCart from "./ButtonAddToCart";
 
 import styles from "./ProductCard.module.css";
 
@@ -38,9 +37,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <div className={classNames([styles.productCard], className)}>
       <Starred
-        isStarred={favoritesIds?.includes(id) ?? false}
+        isStarred={favoritesIds?.includes(id)}
         handleToggleStarred={() => {
-          handleToggleStarred && handleToggleStarred(id);
+          handleToggleStarred?.(id);
         }}
         className={styles.heart}
         classLabelName={styles.label}
@@ -58,7 +57,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div className={styles.price}>{price} руб.</div>
       <ButtonAddToCart
         inCart={inCart}
-        handleAddToCart={async () => await handleAddToCart(id)}
+        handleAddToCart={async () => handleAddToCart(id)}
       />
     </div>
   );

@@ -1,8 +1,8 @@
 import { useState, useContext } from "react";
 import classNames from "classnames";
-import { CategoriesContext } from "../lib/categoryContext";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { CategoriesContext } from "../lib/categoryContext";
 
 import styles from "./Sidebar.module.css";
 

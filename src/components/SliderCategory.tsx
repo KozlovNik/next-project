@@ -1,7 +1,7 @@
 import { useState, memo, useContext } from "react";
 import classNames from "classnames";
-import { CategoriesContext } from "../lib/categoryContext";
 import Link from "next/link";
+import { CategoriesContext } from "../lib/categoryContext";
 
 import ForwardArrow from "./svgs/ForwardArrow";
 import BackwardArrow from "./svgs/BackwardArrow";
@@ -18,13 +18,14 @@ interface ImageSlideProps {
 const ImageSlide: React.FC<ImageSlideProps> = memo(({ name, slug }) => {
   const [showShadow, setShowShadow] = useState(false);
   return (
-    <Link href={`/catalog/${slug}`}>
+    <Link href={`/catalog/${slug}`} passHref>
       <a className={styles.imageWrapper}>
         <img
           onMouseEnter={() => setShowShadow(true)}
           onMouseLeave={() => setShowShadow(false)}
           className={classNames(styles.image, { [styles.shadow]: showShadow })}
           src={`/category-slider/${slug}.jpg`}
+          alt=""
         />
         <div
           className={styles.hl}

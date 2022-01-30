@@ -4,23 +4,21 @@ import { CloseLoginContext } from "../lib/closeLoginContext";
 import PopupAccount from "./PopupAccount";
 import PopupMenu from "./PopupMenu";
 import PopupSearch from "./PopupSearch";
-import NavTop from "../components/NavTop";
-import NavMiddle from "../components/NavbarMiddle";
-import NavBottom from "../components/NavBottom";
-import PopupLogin from "../components/PopupLogin";
+import NavTop from "./NavTop";
+import NavMiddle from "./NavbarMiddle";
+import NavBottom from "./NavBottom";
+import PopupLogin from "./PopupLogin";
 
 import styles from "./Navbar.module.css";
 
-interface NavbarProps {}
-
-const Navbar: React.FC<NavbarProps> = () => {
+const Navbar = () => {
   const [closeMenu, setCloseMenu] = useState(true);
   const [closeAccount, setCloseAccount] = useState(true);
   const [closeSearch, setCloseSearch] = useState(true);
   const { setCloseLogin, closeLogin } = useContext(CloseLoginContext);
 
   useEffect(() => {
-    const body = document.body;
+    const { body } = document;
     if (!closeLogin) {
       body?.classList.add("body-overflow");
     } else {

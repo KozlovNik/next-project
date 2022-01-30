@@ -1,7 +1,7 @@
 import { memo, useState } from "react";
 import { useRouter } from "next/router";
-import useUser from "../hooks/useUser";
 import Link from "next/link";
+import useUser from "../hooks/useUser";
 
 import Logo from "./Logo";
 import ProfileImage from "./svgs/Profile";
@@ -50,7 +50,7 @@ const NavbarMiddle: React.FC<NavbarMiddleProps> = ({ setCloseLogin }) => {
           {user && user.isLogged && (
             <>
               <span className={styles.username}>{user.firstName}</span>
-              <a
+              <button
                 onClick={async () => {
                   await logout();
                   router.push("/");
@@ -58,31 +58,31 @@ const NavbarMiddle: React.FC<NavbarMiddleProps> = ({ setCloseLogin }) => {
                 className={styles.link}
               >
                 <LogoutImage />
-              </a>
+              </button>
             </>
           )}
           {(!user || !user.isLogged) && (
             <>
               <span className={styles.empty} />
-              <a onClick={setCloseLogin} className={styles.link}>
+              <button onClick={setCloseLogin} className={styles.link}>
                 <ProfileImage />
-              </a>
+              </button>
             </>
           )}
 
           {user && user.isLogged ? (
-            <Link href="/favorites">
+            <Link href="/favorites" passHref>
               <a className={styles.link}>
                 <BlackHeart />
               </a>
             </Link>
           ) : (
-            <a onClick={setCloseLogin} className={styles.link}>
+            <button onClick={setCloseLogin} className={styles.link}>
               <BlackHeart />
-            </a>
+            </button>
           )}
 
-          <Link href="/cart">
+          <Link href="/cart" passHref>
             <a className={styles.link}>
               <CartImage />
             </a>

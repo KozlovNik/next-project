@@ -1,20 +1,20 @@
-import fetchJson from "../lib/fetchJson";
 import { SWRConfig } from "swr";
+import { useState } from "react";
+import fetchJson from "../lib/fetchJson";
 import { UserContext, UserContextTypes } from "../lib/userContext";
 import { CategoriesContext } from "../lib/categoryContext";
-import { useState } from "react";
-import { getCategoriesTypes } from "../lib/dataFunctions";
+import { GetCategoriesTypes } from "../lib/dataFunctions";
 import { CloseLoginContext } from "../lib/closeLoginContext";
 
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import Footer from "./Footer";
+import Navbar from "./Navbar";
 
 import styles from "./Layout.module.css";
 
 interface LayoutProps {
   children: React.ReactNode;
   user?: UserContextTypes;
-  categories: getCategoriesTypes;
+  categories: GetCategoriesTypes;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children, user = {}, categories }) => {

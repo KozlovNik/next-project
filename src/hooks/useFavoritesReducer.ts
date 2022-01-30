@@ -1,18 +1,19 @@
-import { getFavoritesTypes } from "../lib/dataFunctions";
+/* eslint-disable no-empty */
 import { useReducer } from "react";
+import { GetFavoritesTypes } from "../lib/dataFunctions";
 import fetcher from "../lib/fetchJson";
 
-interface favorite {
+interface Favorite {
   userId: number;
   productId: number;
   mark: string;
 }
 
 type Action =
-  | { type: "update"; favorite: favorite }
+  | { type: "update"; favorite: Favorite }
   | { type: "remove"; productId: number };
 
-function reducer(state: getFavoritesTypes, action: Action): getFavoritesTypes {
+function reducer(state: GetFavoritesTypes, action: Action): GetFavoritesTypes {
   switch (action.type) {
     case "remove":
       return state.filter(({ product }) => product.id !== action.productId);
@@ -27,7 +28,7 @@ function reducer(state: getFavoritesTypes, action: Action): getFavoritesTypes {
   }
 }
 
-export default function useFavoritesReducer(initialState: getFavoritesTypes) {
+export default function useFavoritesReducer(initialState: GetFavoritesTypes) {
   const [favoriteItems, dispatch] = useReducer(reducer, initialState);
 
   const updateFavorite = async (productId: number, mark: string) => {

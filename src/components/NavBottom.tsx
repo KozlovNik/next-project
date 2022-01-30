@@ -1,6 +1,6 @@
 import { memo, useContext } from "react";
-import { CategoriesContext } from "../lib/categoryContext";
 import Link from "next/link";
+import { CategoriesContext } from "../lib/categoryContext";
 
 import styles from "./NavBottom.module.css";
 

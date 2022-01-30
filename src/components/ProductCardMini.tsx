@@ -27,7 +27,7 @@ const ProductCardMini: React.FC<ProductCardMiniProps> = (props) => {
     <div className={styles.wrapper}>
       <Link href={link}>
         <a className={styles.imageWrapper}>
-          <img className={styles.image} src={`${link}.jpg`} />
+          <img alt="" className={styles.image} src={`${link}.jpg`} />
         </a>
       </Link>
       <div className={styles.mid}>

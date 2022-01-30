@@ -1,3 +1,5 @@
+/* eslint-disable no-empty */
+import { useState } from "react";
 import withSession from "../lib/session";
 import {
   getProductData,
@@ -5,13 +7,12 @@ import {
   getCategories,
   getCountries,
   getBrands,
-  getCategoriesTypes,
-  getProductDataTypes,
-  getCountriesTypes,
-  getBrandsTypes,
-  getCartTypes,
+  GetCategoriesTypes,
+  GetProductDataTypes,
+  GetCountriesTypes,
+  GetBrandsTypes,
+  GetCartTypes,
   getFavoritesIds,
-  getCart,
   getFavorites,
 } from "../lib/dataFunctions";
 import { UserContextTypes } from "../lib/userContext";
@@ -19,15 +20,14 @@ import { UserContextTypes } from "../lib/userContext";
 import CatalogContent from "../components/CatalogContent";
 import Layout from "../components/Layout";
 import useCartItemsReducer from "../hooks/useCartItemsReducer";
-import { useState } from "react";
 
 export interface CatalogProps {
-  productData: getProductDataTypes;
+  productData: GetProductDataTypes;
   user?: UserContextTypes;
-  categories: getCategoriesTypes;
-  countries: getCountriesTypes;
-  brands: getBrandsTypes;
-  cart: getCartTypes;
+  categories: GetCategoriesTypes;
+  countries: GetCountriesTypes;
+  brands: GetBrandsTypes;
+  cart: GetCartTypes;
   favorites: number[];
 }
 
@@ -49,7 +49,7 @@ const Catalog: React.FC<CatalogProps> = ({
       try {
         await fetch(`/api/favorites/${id}`, { method: "DELETE" });
         setFavoritesIds(favoritesIds.filter((i) => i !== id));
-      } catch {}
+      } catch (ex) {}
     } else {
       try {
         await fetch(`/api/favorites`, {
@@ -57,7 +57,7 @@ const Catalog: React.FC<CatalogProps> = ({
           body: JSON.stringify({ productId: id }),
         });
         setFavoritesIds([...favoritesIds, id]);
-      } catch {}
+      } catch (ex) {}
     }
   };
   return (
@@ -76,16 +76,15 @@ const Catalog: React.FC<CatalogProps> = ({
 export default Catalog;
 
 export const getServerSideProps = withSession(
-  async ({ req, res, query: { categorySlug: category, ...rest } }) => {
+  async ({ req, query: { categorySlug: category, ...rest } }) => {
     const user = getUser(req);
     const productData = await getProductData({ category, ...rest });
     const categories = await getCategories();
     const countries = await getCountries();
     const brands = await getBrands();
-    const cart = await getCart({ req, res });
 
     let favorites = null;
-    if (user && user.isLogged) {
+    if (user?.isLogged) {
       favorites = await getFavorites(user.id);
     }
 

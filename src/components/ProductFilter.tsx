@@ -8,17 +8,15 @@ interface ProductFilterProps {
 }
 // React.forwardRef(({ open, ...props }, ref) => (
 const ProductFilter = React.forwardRef<HTMLDivElement, ProductFilterProps>(
-  ({ open, label, ...props }, ref) => {
-    return (
-      <span
-        className={classNames(styles.label, { [styles.labelActive]: open })}
-        ref={ref}
-        {...props}
-      >
-        {label}
-      </span>
-    );
-  }
+  ({ open, label, ...props }, ref) => (
+    <span
+      className={classNames(styles.label, { [styles.labelActive]: open })}
+      ref={ref}
+      {...props}
+    >
+      {label}
+    </span>
+  )
 );
 
 export default ProductFilter;
