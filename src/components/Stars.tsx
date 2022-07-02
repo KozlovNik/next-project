@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import Star from "./svgs/Star";
 
 import styles from "./Stars.module.css";

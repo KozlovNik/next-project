@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import { useState } from "react";
 
 import Star from "./svgs/Star";
