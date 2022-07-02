@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@prisma/client": "^3.8.1",
+    "@reach/dialog": "^0.17.0",
     "@types/classnames": "^2.2.11",
     "awesome-debounce-promise": "^2.1.0",
     "bcrypt": "^5.0.1",

@@ -1,16 +1,9 @@
 .shadow {
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: black;
-  opacity: 0.2;
-  z-index: 100;
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 320px;
+  /* background-color: rgba(0, 0, 0, 0.95); */
+  width: 100%;
+  height: 100%;
+  z-index: 100000;
+  position: relative;
 }
 
 .form {
@@ -88,3 +81,31 @@
       font-size: 12px;
   }
 }
+
+
+
+  .dialogOverlay {
+    z-index: 100;
+    backdrop-filter: blur(2px);
+    background: rgba(0, 0, 0, 0.4);
+    position: absolute;
+  }
+
+/* const Content = styled(DialogContent)`
+  &[data-reach-dialog-content] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+    width: unset;
+    overflow-y: auto;
+    ${screen('md')} {
+      position: relative;
+      max-width: 80%;
+      overflow: unset;
+    }
+  }
+`; */

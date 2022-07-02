@@ -1,5 +1,4 @@
-import { useState, memo, useEffect, useContext } from "react";
-import { CloseLoginContext } from "../lib/closeLoginContext";
+import { useState, memo } from "react";
 
 import PopupAccount from "./PopupAccount";
 import PopupMenu from "./PopupMenu";
@@ -15,25 +14,16 @@ const Navbar = () => {
   const [closeMenu, setCloseMenu] = useState(true);
   const [closeAccount, setCloseAccount] = useState(true);
   const [closeSearch, setCloseSearch] = useState(true);
-  const { setCloseLogin, closeLogin } = useContext(CloseLoginContext);
-
-  useEffect(() => {
-    const { body } = document;
-    if (!closeLogin) {
-      body?.classList.add("body-overflow");
-    } else {
-      body?.classList.remove("body-overflow");
-    }
-  }, [closeLogin]);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <PopupLogin close={closeLogin} handleClick={() => setCloseLogin(true)} />
+      <PopupLogin isOpen={isOpen} onDismiss={() => setIsOpen(false)} />
       <PopupMenu close={closeMenu} handleClick={() => setCloseMenu(true)} />
       <PopupAccount
         close={closeAccount}
-        handleClick={() => setCloseAccount(true)}
-        setCloseLogin={() => setCloseLogin(false)}
+        handleClick={() => setIsOpen(true)}
+        setCloseLogin={() => setIsOpen(false)}
       />
       <PopupSearch
         close={closeSearch}
@@ -47,7 +37,7 @@ const Navbar = () => {
           setCloseMenu={() => setCloseMenu(false)}
           setCloseAccount={() => setCloseAccount(false)}
         />
-        <NavMiddle setCloseLogin={() => setCloseLogin(false)} />
+        <NavMiddle setCloseLogin={() => setIsOpen(true)} />
         <NavBottom />
       </header>
     </>
