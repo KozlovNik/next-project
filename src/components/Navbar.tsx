@@ -14,11 +14,11 @@ const Navbar = () => {
   const [closeMenu, setCloseMenu] = useState(true);
   const [closeAccount, setCloseAccount] = useState(true);
   const [closeSearch, setCloseSearch] = useState(true);
-  const [isOpen, setIsOpen] = useState(false);
+  const [, setIsOpen] = useState(false);
 
   return (
     <>
-      <PopupLogin isOpen={isOpen} onDismiss={() => setIsOpen(false)} />
+      <PopupLogin isOpen onDismiss={() => setIsOpen(false)} />
       <PopupMenu close={closeMenu} handleClick={() => setCloseMenu(true)} />
       <PopupAccount
         close={closeAccount}
