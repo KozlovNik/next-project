@@ -28,7 +28,12 @@ const PopupLogin: React.FC<PopupLoginProps> = ({ isOpen, onDismiss }) => {
   // background-color: rgba(0, 0, 0, 0.95);
 
   return (
-    <DialogOverlay allowPinchZoom isOpen={isOpen} onDismiss={onDismiss}>
+    <DialogOverlay
+      dangerouslyBypassScrollLock
+      allowPinchZoom
+      isOpen={isOpen}
+      onDismiss={onDismiss}
+    >
       <div className={styles.shadow}>
         <Formik
           validationSchema={Yup.object({
