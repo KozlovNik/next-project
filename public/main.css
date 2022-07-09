@@ -1,0 +1,73 @@
+html {
+    font-size: 16px;
+    box-sizing: border-box;
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+    Helvetica Neue, sans-serif;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: inherit;
+    margin: 0;
+}
+
+html,
+body,
+#__next {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    overflow-x: hidden;
+
+    --colors-yellow: #DCE01B;
+
+    --colors-orange: #DAA134;
+
+    --colors-blue: #607399;
+
+    --colors-red: #D66565;
+
+    --colors-white: #ffffff;
+
+    --colors-black: #000000;
+    --colors-black-2: #333333;
+    --colors-black-3: #787878;
+    --colors-black-4: #B6B6B6;
+    --colors-black-5: #F1F0F0;
+    --colors-black-6: #F9F9F9;
+
+    --spacings-xxl: 2px;
+    --spacings-xxs: 4px;
+    --spacings-xs: 8px;
+    --spacings-xxl-2: 12px;
+    --spacings-s: 16px;
+    --spacings-m: 24px;
+    --spacings-xxl-3: 28px;
+    --spacings-l: 32px;
+    --spacings-xl: 40px;
+    --spacings-xxl-4: 48px;
+    --spacings-xxl-5: 56px;
+    --spacings-xxl-6: 64px;
+    --spacings-xxl-7: 72px;
+    --spacings-xxl-8: 96px;
+    --spacings-xxl-9: 128px;
+    --spacings-xxl-10: 176px;
+
+    --z-indexes-modal: 100;
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+#__next {
+  position: relative;
+}

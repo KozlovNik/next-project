@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { navList, companyInfoList, storeList } from "../constants";
 import FooterNav from "./FooterNav";
-import Logo from "./Logo";
+import { Logo } from "./svgs";
 import Fb from "./svgs/Fb";
 import Insta from "./svgs/Insta";
 import Vk from "./svgs/Vk";

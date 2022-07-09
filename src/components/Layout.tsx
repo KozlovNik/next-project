@@ -5,10 +5,8 @@ import { UserContext, UserContextTypes } from "../lib/userContext";
 import { CategoriesContext } from "../lib/categoryContext";
 import { GetCategoriesTypes } from "../lib/dataFunctions";
 import { CloseLoginContext } from "../lib/closeLoginContext";
-
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-
 import styles from "./Layout.module.css";
 
 interface LayoutProps {
@@ -26,10 +24,10 @@ const Layout: React.FC<LayoutProps> = ({ children, user = {}, categories }) => {
         fetcher: fetchJson,
       }}
     >
+      <Navbar />
       <UserContext.Provider value={user}>
         <CategoriesContext.Provider value={categories}>
           <CloseLoginContext.Provider value={{ closeLogin, setCloseLogin }}>
-            <Navbar />
             <div className={styles.mainWrapper}>{children}</div>
             <Footer />
           </CloseLoginContext.Provider>
