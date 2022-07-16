@@ -67,6 +67,10 @@ export const presets = variant({
       fontWeight: "light",
       fontSize: "14px",
     },
+    paragraph2Thin: {
+      fontWeight: "thin",
+      fontSize: "14px",
+    },
 
     caption: {
       fontWeight: "regular",

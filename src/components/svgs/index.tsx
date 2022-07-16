@@ -124,3 +124,74 @@ export const Logo: React.FC<Sgv> = (props) => (
     />
   </svg>
 );
+
+export const Vk: React.FC<Sgv> = (props) => (
+  <svg
+    width={36}
+    height={36}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M14.643 25.305c-.998-.854-10.21-14.483-8.41-15.052 1.799-.57 4.07 0 4.07 0l2.411 3.969 1.93 3.167V12.11s-.486-.973-1.23-1.574c-.742-.6 5.418-.6 5.418 0v4.481s2.526-3.921 3.606-4.49c1.08-.57 4.312.01 4.312.01.36.853-5.35 7.906-5.35 7.906s8.95 6.89 8.59 7.175c-.36.285-5.212.285-5.932 0-.72-.285-5.226-4.009-5.226-4.009v4.009c0 .561-3.19.54-4.189-.314Z"
+      stroke="currentColor"
+    />
+    <circle cx={18} cy={18} r={17.5} stroke="currentColor" />
+  </svg>
+);
+
+export const Insta: React.FC<Sgv> = (props) => (
+  <svg
+    width={36}
+    height={36}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <mask id="a" fill="currentColor">
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M18 19.25a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5Zm0 1a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z"
+      />
+    </mask>
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M18 19.25a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5Zm0 1a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z"
+      fill="currentColor"
+    />
+    <path
+      d="M18.25 18a.25.25 0 0 1-.25.25v2A2.25 2.25 0 0 0 20.25 18h-2Zm-.25-.25a.25.25 0 0 1 .25.25h2A2.25 2.25 0 0 0 18 15.75v2Zm-.25.25a.25.25 0 0 1 .25-.25v-2A2.25 2.25 0 0 0 15.75 18h2Zm.25.25a.25.25 0 0 1-.25-.25h-2A2.25 2.25 0 0 0 18 20.25v-2Zm1.25-.25c0 .69-.56 1.25-1.25 1.25v2A3.25 3.25 0 0 0 21.25 18h-2ZM18 16.75c.69 0 1.25.56 1.25 1.25h2A3.25 3.25 0 0 0 18 14.75v2ZM16.75 18c0-.69.56-1.25 1.25-1.25v-2A3.25 3.25 0 0 0 14.75 18h2ZM18 19.25c-.69 0-1.25-.56-1.25-1.25h-2A3.25 3.25 0 0 0 18 21.25v-2Z"
+      fill="currentColor"
+      mask="url(#a)"
+    />
+    <mask id="b" fill="currentColor">
+      <path d="M9 14a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5h-8a5 5 0 0 1-5-5v-8Z" />
+    </mask>
+    <path
+      d="M14 10h8V8h-8v2Zm12 4v8h2v-8h-2Zm-4 12h-8v2h8v-2Zm-12-4v-8H8v8h2Zm4 4a4 4 0 0 1-4-4H8a6 6 0 0 0 6 6v-2Zm12-4a4 4 0 0 1-4 4v2a6 6 0 0 0 6-6h-2Zm-4-12a4 4 0 0 1 4 4h2a6 6 0 0 0-6-6v2Zm-8-2a6 6 0 0 0-6 6h2a4 4 0 0 1 4-4V8Z"
+      fill="currentColor"
+      mask="url(#b)"
+    />
+    <circle cx={22.125} cy={13.875} r={0.375} fill="currentColor" />
+    <circle cx={18} cy={18} r={17.5} stroke="currentColor" />
+  </svg>
+);
+
+export const Fb: React.FC<Sgv> = (props) => (
+  <svg
+    width={36}
+    height={36}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M19.5 29H15V18s-1.5 0-2.5-.5c-.143-.072-.5-.719-.5-1.5v-2h3v-.5S15 9 17.5 8s4.5-.5 4.5-.5V11c0 .5-2.16-.203-2.5 1-.16.564 0 2 0 2H23v4h-3.5v11Z"
+      stroke="currentColor"
+    />
+    <circle cx={18} cy={18} r={17.5} stroke="currentColor" />
+  </svg>
+);
