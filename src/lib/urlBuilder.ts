@@ -1,1 +1,1 @@
-export const buildCategoryPage = (slug: string) => `/catalog/${slug}`;
+export const buildCategoryPage = (slug: string) => `/catalog/${slug || ""}`;

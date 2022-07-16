@@ -37,6 +37,10 @@ export const presets = variant({
       fontWeight: "regular",
       fontSize: "20px",
     },
+    h3Thin: {
+      fontWeight: "thin",
+      fontSize: "20px",
+    },
     h3Bold: {
       fontWeight: "bold",
       fontSize: "20px",
@@ -48,6 +52,10 @@ export const presets = variant({
     },
     paragraph1Light: {
       fontWeight: "light",
+      fontSize: "16px",
+    },
+    paragraph1Thin: {
+      fontWeight: "thin",
       fontSize: "16px",
     },
 

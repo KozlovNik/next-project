@@ -12,8 +12,7 @@ import { UserContextTypes } from "../lib/userContext";
 import useCartItemsReducer from "../hooks/useCartItemsReducer";
 
 import Layout from "../components/Layout";
-import { MainSlider } from "../components/Sliders";
-import SliderCategory from "../components/SliderCategory";
+import { MainSlider, CategorySlider } from "../components/Sliders";
 import SliderSuggestion from "../components/SliderSuggestion";
 
 interface IndexProps {
@@ -36,7 +35,7 @@ const Index: React.FC<IndexProps> = ({
   return (
     <Layout categories={categories} user={user}>
       <MainSlider />
-      <SliderCategory totalImageNumber={7} numberToShow={3} />
+      <CategorySlider />
       <SliderSuggestion
         handleAddToCart={handleAddToCart}
         cartItems={cartItems}
