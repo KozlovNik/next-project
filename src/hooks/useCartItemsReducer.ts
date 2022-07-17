@@ -5,6 +5,7 @@ import fetcher from "../lib/fetchJson";
 interface CartItem {
   quantity: number;
   product: Product;
+  id: number;
 }
 
 type Action =
@@ -45,14 +46,18 @@ export default function useCartItemsReducer(initialState: CartItem[]) {
         body: JSON.stringify({ quantity }),
       });
       dispatch({ type: "update", cartItem });
-    } catch {}
+    } catch {
+      // noop
+    }
   };
 
   const deleteCartItem = async (productId: number) => {
     try {
       await fetcher(`/api/cartItems/${productId}`, { method: "DELETE" });
       dispatch({ type: "remove", productId });
-    } catch (err) {}
+    } catch (err) {
+      // noop
+    }
   };
 
   return { cartItems, handleAddToCart, deleteCartItem, updateQuantity };

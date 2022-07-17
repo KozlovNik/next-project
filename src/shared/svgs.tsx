@@ -3,6 +3,7 @@ interface Sgv {
   width?: number | string;
   height?: number | string;
   color?: string;
+  className?: string;
 }
 
 export const Heart: React.FC<Sgv> = (props) => (
@@ -193,5 +194,31 @@ export const Fb: React.FC<Sgv> = (props) => (
       stroke="currentColor"
     />
     <circle cx={18} cy={18} r={17.5} stroke="currentColor" />
+  </svg>
+);
+
+export const NextArrow: React.FC<Sgv> = (props) => (
+  <svg
+    width={50}
+    height={50}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path d="m16 12 17 13.473L16 38" stroke="currentColor" />
+    <circle r={24.5} transform="matrix(-1 0 0 1 25 25)" stroke="currentColor" />
+  </svg>
+);
+
+export const PrevArrow: React.FC<Sgv> = (props) => (
+  <svg
+    width={50}
+    height={50}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path d="M34 12 17 25.473 34 38" stroke="currentColor" />
+    <circle cx={25} cy={25} r={24.5} stroke="currentColor" />
   </svg>
 );

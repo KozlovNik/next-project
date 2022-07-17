@@ -9,7 +9,7 @@ import PopupLogin from "./PopupLogin";
 import { Box, Grid, Flex } from "../shared/system/Box";
 import { Container } from "../shared/Container";
 import { displayUp, hideUp, screen } from "../shared/system/primitives";
-import { Cart, Heart, Logo, Logout, Profile, Search } from "./svgs";
+import { Cart, Heart, Logo, Logout, Profile, Search } from "../shared/svgs";
 import { CART_PAGE, FAVORITES_PAGE } from "../shared/constants/routes";
 import { Text } from "../shared/system/Text";
 import useUser from "../hooks/useUser";

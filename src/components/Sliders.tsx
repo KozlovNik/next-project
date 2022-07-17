@@ -3,13 +3,17 @@ import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper";
 import styled from "styled-components";
+import { Product } from "@prisma/client";
 
-import { Box } from "../shared/system/Box";
+import { Box, Grid } from "../shared/system/Box";
 import TitleBlock from "./TitleBlock";
 import { Text } from "../shared/system/Text";
 import { screen } from "../shared/system/primitives";
 import { navList } from "../constants";
 import { buildCategoryPage } from "../lib/urlBuilder";
+import ProductCard from "./ProductCard";
+import { GetProductDataTypes } from "../lib/dataFunctions";
+import { NextArrow, PrevArrow } from "../shared/svgs";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -18,6 +22,16 @@ import "swiper/css/navigation";
 interface ImageSlideProps {
   slug: string;
   name: string;
+}
+
+interface SuggestionSliderProps {
+  handleAddToCart: (id: number) => void;
+  productData?: GetProductDataTypes;
+  cartItems?: {
+    id: number;
+    quantity: number;
+    product: Product;
+  }[];
 }
 
 const MainSliderUI = styled(Swiper)`
@@ -143,7 +157,7 @@ const Anchor = styled.a`
   }
 `;
 
-const ImageSlide: React.FC<ImageSlideProps> = memo(({ name, slug }) => (
+const CategorySlide: React.FC<ImageSlideProps> = memo(({ name, slug }) => (
   <Link href={buildCategoryPage(slug)} passHref>
     <Anchor>
       <ImageWrapper>
@@ -202,9 +216,75 @@ export const CategorySlider: React.FC = memo(() => (
     >
       {navList.map(({ name, slug }: ImageSlideProps) => (
         <SwiperSlide key={slug}>
-          <ImageSlide key={slug} name={name} slug={slug} />
+          <CategorySlide key={slug} name={name} slug={slug} />
         </SwiperSlide>
       ))}
     </CategorySliderUI>
   </Box>
 ));
+
+const SuggestionSliderUI = styled(Swiper).attrs({
+  py: "xs",
+})`
+  max-width: 1000px;
+`;
+
+const SvgWrapper = styled.button`
+  color: var(--colors-black-3);
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+
+  :hover {
+    color: var(--colors-red);
+  }
+`;
+
+export const SuggestionSlider: React.FC<SuggestionSliderProps> = ({
+  productData,
+  cartItems,
+  handleAddToCart,
+}) => (
+  <>
+    <TitleBlock title="РЕКОМЕНДАЦИИ">
+      <Grid ml="xs" gridGap="xs" gridTemplateColumns="repeat(2, auto)">
+        <SvgWrapper className="prevEl">
+          <PrevArrow />
+        </SvgWrapper>
+        <SvgWrapper className="nextEl">
+          <NextArrow />
+        </SvgWrapper>
+      </Grid>
+    </TitleBlock>
+    <SuggestionSliderUI
+      modules={[Navigation]}
+      navigation={{
+        nextEl: ".nextEl",
+        prevEl: ".prevEl",
+      }}
+      slidesPerView={1}
+      breakpoints={{
+        480: {
+          slidesPerView: 2,
+        },
+        728: {
+          slidesPerView: 3,
+        },
+        1200: {
+          slidesPerView: 4,
+        },
+      }}
+    >
+      {productData &&
+        productData.products.map((product) => (
+          <SwiperSlide key={product.id}>
+            <ProductCard
+              handleAddToCart={handleAddToCart}
+              inCart={cartItems?.some((i) => i.product.id === product.id)}
+              {...product}
+            />
+          </SwiperSlide>
+        ))}
+    </SuggestionSliderUI>
+  </>
+);

@@ -2,7 +2,7 @@ import { memo } from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import { navList, companyInfoList, storeList } from "../constants";
-import { Logo, Vk, Insta, Fb } from "./svgs";
+import { Logo, Vk, Insta, Fb } from "../shared/svgs";
 import { Box, Flex, Grid } from "../shared/system/Box";
 import { Text } from "../shared/system/Text";
 
