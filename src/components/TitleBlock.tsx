@@ -1,5 +1,6 @@
 import React, { memo } from "react";
-import styles from "./TitleBlock.module.css";
+import { Flex } from "../shared/system/Box";
+import { Text } from "../shared/system/Text";
 
 interface TitleBlockProps {
   children?: React.ReactNode;
@@ -7,10 +8,17 @@ interface TitleBlockProps {
 }
 
 const TitleBlock: React.FC<TitleBlockProps> = ({ children, title }) => (
-  <div className={styles.titleBlock}>
-    <h2 className={styles.title}>{title}</h2>
+  <Flex
+    my={{ _: "s", lg: "xl" }}
+    justifyContent="center"
+    alignItems="center"
+    color="black-3"
+  >
+    <Text preset={{ _: "h2Thin", lg: "h1Thin" }} as="h2">
+      {title}
+    </Text>
     {children}
-  </div>
+  </Flex>
 );
 
 export default memo(TitleBlock);

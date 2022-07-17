@@ -2,14 +2,11 @@ import { SWRConfig } from "swr";
 import { useState } from "react";
 import fetchJson from "../lib/fetchJson";
 import { UserContext, UserContextTypes } from "../lib/userContext";
-import { CategoriesContext } from "../lib/categoryContext";
 import { GetCategoriesTypes } from "../lib/dataFunctions";
 import { CloseLoginContext } from "../lib/closeLoginContext";
-
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-
-import styles from "./Layout.module.css";
+import { Box } from "../shared/system/Box";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -17,7 +14,7 @@ interface LayoutProps {
   categories: GetCategoriesTypes;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, user = {}, categories }) => {
+const Layout: React.FC<LayoutProps> = ({ children, user = {} }) => {
   const [closeLogin, setCloseLogin] = useState(true);
 
   return (
@@ -26,14 +23,14 @@ const Layout: React.FC<LayoutProps> = ({ children, user = {}, categories }) => {
         fetcher: fetchJson,
       }}
     >
+      <Navbar />
       <UserContext.Provider value={user}>
-        <CategoriesContext.Provider value={categories}>
-          <CloseLoginContext.Provider value={{ closeLogin, setCloseLogin }}>
-            <Navbar />
-            <div className={styles.mainWrapper}>{children}</div>
-            <Footer />
-          </CloseLoginContext.Provider>
-        </CategoriesContext.Provider>
+        <CloseLoginContext.Provider value={{ closeLogin, setCloseLogin }}>
+          <Box maxWidth="1200px" my="s" mx={{ _: "s", lg: "auto" }}>
+            {children}
+          </Box>
+          <Footer />
+        </CloseLoginContext.Provider>
       </UserContext.Provider>
     </SWRConfig>
   );

@@ -1,41 +1,7 @@
-.productCard {
-  width: 240px;
-  min-width: 240px;
-  min-height: 400px;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-  margin: 20px 5px;
-  position: relative;
-  z-index: 1;
-  padding: 25px;
-  border-radius: 5px;
-  flex: 0 1 100%;
-}
 
-.productCard:hover {
-  box-shadow: 0px 0px 15px 5px rgb(240, 240, 240);
-}
 
 .productCard button {
   margin-top: auto;
-}
-
-.image {
-  width: 100%;
-  height: auto;
-  margin-bottom: 10px;
-}
-
-.title {
-  color: #787878;
-  font-style: 14px;
-  font-weight: 300;
-  margin-bottom: 10px;
-}
-
-.title:hover {
-  color: #d66565;
 }
 
 .price {
@@ -72,16 +38,6 @@
   .productCard {
     flex: 0 0 100%;
     margin: 0;
-  }
-
-  .productCard:hover {
-    box-shadow: none;
-  }
-
-  .image {
-    width: 270px;
-    height: auto;
-    margin-bottom: 10px;
   }
 
   .heart {

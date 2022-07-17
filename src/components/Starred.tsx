@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { CloseLoginContext } from "../lib/closeLoginContext";
 
 import SplitPane from "./SplitPane";
-import Heart from "./svgs/Heart";
+import { Heart } from "../shared/svgs";
 import useUser from "../hooks/useUser";
 
 interface StarredProps {
@@ -32,8 +32,9 @@ const Starred: React.FC<StarredProps> = ({
   return (
     <SplitPane
       {...rest}
+      className="heart"
       label={isStarred ? "Удалить из закладок" : "Добавить в закладки"}
-      icon={<Heart color={isStarred ? "#D66565" : "#fff"} />}
+      icon={<Heart />}
       handleClick={() => callback()}
     />
   );

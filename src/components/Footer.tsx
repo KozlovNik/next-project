@@ -1,53 +1,113 @@
 import { memo } from "react";
+import Link from "next/link";
+import styled from "styled-components";
 import { navList, companyInfoList, storeList } from "../constants";
-import FooterNav from "./FooterNav";
-import Logo from "./Logo";
-import Fb from "./svgs/Fb";
-import Insta from "./svgs/Insta";
-import Vk from "./svgs/Vk";
-import styles from "./Footer.module.css";
+import { Logo, Vk, Insta, Fb } from "../shared/svgs";
+import { Box, Flex, Grid } from "../shared/system/Box";
+import { Text } from "../shared/system/Text";
 
-const Footer = () => (
-  <footer className={styles.footer}>
-    <div className={styles.wrapper}>
-      <div className={styles.mainContent}>
-        <div className={styles.icons}>
+interface FooterNavProps {
+  items: string[];
+  heading: string;
+}
+
+const FooterNav: React.FC<FooterNavProps> = ({ heading, items }) => (
+  <Box mb="s" mx={{ sm: "s" }}>
+    <Text mb="xxl-3" preset="h3">
+      {heading}
+    </Text>
+    <Box as="ul" css="list-style: none">
+      {items.map((text) => (
+        // TODO: unify links
+        <Link href="/" passHref>
+          <a>
+            <Text mb="xs" preset="paragraph2Thin" as="li" key={text}>
+              {text}
+            </Text>
+          </a>
+        </Link>
+      ))}
+    </Box>
+  </Box>
+);
+
+// TODO: create shared component
+const SvgWrapper = styled.button`
+  color: var(--colors-white);
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+
+  :hover {
+    color: var(--colors-red);
+  }
+`;
+
+const Footer: React.FC = () => (
+  <Flex width="100%" bg="black-2" color="white" height="100%">
+    <Grid
+      my="xxl-3"
+      width="100%"
+      maxWidth="1200px"
+      mx={{ _: "s", lg: "auto" }}
+      gridGap="s"
+      gridAutoFlow="max-content"
+    >
+      <Flex
+        flexDirection={{ _: "column", sm: "row" }}
+        justifyContent="space-between"
+        flexWrap="wrap"
+      >
+        <Box mr="s" mb="s">
           <Logo />
-          <div className={styles.socials}>
-            <p className={styles.label}>СОЦИАЛЬНЫЕ СЕТИ:</p>
-            <Vk
-              initialColor="white"
-              hoverColor="#D66565"
-              className={styles.social}
-            />
-            <Fb
-              initialColor="white"
-              hoverColor="#D66565"
-              className={styles.social}
-            />
-            <Insta
-              initialColor="white"
-              hoverColor="#D66565"
-              className={styles.social}
-            />
-          </div>
-        </div>
-        <div className={styles.contacts}>
-          <p className={styles.contact}>8 (800) 333-49-80</p>
-          <p className={styles.contact}>shop@tastycoffee.ru</p>
-        </div>
-
+          <Box>
+            <Text preset="paragraph2Thin" mt="xxl-3" mb="xs">
+              СОЦИАЛЬНЫЕ СЕТИ:
+            </Text>
+            <Grid
+              gridAutoFlow="column"
+              gridAutoColumns="min-content"
+              gridGap="xs"
+            >
+              <Link href="/" passHref>
+                <SvgWrapper as="a">
+                  <Vk />
+                </SvgWrapper>
+              </Link>
+              <Link href="/" passHref>
+                <SvgWrapper as="a">
+                  <Fb />
+                </SvgWrapper>
+              </Link>
+              <Link href="/" passHref>
+                <SvgWrapper as="a">
+                  <Insta />
+                </SvgWrapper>
+              </Link>
+            </Grid>
+          </Box>
+        </Box>
+        <Box>
+          <Text preset="h3Thin" mb="s">
+            8 (800) 333-49-80
+          </Text>
+          <Text preset="paragraph1Thin" mb="s">
+            shop@tastycoffee.ru
+          </Text>
+        </Box>
         <FooterNav
           items={navList.map(({ name }) => name)}
           heading="Каталог товаров"
         />
         <FooterNav items={companyInfoList} heading="Компания" />
         <FooterNav items={storeList} heading="Интернет-магазин" />
-      </div>
-      <img className={styles.payment} alt="payment" src="/payment.png" />
-      <p className={styles.companyName}>© 2021 SOME COFFEE</p>
-    </div>
-  </footer>
+      </Flex>
+      <img style={{ maxWidth: "200px" }} alt="payment" src="/payment.png" />
+      <Text preset="h2Thin" textAlign="center">
+        © 2021 SOME COFFEE
+      </Text>
+    </Grid>
+  </Flex>
 );
 
 export default memo(Footer);

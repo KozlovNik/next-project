@@ -25,74 +25,68 @@ const PopupLogin: React.FC<PopupLoginProps> = ({ isOpen, onDismiss }) => {
 
   const { login } = useUser();
   const [error, setError] = useError();
-  // background-color: rgba(0, 0, 0, 0.95);
 
   return (
-    <DialogOverlay
-      dangerouslyBypassScrollLock
-      allowPinchZoom
-      isOpen={isOpen}
-      onDismiss={onDismiss}
-    >
-      <div className={styles.shadow}>
-        <Formik
-          validationSchema={Yup.object({
-            email: Yup.string()
-              .required("Укажите ваш email")
-              .email("Неверный формат email"),
-            password: Yup.string().required("Укажите ваш пароль"),
-          })}
-          initialValues={{
-            email: "",
-            password: "",
-          }}
-          onSubmit={async (values, { setSubmitting }) => {
-            setSubmitting(false);
+    <DialogOverlay dangerouslyBypassScrollLock allowPinchZoom isOpen={isOpen}>
+      {/* <div className={styles.shadow}> */}
+      <Formik
+        validationSchema={Yup.object({
+          email: Yup.string()
+            .required("Укажите ваш email")
+            .email("Неверный формат email"),
+          password: Yup.string().required("Укажите ваш пароль"),
+        })}
+        initialValues={{
+          email: "",
+          password: "",
+        }}
+        onSubmit={async (values, { setSubmitting }) => {
+          setSubmitting(false);
 
-            try {
-              await login(values);
-              if (
-                router.pathname === "/register" ||
-                router.pathname === "/forgot" ||
-                router.pathname.includes("/reset/")
-              ) {
-                router.push("/");
-              }
-              // handleClick();
-            } catch (e) {
-              setError("Неверный логин или пароль");
+          try {
+            await login(values);
+            if (
+              router.pathname === "/register" ||
+              router.pathname === "/forgot" ||
+              router.pathname.includes("/reset/")
+            ) {
+              router.push("/");
             }
-          }}
-        >
-          <Form className={styles.form}>
-            <ButtonClose
-              color="#B6B6B6"
-              className={styles.button}
-              // onClick={handleClick}
-            />
-            <div className={styles.heading}>АВТОРИЗАЦИЯ</div>
-            <CustomField name="email" placeholder="Email" />
-            <CustomField name="password" type="password" placeholder="Пароль" />
-            <Error>{error}</Error>
-            <Button type="submit" style={{ width: "100%" }}>
-              Войти
-            </Button>
-            <div className={styles.links}>
-              <Link href="/register" passHref>
-                <a
-                  className={styles.link}
-                  // onClick={handleClick}
-                >
-                  Регистрация
-                </a>
-              </Link>
-              <Link href="/forgot" passHref>
-                <a className={styles.link}>Восстановить пароль</a>
-              </Link>
-            </div>
-          </Form>
-        </Formik>
-      </div>
+            // handleClick();
+          } catch (e) {
+            setError("Неверный логин или пароль");
+          }
+        }}
+      >
+        <Form className={styles.form}>
+          <ButtonClose
+            color="#B6B6B6"
+            className={styles.button}
+            onClick={onDismiss}
+          />
+          <div className={styles.heading}>АВТОРИЗАЦИЯ</div>
+          <CustomField name="email" placeholder="Email" />
+          <CustomField name="password" type="password" placeholder="Пароль" />
+          <Error>{error}</Error>
+          <Button type="submit" style={{ width: "100%" }}>
+            Войти
+          </Button>
+          <div className={styles.links}>
+            <Link href="/register" passHref>
+              <a
+                className={styles.link}
+                // onClick={handleClick}
+              >
+                Регистрация
+              </a>
+            </Link>
+            <Link href="/forgot" passHref>
+              <a className={styles.link}>Восстановить пароль</a>
+            </Link>
+          </div>
+        </Form>
+      </Formik>
+      {/* </div> */}
     </DialogOverlay>
   );
 };
