@@ -1,33 +1,36 @@
-import { useState, FC, ButtonHTMLAttributes } from "react";
+import React, { forwardRef } from "react";
+import styled from "styled-components";
 
-const buttonStyles = {
-  border: "none",
-  minWidth: 150,
-  height: 35,
-  fontSize: 16,
-  color: "#fff",
-  borderRadius: 5,
-  cursor: "pointer",
-  fontWeight: 300,
-};
+const ButtonUI = styled.button`
+  border: none;
+  min-width: 100%;
+  min-height: 40px;
+  height: 35px;
+  font-size: 16;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 300;
+  background-color: var(--colors-red);
 
-const Button: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
-  className,
-  children,
-  ...rest
-}) => {
-  const [color, setColor] = useState("#D66565");
-  return (
-    <button
-      onMouseEnter={() => setColor("#af4343")}
-      onMouseLeave={() => setColor("#D66565")}
-      className={className}
-      {...rest}
-      style={{ ...buttonStyles, backgroundColor: color, ...rest.style }}
-    >
+  :hover {
+    background-color: var(--colors-red-2);
+  }
+`;
+
+interface ButtonProps {
+  type?: "submit" | "reset" | "button";
+  href?: "string";
+  onClick?: () => void;
+}
+
+// TODO: add variants and separate button and anchor in the future if necessary
+const Button: React.FC<ButtonProps> = forwardRef(
+  ({ href, children, ...rest }, ref) => (
+    <ButtonUI {...rest} as={href ? "a" : "button"} href={href} ref={ref}>
       {children}
-    </button>
-  );
-};
+    </ButtonUI>
+  )
+);
 
 export default Button;

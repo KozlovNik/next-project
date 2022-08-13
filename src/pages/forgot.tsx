@@ -58,9 +58,7 @@ const Forgot: React.FC<ForgotProps> = ({ user, categories }) => {
           <Form className={styles.form}>
             <CustomField name="email" label="Email" />
             <Error>{error}</Error>
-            <Button type="submit" style={{ width: "100%" }}>
-              Восстановить пароль
-            </Button>
+            <Button type="submit">Восстановить пароль</Button>
           </Form>
         </Formik>
       ) : (

@@ -64,9 +64,7 @@ const Reset: React.FC<ResetProps> = ({ user, categories }) => {
               label="Повторите пароль"
             />
             <Error>{error}</Error>
-            <Button type="submit" style={{ width: "100%" }}>
-              Сменить пароль
-            </Button>
+            <Button type="submit">Сменить пароль</Button>
           </Form>
         </Formik>
       ) : (

@@ -47,9 +47,7 @@ const PopupMark: React.FC<PopupMarkPropTypes> = ({
           className={styles.mark}
           value={text}
         />
-        <Button style={{ width: "100%" }} type="submit">
-          Сохранить
-        </Button>
+        <Button type="submit">Сохранить</Button>
       </form>
     </Popup>
   );

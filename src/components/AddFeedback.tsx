@@ -49,7 +49,7 @@ const AddFeedback: React.FC<AddFeedbackProps> = ({
         name="comment"
         className={styles.comment}
       />
-      <Button style={{ width: "100%" }}>Оставить отзыв</Button>
+      <Button>Оставить отзыв</Button>
     </form>
   );
 };

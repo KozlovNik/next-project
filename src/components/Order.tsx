@@ -127,7 +127,7 @@ const Order = () => (
         </label>
         <div className={styles.total}>Итого: 5034 руб.</div>
       </div>
-      <Button className={styles.button}>Перейти к оплате </Button>
+      <Button>Перейти к оплате </Button>
     </form>
   </div>
 );

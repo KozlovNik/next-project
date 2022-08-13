@@ -88,9 +88,7 @@ const Register: React.FC<RegisterProps> = ({ categories, user }) => {
               label="Повторите пароль"
             />
             <Error>{error}</Error>
-            <Button type="submit" style={{ width: "100%" }}>
-              Зарегистрироваться
-            </Button>
+            <Button type="submit">Зарегистрироваться</Button>
           </Form>
         </>
       </Formik>

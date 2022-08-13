@@ -28,6 +28,7 @@ export const theme = Object.freeze({
   },
   colors: {
     red: "var(--colors-red)",
+    "red-2": "var(--colors-red-2)",
     white: "var(--colors-white)",
     yellow: "var(--colors-yellow)",
     orange: "var(--colors-orange)",
