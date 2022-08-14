@@ -44,7 +44,7 @@ const SvgWrapper = styled.button`
 `;
 
 const Footer: React.FC = () => (
-  <Flex width="100%" bg="black-2" color="white" height="100%">
+  <Flex width="100%" bg="black-2" color="white">
     <Grid
       my="xxl-3"
       width="100%"
