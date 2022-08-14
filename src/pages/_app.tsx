@@ -7,7 +7,7 @@ import "../styles/globals.css";
 import "../../public/main.css";
 import "nprogress/nprogress.css";
 
-NProgress.configure({ easing: "ease", speed: 500 });
+NProgress.configure({ showSpinner: false });
 
 Router.events.on("routeChangeStart", () => {
   NProgress.start();

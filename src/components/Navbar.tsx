@@ -10,7 +10,11 @@ import { Box, Grid, Flex } from "../shared/system/Box";
 import { Container } from "../shared/Container";
 import { displayUp, hideUp, screen } from "../shared/system/primitives";
 import { Cart, Heart, Logo, Logout, Profile, Search } from "../shared/svgs";
-import { CART_PAGE, FAVORITES_PAGE } from "../shared/constants/routes";
+import {
+  CART_PAGE,
+  FAVORITES_PAGE,
+  INDEX_PAGE,
+} from "../shared/constants/routes";
 import { Text } from "../shared/system/Text";
 import useUser from "../hooks/useUser";
 import { buildCategoryPage } from "../lib/urlBuilder";
@@ -147,7 +151,11 @@ const NavTop = ({ setCloseMenu, setCloseAccount, setCloseSearch }) => (
           <HorizontalLine />
           <HorizontalLine />
         </Flex>
-        <Logo color="white" height={40} />
+        <Link href={INDEX_PAGE} passHref>
+          <a>
+            <Logo color="white" height={40} />
+          </a>
+        </Link>
       </Flex>
       <Grid gridGap="xs" gridTemplateColumns="repeat(3, 1fr)">
         <SvgButton onClick={setCloseSearch}>
@@ -245,7 +253,11 @@ const NavMiddle: React.FC<NavbarMiddleProps> = ({ setCloseLogin }) => {
           <Search color="white" width={15} />
         </SearchButton>
       </Flex>
-      <Logo color="var(--colors-black-3)" />
+      <Link href={INDEX_PAGE}>
+        <a>
+          <Logo color="var(--colors-black-3)" />
+        </a>
+      </Link>
       <Grid gridTemplateColumns="repeat(3, max-content)" gridColumnGap="xxl-3">
         {user && user.isLogged && (
           <SvgWrapper
