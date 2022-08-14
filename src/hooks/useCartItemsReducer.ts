@@ -4,7 +4,7 @@ import fetcher from "../lib/fetchJson";
 
 interface CartItem {
   quantity: number;
-  product: typeof Product;
+  product: Product;
   id: number;
 }
 

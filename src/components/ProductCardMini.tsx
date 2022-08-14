@@ -8,7 +8,7 @@ import styles from "./ProductCardMini.module.css";
 
 interface ProductCardMiniProps {
   quantity: number;
-  product: typeof Product;
+  product: Product;
   deleteCartItem: (id: number) => void;
   updateQuantity: (id: number, quantity: number) => void;
 }
