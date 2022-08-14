@@ -100,3 +100,12 @@ a {
 .popup-arrow {
   color: rgb(255, 255, 255);
 }
+
+#nprogress .bar {
+  background: var(--colors-red) !important;
+  height: 4px !important;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px var(--colors-red), 0 0 5px var(--colors-red) !important;
+}
