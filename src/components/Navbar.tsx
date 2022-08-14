@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import PopupAccount from "./PopupAccount";
 import PopupMenu from "./PopupMenu";
 import PopupSearch from "./PopupSearch";
-import PopupLogin from "./PopupLogin";
+import { LoginModal } from "../shared/LoginModal";
 import { Box, Grid, Flex } from "../shared/system/Box";
 import { Container } from "../shared/Container";
 import { displayUp, hideUp, screen } from "../shared/system/primitives";
@@ -358,7 +358,7 @@ const Navbar = () => {
 
   return (
     <>
-      <PopupLogin isOpen={isOpen} onDismiss={() => setIsOpen(false)} />
+      <LoginModal isOpen={isOpen} onDismiss={() => setIsOpen(false)} />
       <PopupMenu close={closeMenu} handleClick={() => setCloseMenu(true)} />
       <PopupAccount
         close={closeAccount}

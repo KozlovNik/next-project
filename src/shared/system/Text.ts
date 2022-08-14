@@ -28,6 +28,10 @@ export const presets = variant({
       fontWeight: "regular",
       fontSize: "24px",
     },
+    h2Light: {
+      fontWeight: "light",
+      fontSize: "24px",
+    },
     h2Thin: {
       fontWeight: "thin",
       fontSize: "24px",
