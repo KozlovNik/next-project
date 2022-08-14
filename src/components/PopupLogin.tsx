@@ -3,8 +3,7 @@ import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import * as Yup from "yup";
 import Link from "next/link";
-import { DialogOverlay } from "@reach/dialog";
-import ButtonClose from "./ButtonClose";
+import { ButtonClose } from "./ButtonClose";
 import Button from "./Button";
 import CustomField from "./CustomField";
 import useError from "../hooks/useError";
@@ -14,6 +13,8 @@ import "@reach/dialog/styles.css";
 import Error from "./Error";
 
 import styles from "./PopupLogin.module.css";
+import { Modal } from "../shared/Modal";
+import { Text } from "../shared/system/Text";
 
 interface PopupLoginProps {
   isOpen: boolean;
@@ -27,8 +28,7 @@ const PopupLogin: React.FC<PopupLoginProps> = ({ isOpen, onDismiss }) => {
   const [error, setError] = useError();
 
   return (
-    <DialogOverlay dangerouslyBypassScrollLock allowPinchZoom isOpen={isOpen}>
-      {/* <div className={styles.shadow}> */}
+    <Modal isOpen={isOpen} onDismiss={onDismiss}>
       <Formik
         validationSchema={Yup.object({
           email: Yup.string()
@@ -52,25 +52,29 @@ const PopupLogin: React.FC<PopupLoginProps> = ({ isOpen, onDismiss }) => {
             ) {
               router.push("/");
             }
-            // handleClick();
           } catch (e) {
             setError("Неверный логин или пароль");
           }
         }}
       >
-        <Form className={styles.form}>
+        <Form>
           <ButtonClose
             color="#B6B6B6"
             className={styles.button}
             onClick={onDismiss}
           />
-          <div className={styles.heading}>АВТОРИЗАЦИЯ</div>
+          <Text
+            preset={{ _: "h2Light", xs: "h1Light" }}
+            textAlign="center"
+            my="s"
+            color="black-2"
+          >
+            АВТОРИЗАЦИЯ
+          </Text>
           <CustomField name="email" placeholder="Email" />
           <CustomField name="password" type="password" placeholder="Пароль" />
           <Error>{error}</Error>
-          <Button type="submit" style={{ width: "100%" }}>
-            Войти
-          </Button>
+          <Button type="submit">Войти</Button>
           <div className={styles.links}>
             <Link href="/register" passHref>
               <a
@@ -87,7 +91,7 @@ const PopupLogin: React.FC<PopupLoginProps> = ({ isOpen, onDismiss }) => {
         </Form>
       </Formik>
       {/* </div> */}
-    </DialogOverlay>
+    </Modal>
   );
 };
 

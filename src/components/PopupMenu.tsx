@@ -3,7 +3,7 @@ import classNames from "classnames";
 import Link from "next/link";
 import useEscapeKey from "../hooks/useEscapeKey";
 import styles from "./PopupMenu.module.css";
-import ButtonClose from "./ButtonClose";
+import { ButtonClose } from "./ButtonClose";
 import { navList } from "../constants";
 
 type HandleClick = () => void;

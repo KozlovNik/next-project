@@ -1,45 +1,34 @@
-const wrapperStyles = {
-  display: "inline-block",
-  cursor: "pointer",
-  width: 21,
-  height: 21,
-  position: "relative" as const,
-};
+import styled from "styled-components";
+import { Box } from "../shared/system/Box";
 
-const buttonStyles = {
-  position: "absolute" as const,
-  height: 20,
-  width: 2,
-  top: 0,
-  left: 10,
-  backgroundColor: "white",
-};
+export const ButtonClose = styled(Box)`
+  position: relative;
+  cursor: pointer;
+  width: 21px;
+  height: 21px;
+  position: relative;
 
-const first = {
-  ...buttonStyles,
-  transform: "rotate(45deg)",
-};
+  ::before,
+  ::after {
+    content: "";
+    position: absolute;
+    height: 20px;
+    width: 2px;
+    top: 0;
+    left: 10px;
+    background-color: var(--colors-black-4);
+  }
 
-const second = {
-  ...buttonStyles,
-  transform: "rotate(-45deg)",
-};
+  :hover::before,
+  :hover::after {
+    background-color: var(--colors-black-3);
+  }
 
-interface ButtonCloseProps {
-  onClick?: () => void;
-  color?: string;
-  className?: string;
-}
+  ::before {
+    transform: rotate(45deg);
+  }
 
-const ButtonClose: React.FC<ButtonCloseProps> = ({
-  onClick,
-  color: backgroundColor = "#fff",
-  className,
-}) => (
-  <div onClick={onClick} style={wrapperStyles} className={className}>
-    <span style={{ ...first, backgroundColor }} />
-    <span style={{ ...second, backgroundColor }} />
-  </div>
-);
-
-export default ButtonClose;
+  ::after {
+    transform: rotate(-45deg);
+  }
+`;

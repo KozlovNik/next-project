@@ -3,10 +3,8 @@ import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import classNames from "classnames";
-import ButtonClose from "./ButtonClose";
+import { ButtonClose } from "./ButtonClose";
 import useUser from "../hooks/useUser";
-
-import useEscapeKey from "../hooks/useEscapeKey";
 
 import styles from "./PopupAccount.module.css";
 
@@ -27,8 +25,6 @@ const PopupAccount = ({
 
   const { logout, user } = useUser();
   const router = useRouter();
-
-  useEscapeKey(handleClick);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
