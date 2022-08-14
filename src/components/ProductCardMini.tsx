@@ -1,14 +1,14 @@
 import { Product } from "@prisma/client";
 import Link from "next/link";
 
-import ButtonClose from "./ButtonClose";
+import { ButtonClose } from "./ButtonClose";
 import ProductCounter from "./ProductCounter";
 
 import styles from "./ProductCardMini.module.css";
 
 interface ProductCardMiniProps {
   quantity: number;
-  product: Product;
+  product: typeof Product;
   deleteCartItem: (id: number) => void;
   updateQuantity: (id: number, quantity: number) => void;
 }
@@ -38,7 +38,7 @@ const ProductCardMini: React.FC<ProductCardMiniProps> = (props) => {
         <div className={styles.price}>{quantity * price} руб.</div>
       </div>
       <div className={styles.right}>
-        <ButtonClose onClick={() => deleteCartItem(id)} color="#B6B6B6" />
+        <ButtonClose onClick={() => deleteCartItem(id)} />
         <ProductCounter
           id={id}
           quantity={quantity}
