@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import classNames from "classnames";
-import { ButtonClose } from "./ButtonClose";
+import { CloseButton } from "./CloseButton";
 import useUser from "../hooks/useUser";
 
 import styles from "./PopupAccount.module.css";
@@ -48,7 +48,7 @@ const PopupAccount = ({
         <span className={styles.header} ref={linkRef3}>
           ЛИЧНЫЙ КАБИНЕТ
         </span>
-        <ButtonClose onClick={handleClick} />
+        <CloseButton onClick={handleClick} />
       </div>
       <div className={styles.menuContent} ref={linkRef2}>
         {user && user.isLogged && (

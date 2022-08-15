@@ -1,7 +1,7 @@
 import { Product } from "@prisma/client";
 import Link from "next/link";
 
-import { ButtonClose } from "./ButtonClose";
+import { CloseButton } from "./CloseButton";
 import ProductCounter from "./ProductCounter";
 
 import styles from "./ProductCardMini.module.css";
@@ -38,7 +38,7 @@ const ProductCardMini: React.FC<ProductCardMiniProps> = (props) => {
         <div className={styles.price}>{quantity * price} руб.</div>
       </div>
       <div className={styles.right}>
-        <ButtonClose onClick={() => deleteCartItem(id)} />
+        <CloseButton onClick={() => deleteCartItem(id)} />
         <ProductCounter
           id={id}
           quantity={quantity}

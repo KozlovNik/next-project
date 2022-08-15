@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import * as Yup from "yup";
 import Link from "next/link";
-import { ButtonClose } from "../components/ButtonClose";
+import { CloseButton } from "../components/CloseButton";
 import Button from "../components/Button";
 import CustomField from "../components/CustomField";
 import useError from "../hooks/useError";
@@ -85,7 +85,7 @@ export const LoginModal: React.FC<PopupLoginProps> = ({
         }}
       >
         <Form>
-          <ButtonClose ml="auto" onClick={onDismiss} />
+          <CloseButton ml="auto" onClick={onDismiss} />
           <Text
             preset={{ _: "h2Light", xs: "h1Light" }}
             textAlign="center"
