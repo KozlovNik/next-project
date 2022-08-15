@@ -85,7 +85,7 @@ export const LoginModal: React.FC<PopupLoginProps> = ({
         }}
       >
         <Form>
-          <CloseButton ml="auto" onClick={onDismiss} />
+          <CloseButton css="margin-left: auto" onClick={onDismiss} />
           <Text
             preset={{ _: "h2Light", xs: "h1Light" }}
             textAlign="center"
