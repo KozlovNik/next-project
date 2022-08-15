@@ -11,11 +11,12 @@ import { Heart } from "../shared/svgs";
 import useUser from "../hooks/useUser";
 import { buildProductPage } from "../lib/urlBuilder";
 
+// TODO: fix types later
 interface ProductCardProps {
   id: number;
-  name: string;
+  name?: string;
   slug: string;
-  price: number;
+  price?: number;
   className?: string;
   inCart: boolean;
   handleAddToCart: (id: number) => void;
