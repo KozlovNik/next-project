@@ -1,7 +1,7 @@
 import { SWRConfig } from "swr";
 import { useState } from "react";
 import fetchJson from "../lib/fetchJson";
-import { UserContext, UserContextTypes } from "../lib/userContext";
+import { UserContextTypes } from "../lib/userContext";
 import { GetCategoriesTypes } from "../lib/dataFunctions";
 import { CloseLoginContext } from "../lib/closeLoginContext";
 import Footer from "./Footer";
@@ -21,17 +21,18 @@ const Layout: React.FC<LayoutProps> = ({ children, user = {} }) => {
     <SWRConfig
       value={{
         fetcher: fetchJson,
+        fallback: {
+          "/api/user": user,
+        },
       }}
     >
       <Navbar />
-      <UserContext.Provider value={user}>
-        <CloseLoginContext.Provider value={{ closeLogin, setCloseLogin }}>
-          <Box maxWidth="1200px" my="s" mx={{ _: "s", lg: "auto" }}>
-            {children}
-          </Box>
-          <Footer />
-        </CloseLoginContext.Provider>
-      </UserContext.Provider>
+      <CloseLoginContext.Provider value={{ closeLogin, setCloseLogin }}>
+        <Box maxWidth="1200px" my="s" mx={{ _: "s", lg: "auto" }}>
+          {children}
+        </Box>
+        <Footer />
+      </CloseLoginContext.Provider>
     </SWRConfig>
   );
 };

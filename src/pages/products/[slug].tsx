@@ -152,6 +152,7 @@ const Product: React.FC<ProductProps> = ({
         name={name}
         id={id}
         info={about}
+        user={user}
       />
     </Layout>
   );

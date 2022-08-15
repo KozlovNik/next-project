@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import { Popup } from "reactjs-popup";
 import { CloseLoginContext } from "../lib/closeLoginContext";
-import { UserContext } from "../lib/userContext";
+import { UserContextTypes } from "../lib/userContext";
 
 import Button from "./Button";
 import Stars from "./Stars";
@@ -25,6 +25,7 @@ interface AboutProductProps {
   name: string;
   id: number;
   setFeedback: any;
+  user: UserContextTypes;
 }
 
 const AboutProduct: React.FC<AboutProductProps> = ({
@@ -33,11 +34,11 @@ const AboutProduct: React.FC<AboutProductProps> = ({
   setFeedback,
   name,
   id,
+  user,
 }) => {
   const [tab, setTab] = useState<"about" | "feedback">("about");
 
   const { setCloseLogin } = useContext(CloseLoginContext);
-  const user = useContext(UserContext);
   const [hasPost, setHasPost] = useState<boolean>(true);
 
   const ref = useRef<any>(null);

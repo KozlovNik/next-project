@@ -1,7 +1,5 @@
-import { useContext } from "react";
 import useSWR from "swr";
 import fetchJson from "../lib/fetchJson";
-import { UserContext } from "../lib/userContext";
 
 interface UserTypes {
   email: string;
@@ -9,10 +7,7 @@ interface UserTypes {
 }
 
 export default function useUser() {
-  const contextUser = useContext(UserContext);
-  const { data: user, mutate, error } = useSWR("/api/user", {
-    initialData: contextUser,
-  });
+  const { data: user, mutate, error } = useSWR("/api/user");
 
   const logout = () => mutate(fetchJson("/api/logout", { method: "post" }));
 

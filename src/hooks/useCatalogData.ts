@@ -12,7 +12,7 @@ export default function useCatalogData(
       ? `/search?text=${router.query.text || ""}`
       : `/api/products?category=${router.query.categorySlug || ""}`;
   const { data, mutate, error } = useSWR(condition, {
-    initialData,
+    fallback: initialData,
     revalidateOnFocus: false,
     revalidateOnMount: options.revalidateOnMount,
   });

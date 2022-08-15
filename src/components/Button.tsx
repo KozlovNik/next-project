@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 const ButtonUI = styled.button`
   border: none;
-  min-width: 100%;
   min-height: 40px;
   height: 35px;
   font-size: 16;
@@ -12,6 +11,10 @@ const ButtonUI = styled.button`
   cursor: pointer;
   font-weight: 300;
   background-color: var(--colors-red);
+  padding: 0 var(--spacings-s);
+  display: inline-grid;
+  justify-content: center;
+  align-items: center;
 
   :hover {
     background-color: var(--colors-red-2);
