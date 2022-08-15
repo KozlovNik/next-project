@@ -11,9 +11,10 @@ interface PopupLoginProps {
   isOpen: boolean;
   onDismiss: () => void;
   children: React.ReactNode;
+  css?: any;
 }
 
-const ModalOverlay = styled(DialogOverlay).attrs(({ onDismiss }) => ({
+export const ModalOverlay = styled(DialogOverlay).attrs(({ onDismiss }) => ({
   onDismiss: (e) => {
     if (onDismiss && e.key === "Escape") {
       onDismiss(e);

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import PopupAccount from "./PopupAccount";
-import PopupMenu from "./PopupMenu";
+import { PopupMenu } from "../shared/PopupMenu";
 import PopupSearch from "./PopupSearch";
 import { LoginModal } from "../shared/LoginModal";
 import { Box, Grid, Flex } from "../shared/system/Box";
@@ -363,7 +363,7 @@ const NavBottom = () => (
 );
 
 const Navbar = () => {
-  const [closeMenu, setCloseMenu] = useState(true);
+  const [openMenu, setOpenMenu] = useState(false);
   const [closeAccount] = useState(true);
   const [closeSearch, setCloseSearch] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
@@ -371,7 +371,7 @@ const Navbar = () => {
   return (
     <>
       <LoginModal isOpen={isOpen} onDismiss={() => setIsOpen(false)} />
-      <PopupMenu close={closeMenu} handleClick={() => setCloseMenu(true)} />
+      <PopupMenu isOpen={openMenu} handleClick={() => setOpenMenu(false)} />
       <PopupAccount
         close={closeAccount}
         handleClick={() => setIsOpen(true)}
@@ -386,7 +386,7 @@ const Navbar = () => {
       <Box as="header">
         <NavTop
           setCloseSearch={() => setCloseSearch(false)}
-          setCloseMenu={() => setCloseMenu(false)}
+          setCloseMenu={() => setOpenMenu(true)}
           setCloseAccount={() => setIsOpen(true)}
         />
         <NavMiddle setCloseLogin={() => setIsOpen(true)} />
