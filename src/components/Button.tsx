@@ -19,11 +19,18 @@ const ButtonUI = styled.button`
   :hover {
     background-color: var(--colors-red-2);
   }
+
+  :disabled {
+    background-color: var(--colors-red-2);
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
 `;
 
 interface ButtonProps {
   type?: "submit" | "reset" | "button";
   href?: "string";
+  disabled?: boolean;
   onClick?: () => void;
 }
 

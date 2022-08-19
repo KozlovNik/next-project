@@ -1,11 +1,12 @@
 import { useState, memo } from "react";
 import styled from "styled-components";
+import { useMachine } from "@xstate/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import PopupAccount from "./PopupAccount";
 import { PopupMenu } from "../shared/PopupMenu";
 import PopupSearch from "./PopupSearch";
-import { LoginModal } from "../shared/LoginModal";
+import { LoginForm } from "../shared/LoginForm";
 import { Box, Grid, Flex } from "../shared/system/Box";
 import { Container } from "../shared/Container";
 import { displayUp, hideUp, screen } from "../shared/system/primitives";
@@ -18,6 +19,8 @@ import {
 import { Text } from "../shared/system/Text";
 import useUser from "../hooks/useUser";
 import { buildCategoryPage } from "../lib/urlBuilder";
+import { loginStateMachine } from "../shared/stateMachines/loginStateMachine";
+import { Modal } from "../shared/Modal";
 
 // TODO: use real data
 const categories = [
@@ -80,7 +83,7 @@ const RightItem = styled(Text).attrs({
   }
 `;
 
-const NavTop = ({ setCloseMenu, setCloseAccount, setCloseSearch }) => (
+const NavTop = ({ setCloseMenu, setOpenAccount, setCloseSearch }) => (
   <Box as="nav" bg="black-2">
     <Container
       color="white"
@@ -161,7 +164,7 @@ const NavTop = ({ setCloseMenu, setCloseAccount, setCloseSearch }) => (
         <SvgButton onClick={setCloseSearch}>
           <Search color="white" />
         </SvgButton>
-        <SvgButton onClick={setCloseAccount}>
+        <SvgButton onClick={setOpenAccount}>
           <Profile color="white" />
         </SvgButton>
         <Link href={CART_PAGE} passHref>
@@ -216,7 +219,6 @@ const SearchButton = styled.button`
   cursor: pointer;
 
   :hover {
-    // TODO: add color to theme
     background-color: var(--colors-red);
   }
 `;
@@ -253,7 +255,7 @@ const NavMiddle: React.FC<NavbarMiddleProps> = ({ setCloseLogin }) => {
           <Search color="white" width={15} />
         </SearchButton>
       </Flex>
-      <Link href={INDEX_PAGE}>
+      <Link href={INDEX_PAGE} passHref>
         <a>
           <Logo color="var(--colors-black-3)" />
         </a>
@@ -263,7 +265,7 @@ const NavMiddle: React.FC<NavbarMiddleProps> = ({ setCloseLogin }) => {
           <SvgWrapper
             onClick={async () => {
               await logout();
-              router.push("/");
+              router.push(INDEX_PAGE);
             }}
           >
             <Text mr="xs" as="span">
@@ -366,16 +368,26 @@ const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [closeAccount] = useState(true);
   const [closeSearch, setCloseSearch] = useState(true);
-  const [isOpen, setIsOpen] = useState(false);
+  const [state, send] = useMachine(loginStateMachine, {
+    context: {},
+  });
 
   return (
     <>
-      <LoginModal isOpen={isOpen} onDismiss={() => setIsOpen(false)} />
+      <Modal isOpen={!state.matches("idle")} onDismiss={() => send("DISMISS")}>
+        <LoginForm
+          login={(user) => send("SIGN_IN", { data: user })}
+          onDismiss={() => send("DISMISS")}
+          loading={state.matches("authenticating")}
+          error={state.context.error}
+        />
+      </Modal>
+
       <PopupMenu isOpen={openMenu} handleClick={() => setOpenMenu(false)} />
       <PopupAccount
         close={closeAccount}
-        handleClick={() => setIsOpen(true)}
-        setCloseLogin={() => setIsOpen(false)}
+        handleClick={() => send("OPEN_MODAL")}
+        setCloseLogin={() => send("DISMISS")}
       />
       <PopupSearch
         close={closeSearch}
@@ -387,9 +399,9 @@ const Navbar = () => {
         <NavTop
           setCloseSearch={() => setCloseSearch(false)}
           setCloseMenu={() => setOpenMenu(true)}
-          setCloseAccount={() => setIsOpen(true)}
+          setOpenAccount={() => send("OPEN_MODAL")}
         />
-        <NavMiddle setCloseLogin={() => setIsOpen(true)} />
+        <NavMiddle setCloseLogin={() => send("OPEN_MODAL")} />
         <NavBottom />
       </Box>
     </>

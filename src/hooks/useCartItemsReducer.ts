@@ -32,7 +32,7 @@ export default function useCartItemsReducer(initialState: CartItem[]) {
   const [cartItems, dispatch] = useReducer(reducer, initialState);
 
   const handleAddToCart = async (productId: number) => {
-    const cartItem = await fetcher("/api/cartItems", {
+    const cartItem = await fetcher<CartItem>("/api/cartItems", {
       method: "POST",
       body: JSON.stringify({ productId }),
     });
@@ -41,7 +41,7 @@ export default function useCartItemsReducer(initialState: CartItem[]) {
 
   const updateQuantity = async (itemId: number, quantity: number) => {
     try {
-      const cartItem = await fetcher(`/api/cartItems/${itemId}`, {
+      const cartItem = await fetcher<CartItem>(`/api/cartItems/${itemId}`, {
         method: "PUT",
         body: JSON.stringify({ quantity }),
       });

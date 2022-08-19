@@ -33,7 +33,7 @@ export default function useFavoritesReducer(initialState: GetFavoritesTypes) {
 
   const updateFavorite = async (productId: number, mark: string) => {
     try {
-      const favorite = await fetcher(`/api/favorites/${productId}`, {
+      const favorite = await fetcher<Favorite>(`/api/favorites/${productId}`, {
         method: "PUT",
         body: JSON.stringify({ mark }),
       });
