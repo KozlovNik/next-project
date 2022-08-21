@@ -4,15 +4,15 @@ import { useRouter } from "next/router";
 import jwt from "jsonwebtoken";
 import { useState } from "react";
 import useError from "../../hooks/useError";
-import CustomField from "../../components/CustomField";
+import { TextField } from "../../shared/Fields";
 import Layout from "../../components/Layout";
 import Button from "../../components/Button";
 import withSession from "../../lib/session";
-import Error from "../../components/Error";
-
-import styles from "../../styles/Reset.module.css";
+import { Error } from "../../shared/Error";
 import fetchJson from "../../lib/fetchJson";
 import { getCategories, GetCategoriesTypes } from "../../lib/dataFunctions";
+import { Text } from "../../shared/system/Text";
+import { INDEX_PAGE } from "../../shared/constants/routes";
 
 const reqText = "Поле не может быть пустым";
 
@@ -26,12 +26,14 @@ interface ResetProps {
 }
 
 const Reset: React.FC<ResetProps> = ({ user, categories }) => {
-  const [error] = useError();
+  const [error, setError] = useError();
   const [showForm, setShowForm] = useState(true);
   const router = useRouter();
   return (
     <Layout user={user} categories={categories}>
-      <h1 className="heading">СМЕНА ПАРОЛЯ</h1>
+      <Text preset="h1Thin" color="black-2" mb="m">
+        СМЕНА ПАРОЛЯ
+      </Text>
       {showForm ? (
         <Formik
           validationSchema={Yup.object({
@@ -49,26 +51,35 @@ const Reset: React.FC<ResetProps> = ({ user, categories }) => {
           }}
           onSubmit={async ({ password }, { setSubmitting }) => {
             setSubmitting(false);
-            await fetchJson("/api/reset", {
-              method: "POST",
-              body: JSON.stringify({ password, token: router.query.token }),
-            });
+            try {
+              await fetchJson("/api/reset", {
+                method: "POST",
+                body: JSON.stringify({ password, token: router.query.token }),
+              });
+            } catch (e) {
+              setError(e.message);
+            }
+
             setShowForm(false);
           }}
         >
-          <Form className={styles.form}>
-            <CustomField name="password" type="password" label="Пароль" />
-            <CustomField
-              name="password2"
-              type="password"
-              label="Повторите пароль"
-            />
-            <Error>{error}</Error>
-            <Button type="submit">Сменить пароль</Button>
-          </Form>
+          {({ isValid, dirty }) => (
+            <Form>
+              <TextField name="password" type="password" label="Пароль" />
+              <TextField
+                name="password2"
+                type="password"
+                label="Повторите пароль"
+              />
+              <Error>{error}</Error>
+              <Button type="submit" disabled={!isValid || !dirty}>
+                Сменить пароль
+              </Button>
+            </Form>
+          )}
         </Formik>
       ) : (
-        <div>Пароль успешно изменен!</div>
+        <Text>Пароль успешно изменен!</Text>
       )}
     </Layout>
   );
@@ -79,7 +90,7 @@ export default Reset;
 export const getServerSideProps = withSession(async ({ req, query }) => {
   const redirect = {
     redirect: {
-      destination: "/",
+      destination: INDEX_PAGE,
       permanent: false,
     },
   };
@@ -94,7 +105,7 @@ export const getServerSideProps = withSession(async ({ req, query }) => {
     return redirect;
   }
 
-  const categories = getCategories();
+  const categories = await getCategories();
 
   return {
     props: { categories },

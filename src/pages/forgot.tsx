@@ -1,21 +1,33 @@
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
+import styled from "styled-components";
 import useError from "../hooks/useError";
-import CustomField from "../components/CustomField";
+import { TextField } from "../shared/Fields";
 import Layout from "../components/Layout";
 import Button from "../components/Button";
 import withSession from "../lib/session";
-import Error from "../components/Error";
+import { Error } from "../shared/Error";
 import { UserContextTypes } from "../lib/userContext";
 import {
   getCategories,
   GetCategoriesTypes,
   getUser,
 } from "../lib/dataFunctions";
-import fetchJson from "../lib/fetchJson";
+import fetcher from "../lib/fetchJson";
+import { screen } from "../shared/system/primitives";
+import { Text } from "../shared/system/Text";
+import { INDEX_PAGE } from "../shared/constants/routes";
 
-import styles from "../styles/Forgot.module.css";
+const StyledForm = styled(Form)`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  ${screen("sm")} {
+    width: 250px;
+  }
+`;
 
 interface ForgotProps {
   user?: UserContextTypes;
@@ -24,10 +36,13 @@ interface ForgotProps {
 
 const Forgot: React.FC<ForgotProps> = ({ user, categories }) => {
   const [error, setError] = useError();
+  const [loading, setLoading] = useState(false);
   const [showForm, setShowForm] = useState(true);
   return (
     <Layout user={user} categories={categories}>
-      <h1 className="heading">ВОССТАНОВЛЕНИЕ ПАРОЛЯ</h1>
+      <Text preset="h1Thin" color="black-2" mb="m">
+        ВОССТАНОВЛЕНИЕ ПАРОЛЯ
+      </Text>
       {showForm ? (
         <Formik
           validationSchema={Yup.object({
@@ -40,29 +55,32 @@ const Forgot: React.FC<ForgotProps> = ({ user, categories }) => {
           }}
           onSubmit={async (values, { setSubmitting }) => {
             setSubmitting(false);
+            setLoading(true);
             try {
-              await fetchJson("/api/forgot", {
+              await fetcher("/api/forgot", {
                 method: "POST",
                 body: JSON.stringify(values),
               });
               setShowForm(false);
             } catch (err) {
-              if (err.response.status === 404) {
-                setError("Пользователь с таким email не существует");
-              } else {
-                setError("Ошибка, попробуйте снова");
-              }
+              setError(err.message);
+            } finally {
+              setLoading(false);
             }
           }}
         >
-          <Form className={styles.form}>
-            <CustomField name="email" label="Email" />
-            <Error>{error}</Error>
-            <Button type="submit">Восстановить пароль</Button>
-          </Form>
+          {({ dirty, isValid }) => (
+            <StyledForm>
+              <TextField name="email" label="Email" />
+              <Error>{error}</Error>
+              <Button type="submit" disabled={!dirty || !isValid || loading}>
+                Восстановить пароль
+              </Button>
+            </StyledForm>
+          )}
         </Formik>
       ) : (
-        <p>Мы выслали письмо на указанную вами почту</p>
+        <Text>Мы выслали письмо на указанную вами почту</Text>
       )}
     </Layout>
   );
@@ -74,13 +92,14 @@ export const getServerSideProps = withSession(async ({ req }) => {
   if (getUser(req)) {
     return {
       redirect: {
-        destination: "/",
+        destination: INDEX_PAGE,
         permanent: false,
       },
     };
   }
 
-  const categories = getCategories();
+  const categories = await getCategories();
+
   return {
     props: { categories },
   };

@@ -25,5 +25,5 @@ export default withSession(async (req, res) => {
     }
   }
 
-  return res.status(404).json({ message: "User not found" });
+  return res.status(404).json({ message: "Пользователь не найден" });
 });

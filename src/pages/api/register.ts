@@ -42,7 +42,9 @@ export default withSession(async (req, res) => {
       });
       prisma.$disconnect();
     } catch (e) {
-      return res.status(409).end();
+      return res
+        .status(409)
+        .json({ message: "Пользователь с такими данными уже существует" });
     }
 
     const { id, firstName } = user;
