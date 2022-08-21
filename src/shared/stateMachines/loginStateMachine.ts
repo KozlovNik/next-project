@@ -1,4 +1,6 @@
 import { assign, createMachine, DoneInvokeEvent } from "xstate";
+import Router from "next/router";
+
 import fetcher from "../../lib/fetchJson";
 
 interface Context {
@@ -51,10 +53,9 @@ export const loginStateMachine = createMachine<Context, Event>(
     guards: {},
     actions: {
       onError: assign({ error: (_, event) => event.data.message }),
-      clearError: assign({ error: null }),
+      clearError: assign({ error: "" }),
       afterSignIn: () => {
-        // eslint-disable-next-line no-restricted-globals
-        location.reload();
+        Router.reload();
       },
     },
     services: {
