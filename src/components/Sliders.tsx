@@ -14,6 +14,7 @@ import { buildCategoryPage } from "../lib/urlBuilder";
 import ProductCard from "./ProductCard";
 import { GetProductDataTypes } from "../lib/dataFunctions";
 import { NextArrow, PrevArrow } from "../shared/svgs";
+import { SVGWrapper } from "../shared/ui/Button";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -229,17 +230,6 @@ const SuggestionSliderUI = styled(Swiper).attrs({
   max-width: 1000px;
 `;
 
-const SvgWrapper = styled.button`
-  color: var(--colors-black-3);
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-
-  :hover {
-    color: var(--colors-red);
-  }
-`;
-
 export const SuggestionSlider: React.FC<SuggestionSliderProps> = ({
   productData,
   cartItems,
@@ -248,12 +238,12 @@ export const SuggestionSlider: React.FC<SuggestionSliderProps> = ({
   <>
     <TitleBlock title="РЕКОМЕНДАЦИИ">
       <Grid ml="xs" gridGap="xs" gridTemplateColumns="repeat(2, auto)">
-        <SvgWrapper className="prevEl">
+        <SVGWrapper color="black-3" hoverColor="red" className="prevEl">
           <PrevArrow />
-        </SvgWrapper>
-        <SvgWrapper className="nextEl">
+        </SVGWrapper>
+        <SVGWrapper color="black-3" hoverColor="red" className="nextEl">
           <NextArrow />
-        </SvgWrapper>
+        </SVGWrapper>
       </Grid>
     </TitleBlock>
     <SuggestionSliderUI

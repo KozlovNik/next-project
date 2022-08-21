@@ -80,7 +80,7 @@ export const PopupMenu = ({ handleClick, isOpen }: PopupMenuProps) => (
         </Box>
         <Flex flexDirection="column" mt="m">
           {infoItemsArray.map((item) => (
-            <Item title={item} />
+            <Item title={item} key={item} />
           ))}
         </Flex>
       </Box>

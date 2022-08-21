@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { useRouter } from "next/router";
-import Button from "./Button";
+import { Button } from "../shared/ui/Button";
 
 interface ButtonAddToCartProps {
   inCart: boolean;

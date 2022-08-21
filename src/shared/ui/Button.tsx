@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import styled from "styled-components";
 
-const ButtonUI = styled.button`
+const GenericButtonUI = styled.button`
   border: none;
   min-height: 40px;
   height: 35px;
@@ -32,15 +32,35 @@ interface ButtonProps {
   href?: "string";
   disabled?: boolean;
   onClick?: () => void;
+  color?: string;
+  hoverColor?: string;
+  className?: string;
 }
 
 // TODO: add variants and separate button and anchor in the future if necessary
-const Button: React.FC<ButtonProps> = forwardRef(
+export const Button: React.FC<ButtonProps> = forwardRef(
   ({ href, children, ...rest }, ref) => (
-    <ButtonUI {...rest} as={href ? "a" : "button"} href={href} ref={ref}>
+    <GenericButtonUI {...rest} as={href ? "a" : "button"} href={href} ref={ref}>
       {children}
-    </ButtonUI>
+    </GenericButtonUI>
   )
 );
 
-export default Button;
+const SVGWrapperUI = styled.button`
+  ${({ color }) => color && `color: var(--colors-${color});`}
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+
+  :hover {
+    ${({ hoverColor }) => hoverColor && `color: var(--colors-${hoverColor})`}
+  }
+`;
+
+export const SVGWrapper: React.FC<ButtonProps> = forwardRef(
+  ({ href, children, ...rest }, ref) => (
+    <SVGWrapperUI {...rest} as={href ? "a" : "button"} href={href} ref={ref}>
+      {children}
+    </SVGWrapperUI>
+  )
+);

@@ -6,7 +6,7 @@ import useError from "../hooks/useError";
 
 import { Error } from "./Error";
 import { TextField } from "./Fields";
-import Button from "../components/Button";
+import { Button } from "./ui/Button";
 import { screen } from "./system/primitives";
 
 import fetcher from "../lib/fetchJson";

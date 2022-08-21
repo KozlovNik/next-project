@@ -5,7 +5,7 @@ import styled from "styled-components";
 import useError from "../hooks/useError";
 import { TextField } from "../shared/Fields";
 import Layout from "../components/Layout";
-import Button from "../components/Button";
+import { Button } from "../shared/ui/Button";
 import withSession from "../lib/session";
 import { Error } from "../shared/Error";
 import { UserContextTypes } from "../lib/userContext";

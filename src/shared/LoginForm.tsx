@@ -1,41 +1,23 @@
 import { Form, Formik } from "formik";
-import styled from "styled-components";
 import * as Yup from "yup";
 import Link from "next/link";
 import { CloseButton } from "../components/CloseButton";
-import Button from "../components/Button";
+import { Button } from "./ui/Button";
 import { TextField } from "./Fields";
 import { Text } from "./system/Text";
 import { REGISTER_PAGE, RESTORE_PASSWORD_PAGE } from "./constants/routes";
 import { Flex } from "./system/Box";
 import { Error } from "./Error";
+import { DottedAnchor } from "./ui/Anchor";
 
-interface PopupLoginProps {
+interface LoginFormProps {
   onDismiss: () => void;
-  login: (values) => void;
+  login: (values: { email: string; password: string }) => void;
   loading: boolean;
   error?: string;
 }
 
-// TODO: make exportable component
-const Anchor = styled(Text).attrs({
-  as: "a",
-  preset: "paragraph1Thin",
-  cursor: "pointer",
-  mb: "xs",
-})`
-  color: var(--colors-black-3);
-  text-decoration: underline dotted var(--colors-black-4);
-  text-decoration-thickness: 1px;
-
-  :hover {
-    color: var(--colors-red-2);
-    text-decoration: underline dotted var(--colors-red-2);
-    text-decoration-thickness: 1px;
-  }
-`;
-
-export const LoginForm: React.FC<PopupLoginProps> = ({
+export const LoginForm: React.FC<LoginFormProps> = ({
   onDismiss,
   login,
   loading,
@@ -85,10 +67,10 @@ export const LoginForm: React.FC<PopupLoginProps> = ({
             alignItems="center"
           >
             <Link href={REGISTER_PAGE} passHref>
-              <Anchor>Регистрация</Anchor>
+              <DottedAnchor>Регистрация</DottedAnchor>
             </Link>
             <Link href={RESTORE_PASSWORD_PAGE} passHref>
-              <Anchor>Восстановить пароль</Anchor>
+              <DottedAnchor>Восстановить пароль</DottedAnchor>
             </Link>
           </Flex>
         </Form>

@@ -1,10 +1,25 @@
 import { memo } from "react";
 import Link from "next/link";
-import styled from "styled-components";
 import { navList, companyInfoList, storeList } from "../constants";
 import { Logo, Vk, Insta, Fb } from "../shared/svgs";
 import { Box, Flex, Grid } from "../shared/system/Box";
 import { Text } from "../shared/system/Text";
+import { SVGWrapper } from "../shared/ui/Button";
+
+const networks = [
+  {
+    component: Vk,
+    link: "https://vk.com",
+  },
+  {
+    component: Fb,
+    link: "https://facebook.com",
+  },
+  {
+    component: Insta,
+    link: "https://instagram.com",
+  },
+];
 
 interface FooterNavProps {
   items: string[];
@@ -19,7 +34,7 @@ const FooterNav: React.FC<FooterNavProps> = ({ heading, items }) => (
     <Box as="ul" css="list-style: none">
       {items.map((text) => (
         // TODO: unify links
-        <Link href="/" passHref>
+        <Link href="/" passHref key={text}>
           <a>
             <Text mb="xs" preset="paragraph2Thin" as="li" key={text}>
               {text}
@@ -30,18 +45,6 @@ const FooterNav: React.FC<FooterNavProps> = ({ heading, items }) => (
     </Box>
   </Box>
 );
-
-// TODO: create shared component
-const SvgWrapper = styled.button`
-  color: var(--colors-white);
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-
-  :hover {
-    color: var(--colors-red);
-  }
-`;
 
 const Footer: React.FC = () => (
   <Flex width="100%" bg="black-2" color="white">
@@ -69,21 +72,13 @@ const Footer: React.FC = () => (
               gridAutoColumns="min-content"
               gridGap="xs"
             >
-              <Link href="/" passHref>
-                <SvgWrapper as="a">
-                  <Vk />
-                </SvgWrapper>
-              </Link>
-              <Link href="/" passHref>
-                <SvgWrapper as="a">
-                  <Fb />
-                </SvgWrapper>
-              </Link>
-              <Link href="/" passHref>
-                <SvgWrapper as="a">
-                  <Insta />
-                </SvgWrapper>
-              </Link>
+              {networks.map(({ component: Component, link }) => (
+                <Link href={link} passHref key={link}>
+                  <SVGWrapper color="white" hoverColor="red">
+                    <Component />
+                  </SVGWrapper>
+                </Link>
+              ))}
             </Grid>
           </Box>
         </Box>

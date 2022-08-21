@@ -1,7 +1,7 @@
 import { FormEvent, useRef, useState } from "react";
 import Popup from "reactjs-popup";
 
-import Button from "./Button";
+import { Button } from "../shared/ui/Button";
 import Pen from "./svgs/Pen";
 
 import styles from "./PopupMark.module.css";

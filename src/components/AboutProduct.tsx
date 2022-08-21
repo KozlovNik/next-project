@@ -2,10 +2,10 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import { Popup } from "reactjs-popup";
+
 import { CloseLoginContext } from "../lib/closeLoginContext";
 import { UserContextTypes } from "../lib/userContext";
-
-import Button from "./Button";
+import { Button } from "../shared/ui/Button";
 import Stars from "./Stars";
 import AddFeedback from "./AddFeedback";
 

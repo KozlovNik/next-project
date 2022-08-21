@@ -1,7 +1,7 @@
 import { useState } from "react";
 import fetcher from "../lib/fetchJson";
 
-import Button from "./Button";
+import { Button } from "../shared/ui/Button";
 import Rating from "./Rating";
 
 import styles from "./AddFeedback.module.css";

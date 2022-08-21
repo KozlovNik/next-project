@@ -21,17 +21,8 @@ import useUser from "../hooks/useUser";
 import { buildCategoryPage } from "../lib/urlBuilder";
 import { loginStateMachine } from "../shared/stateMachines/loginStateMachine";
 import { Modal } from "../shared/Modal";
-
-// TODO: use real data
-const categories = [
-  { name: "Кофе в зернах", slug: "kofe-v-zernah" },
-  { name: "Молотый кофе", slug: "molotyj-kofe" },
-  { name: "Кофе в капсулах", slug: "kofe-v-kapsulah" },
-  { name: "Растворимый кофе", slug: "rastvorimyj-kofe" },
-  { name: "Кофемашины", slug: "kofemashiny" },
-  { name: "Аксессуары", slug: "aksessuary" },
-  { name: "Сладости", slug: "sladosti" },
-];
+import { SVGWrapper } from "../shared/ui/Button";
+import { navList } from "../constants";
 
 const SvgButton = styled.button`
   background-color: transparent;
@@ -168,7 +159,9 @@ const NavTop = ({ setCloseMenu, setOpenAccount, setCloseSearch }) => (
           <Profile color="white" />
         </SvgButton>
         <Link href={CART_PAGE} passHref>
-          <Cart width={27} />
+          <a>
+            <Cart width={27} />
+          </a>
         </Link>
       </Grid>
     </Container>
@@ -178,17 +171,6 @@ const NavTop = ({ setCloseMenu, setOpenAccount, setCloseSearch }) => (
 interface NavbarMiddleProps {
   setCloseLogin: () => void;
 }
-
-const SvgWrapper = styled.button`
-  color: var(--colors-black-3);
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-
-  :hover {
-    color: var(--colors-red);
-  }
-`;
 
 const SearchInput = styled.input`
   width: 170px;
@@ -261,8 +243,10 @@ const NavMiddle: React.FC<NavbarMiddleProps> = ({ setCloseLogin }) => {
         </a>
       </Link>
       <Grid gridTemplateColumns="repeat(3, max-content)" gridColumnGap="xxl-3">
-        {user && user.isLogged && (
-          <SvgWrapper
+        {user?.isLogged && (
+          <SVGWrapper
+            color="black-3"
+            hoverColor="red"
             onClick={async () => {
               await logout();
               router.push(INDEX_PAGE);
@@ -272,28 +256,28 @@ const NavMiddle: React.FC<NavbarMiddleProps> = ({ setCloseLogin }) => {
               {user.firstName}
             </Text>
             <Logout />
-          </SvgWrapper>
+          </SVGWrapper>
         )}
         {(!user || !user.isLogged) && (
-          <SvgWrapper>
+          <SVGWrapper color="black-3" hoverColor="red">
             <Profile onClick={setCloseLogin} />
-          </SvgWrapper>
+          </SVGWrapper>
         )}
         {user && user.isLogged ? (
           <Link href={FAVORITES_PAGE} passHref>
-            <SvgWrapper>
+            <SVGWrapper color="black-3" hoverColor="red">
               <Heart />
-            </SvgWrapper>
+            </SVGWrapper>
           </Link>
         ) : (
-          <SvgWrapper onClick={setCloseLogin}>
+          <SVGWrapper color="black-3" hoverColor="red" onClick={setCloseLogin}>
             <Heart />
-          </SvgWrapper>
+          </SVGWrapper>
         )}
         <Link href={CART_PAGE} passHref>
-          <SvgWrapper as="a">
+          <SVGWrapper color="black-3" hoverColor="red">
             <Cart />
-          </SvgWrapper>
+          </SVGWrapper>
         </Link>
       </Grid>
     </Container>
@@ -354,7 +338,7 @@ const StyledLink = styled(Text).attrs({
 
 const NavBottom = () => (
   <NavBottomRoot>
-    {categories.map(({ name, slug }) => (
+    {navList.map(({ name, slug }) => (
       <Box as="li" key={slug} height="100%">
         <Link href={buildCategoryPage(slug)} passHref>
           <StyledLink data-text={name}>{name}</StyledLink>
