@@ -20,6 +20,7 @@ interface ProductCardProps {
   className?: string;
   inCart: boolean;
   handleAddToCart: (id: number) => void;
+  // eslint-disable-next-line
   feedback?: any;
   handleToggleStarred?: (id: number) => void;
   favoritesIds?: number[];
@@ -157,13 +158,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
           handleToggleStarred?.(id);
         }}
       />
-      <Link href={link} passHref>
-        <a>
-          <ProductImage src={`${link}.jpg`} alt={name} />
-        </a>
+      <Link href={link}>
+        <ProductImage src={`${link}.jpg`} alt={name} />
       </Link>
       <Feedback feedback={feedback} slug={slug} />
-      <Link href={link} passHref>
+      <Link href={link}>
         <Title as="a">{name}</Title>
       </Link>
       <Text preset="h3Bold" color="black-3">

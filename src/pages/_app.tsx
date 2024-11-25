@@ -6,7 +6,7 @@ import { theme } from "../shared/system/theme";
 import "../styles/globals.css";
 import "../../public/main.css";
 import "nprogress/nprogress.css";
-import "@reach/dialog/styles.css";
+import "../styles/globals.css";
 
 NProgress.configure({ showSpinner: false });
 

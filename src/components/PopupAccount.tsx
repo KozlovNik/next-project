@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -67,21 +66,20 @@ const PopupAccount = ({
             <button className={styles.authLink} onClick={setCloseLogin}>
               Вход
             </button>
-            <Link href="/register" passHref>
-              <a
-                className={styles.authLink}
-                ref={linkRef2}
-                onClick={handleClick}
-              >
-                Регистрация
-              </a>
+            <Link
+              onClick={handleClick}
+              ref={linkRef2}
+              className={styles.authLink}
+              href="/register"
+            >
+              Регистрация
             </Link>
           </>
         )}
 
         {user && user.isLogged ? (
-          <Link href="/favorites" passHref>
-            <a className={styles.starred}>Закладки</a>
+          <Link className={styles.starred} href="/favorites">
+            Закладки
           </Link>
         ) : (
           <a href="/" className={styles.starred} onClick={setCloseLogin}>

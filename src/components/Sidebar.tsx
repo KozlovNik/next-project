@@ -19,16 +19,16 @@ const Sidebar: React.FC = () => {
         КАТАЛОГ
       </h3>
       <ul className={classNames(styles.list, active ? "" : styles.hidden)}>
+        {/* eslint-disable-next-line */}
         {navList.map(({ name, slug }: any) => (
           <li key={slug} className={styles.item}>
-            <Link href={`/catalog/${slug}`}>
-              <a
-                className={classNames(styles.link, {
-                  [styles.linkActive]: router.query.categorySlug === slug,
-                })}
-              >
-                {name}
-              </a>
+            <Link
+              className={classNames(styles.link, {
+                [styles.linkActive]: router.query.categorySlug === slug,
+              })}
+              href={`/catalog/${slug}`}
+            >
+              {name}
             </Link>
           </li>
         ))}

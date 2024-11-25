@@ -35,9 +35,7 @@ const Favorites: React.FC<FavoritesProps> = ({ favorites }) => {
             <Popup
               trigger={
                 <div className={classNames(styles.cell, styles.name)}>
-                  <Link href={`/products/${slug}`}>
-                    <a>{name}</a>
-                  </Link>
+                  <Link href={`/products/${slug}`}>{name}</Link>
                 </div>
               }
               className="image"

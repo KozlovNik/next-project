@@ -25,14 +25,12 @@ const ProductCardMini: React.FC<ProductCardMiniProps> = (props) => {
 
   return (
     <div className={styles.wrapper}>
-      <Link href={link}>
-        <a className={styles.imageWrapper}>
-          <img alt="" className={styles.image} src={`${link}.jpg`} />
-        </a>
+      <Link className={styles.imageWrapper} href={link}>
+        <img alt="" className={styles.image} src={`${link}.jpg`} />
       </Link>
       <div className={styles.mid}>
-        <Link href={link}>
-          <a className={styles.name}>{name}</a>
+        <Link className={styles.name} href={link}>
+          {name}
         </Link>
         <div className={styles.pricePerProduct}>{price} руб./шт.</div>
         <div className={styles.price}>{quantity * price} руб.</div>

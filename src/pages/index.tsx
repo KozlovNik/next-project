@@ -9,14 +9,14 @@ import {
   GetCartTypes,
 } from "../lib/dataFunctions";
 import { UserContextTypes } from "../lib/userContext";
-import useCartItemsReducer from "../hooks/useCartItemsReducer";
+// import useCartItemsReducer from "../hooks/useCartItemsReducer";
 
 import Layout from "../components/Layout";
-import {
-  MainSlider,
-  CategorySlider,
-  SuggestionSlider,
-} from "../components/Sliders";
+// import {
+//   MainSlider,
+//   CategorySlider,
+//   SuggestionSlider,
+// } from "../components/Sliders";
 
 interface IndexProps {
   user?: UserContextTypes;
@@ -28,22 +28,23 @@ interface IndexProps {
 const Index: React.FC<IndexProps> = ({
   user,
   categories,
-  productData,
-  cart,
+  // productData,
+  // cart,
 }) => {
-  const { cartItems, handleAddToCart } = useCartItemsReducer(
-    cart?.cartItems || []
-  );
+  // const { cartItems, handleAddToCart } = useCartItemsReducer(
+  //   cart?.cartItems || []
+  // );
 
   return (
     <Layout categories={categories} user={user}>
-      <MainSlider />
-      <CategorySlider />
+      <div></div>
+      {/* <MainSlider /> */}
+      {/* <CategorySlider />
       <SuggestionSlider
         handleAddToCart={handleAddToCart}
         cartItems={cartItems}
         productData={productData}
-      />
+      /> */}
     </Layout>
   );
 };

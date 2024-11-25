@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper";
 import styled from "styled-components";
 import { Product } from "@prisma/client";
+import "swiper/css";
 
 import { Box, Grid } from "../shared/system/Box";
 import TitleBlock from "./TitleBlock";
@@ -16,23 +17,24 @@ import { GetProductDataTypes } from "../lib/dataFunctions";
 import { NextArrow, PrevArrow } from "../shared/svgs";
 import { SVGWrapper } from "../shared/ui/Button";
 
-import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 interface ImageSlideProps {
   slug: string;
+
   name: string;
 }
 
 interface SuggestionSliderProps {
-  handleAddToCart: (id: number) => void;
-  productData?: GetProductDataTypes;
   cartItems?: {
     id: number;
     quantity: number;
     product: Product;
   }[];
+
+  handleAddToCart: (id: number) => void;
+  productData?: GetProductDataTypes;
 }
 
 const MainSliderUI = styled(Swiper)`
@@ -152,26 +154,24 @@ const ImageWrapper = styled(Box)`
   }
 `;
 
-const Anchor = styled.a`
-  :hover {
-    color: var(--colors-red);
-  }
-`;
+// const Anchor = styled(Link)`
+//   :hover {
+//     color: var(--colors-red);
+//   }
+// `;
 
 const CategorySlide: React.FC<ImageSlideProps> = memo(({ name, slug }) => (
-  <Link href={buildCategoryPage(slug)} passHref>
-    <Anchor>
-      <ImageWrapper>
-        <img src={`/category-slider/${slug}.jpg`} alt={name} />
-      </ImageWrapper>
-      <Text
-        preset={{ _: "paragraph1Thin", lg: "h3Thin" }}
-        textAlign="center"
-        my={{ _: "xs", lg: "xxl-2" }}
-      >
-        {name}
-      </Text>
-    </Anchor>
+  <Link href={buildCategoryPage(slug)}>
+    <ImageWrapper>
+      <img src={`/category-slider/${slug}.jpg`} alt={name} />
+    </ImageWrapper>
+    <Text
+      preset={{ _: "paragraph1Thin", lg: "h3Thin" }}
+      textAlign="center"
+      my={{ _: "xs", lg: "xxl-2" }}
+    >
+      {name}
+    </Text>
   </Link>
 ));
 

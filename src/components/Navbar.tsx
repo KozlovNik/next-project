@@ -35,7 +35,7 @@ const HorizontalLine = styled(Box)`
   background-color: white;
 `;
 
-const LeftItem = styled(Text).attrs({
+const LeftItem = styled(Link).attrs({
   preset: "paragraph2Light",
   as: "a",
 })`
@@ -63,7 +63,7 @@ const LeftItem = styled(Text).attrs({
   }
 `;
 
-const RightItem = styled(Text).attrs({
+const RightItem = styled(Link).attrs({
   preset: "paragraph2Light",
   as: "a",
 })`
@@ -90,19 +90,15 @@ const NavTop = ({ setCloseMenu, setOpenAccount, setCloseSearch }) => (
         ml="m"
         gridTemplateColumns="repeat(3, auto)"
       >
-        <Link href="/" passHref>
-          <LeftItem svgName="nav">Москва</LeftItem>
-        </Link>
-        <Link href="/" passHref>
-          <LeftItem svgName="mail" href="/">
-            some-coffee@ya.ru
-          </LeftItem>
-        </Link>
-        <Link href="/" passHref>
-          <LeftItem svgName="phone" href="/">
-            8 (800) 333-49-80
-          </LeftItem>
-        </Link>
+        <LeftItem href="/" svgName="nav">
+          Москва
+        </LeftItem>
+        <LeftItem svgName="mail" href="/">
+          some-coffee@ya.ru
+        </LeftItem>
+        <LeftItem svgName="phone" href="/">
+          8 (800) 333-49-80
+        </LeftItem>
       </Grid>
       <Grid
         alignItems="center"
@@ -110,15 +106,9 @@ const NavTop = ({ setCloseMenu, setOpenAccount, setCloseSearch }) => (
         ml="m"
         gridTemplateColumns="repeat(3, auto)"
       >
-        <Link href="/" passHref>
-          <RightItem>Доставка</RightItem>
-        </Link>
-        <Link href="/" passHref>
-          <RightItem>Оплата</RightItem>
-        </Link>
-        <Link href="/" passHref>
-          <RightItem>Контакты</RightItem>
-        </Link>
+        <RightItem href="/">Доставка</RightItem>
+        <RightItem href="/">Оплата</RightItem>
+        <RightItem href="/">Контакты</RightItem>
       </Grid>
     </Container>
     <Container
@@ -145,10 +135,8 @@ const NavTop = ({ setCloseMenu, setOpenAccount, setCloseSearch }) => (
           <HorizontalLine />
           <HorizontalLine />
         </Flex>
-        <Link href={INDEX_PAGE} passHref>
-          <a>
-            <Logo color="white" height={40} />
-          </a>
+        <Link href={INDEX_PAGE}>
+          <Logo color="white" height={40} />
         </Link>
       </Flex>
       <Grid gridGap="xs" gridTemplateColumns="repeat(3, 1fr)">
@@ -158,10 +146,8 @@ const NavTop = ({ setCloseMenu, setOpenAccount, setCloseSearch }) => (
         <SvgButton onClick={setOpenAccount}>
           <Profile color="white" />
         </SvgButton>
-        <Link href={CART_PAGE} passHref>
-          <a>
-            <Cart width={27} />
-          </a>
+        <Link href={CART_PAGE}>
+          <Cart width={27} />
         </Link>
       </Grid>
     </Container>
@@ -237,10 +223,8 @@ const NavMiddle: React.FC<NavbarMiddleProps> = ({ setCloseLogin }) => {
           <Search color="white" width={15} />
         </SearchButton>
       </Flex>
-      <Link href={INDEX_PAGE} passHref>
-        <a>
-          <Logo color="var(--colors-black-3)" />
-        </a>
+      <Link href={INDEX_PAGE}>
+        <Logo color="var(--colors-black-3)" />
       </Link>
       <Grid gridTemplateColumns="repeat(3, max-content)" gridColumnGap="xxl-3">
         {user?.isLogged && (
@@ -264,7 +248,7 @@ const NavMiddle: React.FC<NavbarMiddleProps> = ({ setCloseLogin }) => {
           </SVGWrapper>
         )}
         {user && user.isLogged ? (
-          <Link href={FAVORITES_PAGE} passHref>
+          <Link href={FAVORITES_PAGE}>
             <SVGWrapper color="black-3" hoverColor="red">
               <Heart />
             </SVGWrapper>
@@ -274,7 +258,7 @@ const NavMiddle: React.FC<NavbarMiddleProps> = ({ setCloseLogin }) => {
             <Heart />
           </SVGWrapper>
         )}
-        <Link href={CART_PAGE} passHref>
+        <Link href={CART_PAGE}>
           <SVGWrapper color="black-3" hoverColor="red">
             <Cart />
           </SVGWrapper>
@@ -340,7 +324,7 @@ const NavBottom = () => (
   <NavBottomRoot>
     {navList.map(({ name, slug }) => (
       <Box as="li" key={slug} height="100%">
-        <Link href={buildCategoryPage(slug)} passHref>
+        <Link href={buildCategoryPage(slug)}>
           <StyledLink data-text={name}>{name}</StyledLink>
         </Link>
       </Box>

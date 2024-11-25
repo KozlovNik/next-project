@@ -71,27 +71,25 @@ const ImageWrapper = styled(Box)`
   }
 `;
 
-const Anchor = styled.a`
+const Anchor = styled(Link)`
   :hover {
     color: var(--colors-red);
   }
 `;
 
-const ImageSlide: React.FC<ImageSlideProps> = memo(({ name, slug }) => (
-  <Link href={buildCategoryPage(slug)} passHref>
-    <Anchor>
-      <ImageWrapper>
-        <img src={`/category-slider/${slug}.jpg`} alt={name} />
-      </ImageWrapper>
-      <Text
-        preset={{ _: "paragraph1Thin", lg: "h3Thin" }}
-        textAlign="center"
-        my={{ _: "xs", lg: "xxl-2" }}
-      >
-        {name}
-      </Text>
-    </Anchor>
-  </Link>
+const ImageSlide: React.FC<ImageSlideProps> = memo(({ slug }) => (
+  <Anchor href={buildCategoryPage(slug)}>
+    <ImageWrapper>
+      <img src={`/category-slider/${slug}.jpg`} alt={name} />
+    </ImageWrapper>
+    <Text
+      preset={{ _: "paragraph1Thin", lg: "h3Thin" }}
+      textAlign="center"
+      my={{ _: "xs", lg: "xxl-2" }}
+    >
+      {name}
+    </Text>
+  </Anchor>
 ));
 
 const CategorySliderUI = styled(Swiper)`

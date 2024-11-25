@@ -18,8 +18,8 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ category, product }) => {
     catalog = (
       <>
         <span> • </span>
-        <Link href={`/catalog/${category.slug}`}>
-          <a className={styles.link}>{category.name}</a>
+        <Link href={`/catalog/${category.slug}`} className={styles.link}>
+          {category.name}
         </Link>
       </>
     );
@@ -27,16 +27,16 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ category, product }) => {
 
   return (
     <div className={styles.breadcrumbs}>
-      <Link href="/">
-        <a className={styles.link}> Главная </a>
+      <Link className={styles.link} href="/">
+        Главная
       </Link>
       {pathname === "/catalog" ? (
         <span className={styles.active}> • Каталог </span>
       ) : (
         <>
           <span> • </span>
-          <Link href="/catalog">
-            <a className={styles.link}>Каталог</a>
+          <Link className={styles.link} href="/catalog">
+            Каталог
           </Link>
         </>
       )}

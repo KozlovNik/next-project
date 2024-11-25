@@ -34,12 +34,10 @@ const FooterNav: React.FC<FooterNavProps> = ({ heading, items }) => (
     <Box as="ul" css="list-style: none">
       {items.map((text) => (
         // TODO: unify links
-        <Link href="/" passHref key={text}>
-          <a>
-            <Text mb="xs" preset="paragraph2Thin" as="li" key={text}>
-              {text}
-            </Text>
-          </a>
+        <Link href="/" key={text}>
+          <Text mb="xs" preset="paragraph2Thin" as="li" key={text}>
+            {text}
+          </Text>
         </Link>
       ))}
     </Box>
@@ -73,7 +71,7 @@ const Footer: React.FC = () => (
               gridGap="xs"
             >
               {networks.map(({ component: Component, link }) => (
-                <Link href={link} passHref key={link}>
+                <Link legacyBehavior href={link} key={link}>
                   <SVGWrapper color="white" hoverColor="red">
                     <Component />
                   </SVGWrapper>

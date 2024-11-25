@@ -66,10 +66,10 @@ export const LoginForm: React.FC<LoginFormProps> = ({
             flexDirection={{ _: "column", xs: "row" }}
             alignItems="center"
           >
-            <Link href={REGISTER_PAGE} passHref>
+            <Link href={REGISTER_PAGE}>
               <DottedAnchor>Регистрация</DottedAnchor>
             </Link>
-            <Link href={RESTORE_PASSWORD_PAGE} passHref>
+            <Link href={RESTORE_PASSWORD_PAGE}>
               <DottedAnchor>Восстановить пароль</DottedAnchor>
             </Link>
           </Flex>

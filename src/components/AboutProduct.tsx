@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useContext, useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import { Popup } from "reactjs-popup";
@@ -24,6 +23,7 @@ interface AboutProductProps {
   }[];
   name: string;
   id: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setFeedback: any;
   user: UserContextTypes;
 }
@@ -41,6 +41,7 @@ const AboutProduct: React.FC<AboutProductProps> = ({
   const { setCloseLogin } = useContext(CloseLoginContext);
   const [hasPost, setHasPost] = useState<boolean>(true);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ref = useRef<any>(null);
 
   useEffect(() => {
@@ -63,6 +64,7 @@ const AboutProduct: React.FC<AboutProductProps> = ({
     close = () => ref.current.close();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const addFeedback = (fb: any) => {
     setFeedback([fb, ...feedback]);
     setHasPost(true);
@@ -131,7 +133,6 @@ const AboutProduct: React.FC<AboutProductProps> = ({
               {feedback && feedback.length > 0 ? (
                 <>
                   {feedback.map(
-                    /* eslint-disable */
                     ({ comment, user, dateCreated, rating }, idx) => (
                       <React.Fragment key={idx}>
                         <div className={styles.name}>
@@ -143,8 +144,7 @@ const AboutProduct: React.FC<AboutProductProps> = ({
                         <Stars rating={rating} />
                         <div className={styles.message}>{comment}</div>
                       </React.Fragment>
-                    )
-                    /* eslint-enable */
+                    ),
                   )}
                 </>
               ) : (
